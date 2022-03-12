@@ -1,0 +1,87 @@
+{
+  "devices": [
+    {
+      "displayed_name": "dev 1",
+      "name": "test",
+      "type": "type1"
+    },
+    {
+      "displayed_name": "displayed name2",
+      "name": "test2",
+      "type": "type1"
+    },
+    {
+      "displayed_name": "displayed name3",
+      "name": "poy",
+      "type": "type2"
+    }
+  ],
+  "type1": {
+    "type": "list",
+    "orientation": "vertical",
+    "content": [
+      {
+        "name": "prng0",
+        "type": "DOUBLE_VALUE"
+      },
+      {
+        "name": "gate",
+        "type": "BOOLEAN_SET"
+      },
+      {
+        "name": "prng1",
+        "type": "DOUBLE_VALUE"
+      },
+      {
+        "name": "prng2",
+        "type": "DOUBLE_VALUE"
+      },
+      {
+        "name": "conf1",
+        "type": "DOUBLE_VALUE"
+      },
+      {
+        "name": "conf2",
+        "type": "DOUBLE_VALUE"
+      },
+      {
+        "name": "conf3",
+        "type": "DOUBLE_VALUE"
+      },
+      {
+        "name": "conf4",
+        "type": "DOUBLE_VALUE"
+      }
+    ]
+  },
+  "type2": {
+    "type": "list",
+    "orientation": "horizontal",
+    "content": [
+      {
+        "name": "kiss",
+        "type": "DOUBLE_VALUE"
+      },
+      {
+        "name": "kiss-kiss",
+        "type": "DOUBLE_VALUE"
+      },
+      {
+        "name": "kiss1",
+        "type": "DOUBLE_VALUE"
+      },
+      {
+        "name": "kiss-kiss1",
+        "type": "DOUBLE_VALUE"
+      },
+      {
+        "name": "kiss-opened",
+        "type": "BOOLEAN_VALUE"
+      },
+      {
+        "name": "kiss-kiss-opened",
+        "type": "BOOLEAN_VALUE"
+      }
+    ]
+  }
+}

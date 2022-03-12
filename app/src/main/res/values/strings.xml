@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">epic android app</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">List of device</string>
+    <string name="next">Get the number</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">A number</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+</resources>
