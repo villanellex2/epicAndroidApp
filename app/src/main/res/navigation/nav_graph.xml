@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/SecondFragment"
         android:name="ru.edubinskaya.epics.app.view.SecondFragment"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/scrollView">
         <argument
             android:name="name"
             app:argType="string" />

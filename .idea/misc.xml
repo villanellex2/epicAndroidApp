@@ -11,9 +11,12 @@
         <entry key="app/src/main/res/layout/content_main.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/device_double_value_item.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/device_name_item.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/field.xml" value="0.29438405797101447" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.3401268115942029" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/list_of_devices_item.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/screen_view.xml" value="0.29438405797101447" />
+        <entry key="app/src/main/res/layout/scroll_view.xml" value="0.12180451127819548" />
       </map>
     </option>
   </component>

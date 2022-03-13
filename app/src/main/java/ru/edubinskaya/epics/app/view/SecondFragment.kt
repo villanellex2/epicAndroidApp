@@ -9,7 +9,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.config.ScreenProvider
-import ru.edubinskaya.epics.app.databinding.FragmentSecondBinding
+import ru.edubinskaya.epics.app.databinding.ScreenViewBinding
 import ru.edubinskaya.epics.app.json.screen.Screen
 
 const val TYPE_DEVICE_FIELD = "type"
@@ -18,7 +18,7 @@ const val DISPLAYED_NAME_DEVICE_FIELD = "displayed_name"
 
 class SecondFragment : Fragment() {
 
-    private var _binding: FragmentSecondBinding? = null
+    private var _binding: ScreenViewBinding? = null
 
     private val binding get() = _binding!!
 
@@ -29,7 +29,7 @@ class SecondFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        _binding = ScreenViewBinding.inflate(inflater, container, false)
         return binding.root
     }
 

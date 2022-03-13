@@ -17,7 +17,7 @@
     }
   ],
   "type1": {
-    "type": "list",
+    "type": "LIST",
     "orientation": "vertical",
     "content": [
       {
@@ -33,29 +33,35 @@
         "type": "DOUBLE_VALUE"
       },
       {
-        "name": "prng2",
-        "type": "DOUBLE_VALUE"
-      },
-      {
-        "name": "conf1",
-        "type": "DOUBLE_VALUE"
-      },
-      {
-        "name": "conf2",
-        "type": "DOUBLE_VALUE"
-      },
-      {
-        "name": "conf3",
-        "type": "DOUBLE_VALUE"
-      },
-      {
-        "name": "conf4",
-        "type": "DOUBLE_VALUE"
+        "type": "LIST",
+        "orientation": "horizontal",
+        "content": [
+          {
+            "name": "prng2",
+            "type": "DOUBLE_VALUE"
+          },
+          {
+            "name": "conf1",
+            "type": "DOUBLE_VALUE"
+          },
+          {
+            "name": "conf2",
+            "type": "DOUBLE_VALUE"
+          },
+          {
+            "name": "conf3",
+            "type": "DOUBLE_VALUE"
+          },
+          {
+            "name": "conf4",
+            "type": "DOUBLE_VALUE"
+          }
+        ]
       }
     ]
   },
   "type2": {
-    "type": "list",
+    "type": "LIST",
     "orientation": "horizontal",
     "content": [
       {

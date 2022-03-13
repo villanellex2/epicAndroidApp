@@ -7,8 +7,8 @@ import android.widget.LinearLayout
 import org.json.JSONException
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
+import ru.edubinskaya.epics.app.json.ContainerType
 import ru.edubinskaya.epics.app.json.FieldType
-import ru.edubinskaya.epics.app.json.screen.DoubleField
 import ru.edubinskaya.epics.app.json.screen.Field
 import ru.edubinskaya.epics.app.json.screen.Screen
 import java.io.BufferedReader
@@ -37,7 +37,7 @@ class ScreenProvider(private val activity: Activity?) {
         try {
             val jsonArray = jsonRoot.getJSONObject(id)
             return when (jsonArray.getString("type")) {
-                "list" -> ListViewParser(jsonArray, screen.pvName, activity).getListView()
+                ContainerType.LIST.name -> ListScreenUnit(jsonArray, screen.pvName, activity).view
                 else -> LinearLayout(activity)
             }
         } catch (e: JSONException) {
