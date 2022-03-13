@@ -1,42 +1,31 @@
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Switch
+import android.widget.GridLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.edubinskaya.epics.app.R
-import ru.edubinskaya.epics.app.model.DeviceField
-import ru.edubinskaya.epics.app.model.FieldType
+import ru.edubinskaya.epics.app.json.screen.Field
 
 
-class DeviceInfoRecyclerViewAdapter internal constructor(context: Context?, data: List<DeviceField>) :
+class DeviceInfoRecyclerViewAdapter internal constructor(context: Context?, data: List<Field>) :
     RecyclerView.Adapter<DeviceInfoRecyclerViewAdapter.ViewHolder>() {
-    private val mData: List<DeviceField> = data
+    private val mData: List<Field> = data
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
     private var mClickListener: ItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = mInflater.inflate(R.layout.device_double_value_item, parent, false)
+        val view: View = mInflater.inflate(R.layout.field, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, pos: Int) {
         holder.fieldName.text = mData[pos].fieldName
-        if (mData[pos].fieldType == FieldType.DOUBLE_VALUE) {
-            holder.doubleValue.text = (mData[pos].fieldValue).toString()
-            holder.doubleValue.visibility = View.VISIBLE
-            holder.switch.visibility = View.GONE
-        } else {
-            if (mData[pos].fieldValue != null) {
-                holder.switch.isChecked = (mData[pos].fieldValue) as Double > 0
-            } else {
-                holder.switch.isChecked = false
-            }
-            holder.doubleValue.visibility = View.GONE
-            holder.switch.visibility = View.VISIBLE
+        if (holder.field.childCount > 1) {
+            holder.field.removeViewAt(1)
         }
+        holder.field.addView(mData[pos].view, 1)
     }
 
     override fun getItemCount(): Int {
@@ -46,9 +35,7 @@ class DeviceInfoRecyclerViewAdapter internal constructor(context: Context?, data
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         var fieldName: TextView = itemView.findViewById<TextView>(R.id.item_name)
-        var doubleValue: TextView= itemView.findViewById<TextView>(R.id.item_value)
-        var switch = itemView.findViewById<Switch>(R.id.item_switch)
-
+        var field = itemView.findViewById<GridLayout>(R.id.field)
         override fun onClick(view: View?) {
             if (mClickListener != null) mClickListener!!.onItemClick(view, adapterPosition)
         }
@@ -58,23 +45,12 @@ class DeviceInfoRecyclerViewAdapter internal constructor(context: Context?, data
         }
     }
 
-    fun getItem(id: Int): DeviceField {
+    fun getItem(id: Int): Field {
         return mData[id]
     }
 
     fun setClickListener(itemClickListener: ItemClickListener?) {
         mClickListener = itemClickListener
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun setPvValue(pvName: String?, pvValue: Double?){
-        if (pvName == null || pvValue == null) return
-        for (field: DeviceField in mData){
-            if (field.fieldName.equals(pvName)) {
-                field.fieldValue = pvValue
-            }
-        }
-        this.notifyDataSetChanged()
     }
 
     interface ItemClickListener {

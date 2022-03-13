@@ -10,9 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import ru.edubinskaya.epics.app.config.DeviceListProvider
+import ru.edubinskaya.epics.app.config.ScreenProvider
 import ru.edubinskaya.epics.app.databinding.FragmentFirstBinding
-import ru.edubinskaya.epics.app.model.Device
+import ru.edubinskaya.epics.app.json.screen.Screen
 import ru.edubinskaya.epics.app.R
 
 
@@ -23,7 +23,7 @@ class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
     private val binding get() = _binding!!
-    private lateinit var listOfDevice: List<Device>
+    private lateinit var listOfScreen: List<Screen>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,9 +49,9 @@ class FirstFragment : Fragment() {
     private fun initializeRecyclerView() {
         binding.listOfDevices.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        listOfDevice = DeviceListProvider(context).deviceList
+        listOfScreen = ScreenProvider(activity).screenList
 
-        val adapter = ListOfDevicesRecyclerViewAdapter(context, listOfDevice)
+        val adapter = ListOfDevicesRecyclerViewAdapter(context, listOfScreen)
         adapter.setClickListener(
             object : ListOfDevicesRecyclerViewAdapter.ItemClickListener{
                 override fun onItemClick(view: View?, position: Int) {
@@ -59,7 +59,7 @@ class FirstFragment : Fragment() {
                     val bundle = Bundle()
                     bundle.putString(PV_NAME_DEVICE_FIELD, device.pvName)
                     bundle.putString(DISPLAYED_NAME_DEVICE_FIELD, device.displayedName)
-                    bundle.putString(TYPE_DEVICE_FIELD, device.type)
+                    bundle.putString(TYPE_DEVICE_FIELD, device.id)
                     findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
                 }
             }

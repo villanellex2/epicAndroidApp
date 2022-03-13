@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.model
+package ru.edubinskaya.epics.app.json
 
 enum class FieldType {
     DOUBLE_VALUE,
