@@ -1,11 +1,12 @@
 package ru.edubinskaya.epics.app.json.screen
 
 import android.view.View
+import ru.edubinskaya.epics.app.channelaccess.EpicsListener
 
 class Screen (
     val id: String?,
     val displayedName: String?,
     val pvName: String,
-    val view: View,
-    val listOfFields: List<Field>
+    var view: View,
+    var epicsListeners: List<EpicsListener>
 )

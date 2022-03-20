@@ -2,14 +2,11 @@ package ru.edubinskaya.epics.app.config
 
 import android.app.Activity
 import android.content.Context
-import android.view.View
 import android.widget.LinearLayout
 import org.json.JSONException
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.json.ContainerType
-import ru.edubinskaya.epics.app.json.FieldType
-import ru.edubinskaya.epics.app.json.screen.Field
 import ru.edubinskaya.epics.app.json.screen.Screen
 import java.io.BufferedReader
 import java.io.IOException
@@ -20,10 +17,9 @@ import java.io.InputStreamReader
 class ScreenProvider(private val activity: Activity?) {
     val screenList: List<Screen> = getDevices()
 
-    fun getDeviceFieldsById(id: String): View? {
+    fun getScreenFieldsById(id: String): Screen? {
         if (activity == null) return null
         val jsonRoot = JSONObject(readText(activity, R.raw.list_of_devices))
-        val listOfFields = ArrayList<Field>()
         var screen: Screen? = null
 
         for (s in screenList) {
@@ -32,17 +28,20 @@ class ScreenProvider(private val activity: Activity?) {
             }
         }
 
-        if (screen == null) return LinearLayout(activity)
-        
-        try {
+        if (screen == null) return null
+
+        val mainField = try {
             val jsonArray = jsonRoot.getJSONObject(id)
-            return when (jsonArray.getString("type")) {
-                ContainerType.LIST.name -> ListScreenUnit(jsonArray, screen.pvName, activity).view
-                else -> LinearLayout(activity)
+            when (jsonArray.getString("type")) {
+                ContainerType.LIST.name -> ListScreenUnit(jsonArray, screen.pvName, activity)
+                else ->  ListScreenUnit(JSONObject(""), screen.pvName, activity)
             }
         } catch (e: JSONException) {
-            return LinearLayout(activity)
+            null
         }
+        screen.view = mainField?.view!!
+        screen.epicsListeners = mainField.epicsListeners
+        return screen
     }
 
     private fun getDevices(): List<Screen> {

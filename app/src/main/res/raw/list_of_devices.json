@@ -26,11 +26,15 @@
       },
       {
         "name": "gate",
-        "type": "BOOLEAN_SET"
+        "type": "BOOLEAN_SET",
+        "width": 60,
+        "height": 30
       },
       {
         "name": "prng1",
-        "type": "DOUBLE_VALUE"
+        "type": "DOUBLE_VALUE",
+        "width": 150,
+        "height": 70
       },
       {
         "type": "LIST",

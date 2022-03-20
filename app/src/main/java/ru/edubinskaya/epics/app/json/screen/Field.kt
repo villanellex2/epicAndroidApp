@@ -6,5 +6,5 @@ import ru.edubinskaya.epics.app.channelaccess.EpicsListener
 import ru.edubinskaya.epics.app.json.FieldType
 
 interface Field: ScreenUnit {
-    val fieldName: String
+    val fieldName: String?
 }

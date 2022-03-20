@@ -50,8 +50,8 @@ class SecondFragment : Fragment() {
 
     private fun initializeContent() {
         screenProvider = ScreenProvider(activity)
-        val view = screen?.id?.let { screenProvider!!.getDeviceFieldsById(it) } ?: return
-        binding.mainView.addView(view)
+        val screen = screen?.id?.let { screenProvider!!.getScreenFieldsById(it) } ?: return
+        binding.mainView.addView(screen.view)
     }
 
     override fun onDestroyView() {
