@@ -81,5 +81,4 @@ class ScreenProvider(private val activity: Activity?) {
         }
         return sb.toString()
     }
-
 }
