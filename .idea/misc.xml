@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable/device_field_background.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.371875" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/boolean_field.xml" value="0.2907608695652174" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/device_double_value_item.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/device_name_item.xml" value="0.35572916666666665" />

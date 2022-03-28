@@ -13,6 +13,7 @@ import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.channelaccess.EpicsListener
 import ru.edubinskaya.epics.app.json.ContainerType
 import ru.edubinskaya.epics.app.json.FieldType
+import ru.edubinskaya.epics.app.json.screen.BinaryField
 import ru.edubinskaya.epics.app.json.screen.DoubleField
 import ru.edubinskaya.epics.app.json.screen.ScreenUnit
 
@@ -68,6 +69,8 @@ class ListScreenUnit(
                 val obj = jsonArray.getJSONObject(i)
                 val field = when (obj.getString("type")) {
                     FieldType.DOUBLE_VALUE.name -> DoubleField(obj ,prefix, activity)
+                    FieldType.BOOLEAN_SET.name -> BinaryField(obj, prefix, activity)
+                    FieldType.BOOLEAN_VALUE.name -> BinaryField(obj, prefix, activity)
                     ContainerType.LIST.name -> ListScreenUnit(obj, prefix, activity)
                     else -> null
                 }

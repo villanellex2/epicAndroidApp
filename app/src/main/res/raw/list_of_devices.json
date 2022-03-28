@@ -25,16 +25,14 @@
         "type": "DOUBLE_VALUE"
       },
       {
-        "name": "gate",
-        "type": "BOOLEAN_SET",
-        "width": 60,
-        "height": 30
+        "name": "prng0:bi",
+        "type": "BOOLEAN_VALUE",
+        "width": "match_parent",
+        "height": "wrap_content"
       },
       {
         "name": "prng1",
-        "type": "DOUBLE_VALUE",
-        "width": 150,
-        "height": 70
+        "type": "DOUBLE_VALUE"
       },
       {
         "type": "LIST",
@@ -42,26 +40,29 @@
         "content": [
           {
             "name": "prng2",
-            "type": "DOUBLE_VALUE"
+            "type": "DOUBLE_VALUE",
+            "height": 50
           },
           {
             "name": "conf1",
-            "type": "DOUBLE_VALUE"
-          },
-          {
-            "name": "conf2",
-            "type": "DOUBLE_VALUE"
-          },
-          {
-            "name": "conf3",
-            "type": "DOUBLE_VALUE"
-          },
-          {
-            "name": "conf4",
-            "type": "DOUBLE_VALUE"
+            "type": "DOUBLE_VALUE",
+            "height": 70
           }
         ]
+      },
+      {
+        "name": "conf2",
+        "type": "DOUBLE_VALUE"
+      },
+      {
+        "name": "conf3",
+        "type": "DOUBLE_VALUE"
+      },
+      {
+        "name": "conf4",
+        "type": "DOUBLE_VALUE"
       }
+
     ]
   },
   "type2": {
