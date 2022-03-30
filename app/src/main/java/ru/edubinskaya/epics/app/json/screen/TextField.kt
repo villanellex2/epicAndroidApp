@@ -4,6 +4,8 @@ import android.app.Activity
 import android.widget.GridLayout
 import android.widget.TextView
 import gov.aps.jca.CAStatus
+import gov.aps.jca.Channel
+import gov.aps.jca.Monitor
 import gov.aps.jca.dbr.*
 import gov.aps.jca.event.MonitorEvent
 import gov.aps.jca.event.MonitorListener
@@ -14,22 +16,22 @@ import ru.edubinskaya.epics.app.channelaccess.EpicsListener
 class TextField (
     override val jsonRoot: JSONObject,
     override val prefix: String,
-    override val activity: Activity?,
+    override val activity: Activity?
 ) : Field {
     override var view = GridLayout(activity)
-    override var epicsListeners: ArrayList<EpicsListener> = ArrayList<EpicsListener>()
-    private val monitor: MonitorListener = DoubleMonitorListener()
+    override var monitor: Monitor? = null
+    override var channel: Channel? = null
+    override val monitorListener = DoubleMonitorListener()
     override val fieldName: String?
 
     init {
-        val epicsListener = EpicsListener()
+        val epicsListener = EpicsListener.instance
         fieldName = if (jsonRoot.has("name")) jsonRoot.getString("name") else null
 
         view = activity?.layoutInflater?.inflate(R.layout.double_field, null) as GridLayout
         if (fieldName != null) {
             view.findViewById<TextView>(R.id.item_name).text = fieldName
-            epicsListener.execute(this, monitor)
-            epicsListeners.add(epicsListener)
+            epicsListener.execute(this)
         }
 
         val layoutParams = GridLayout.LayoutParams()

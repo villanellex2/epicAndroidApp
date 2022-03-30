@@ -17,21 +17,14 @@ import java.io.InputStreamReader
 class ScreenProvider(private val activity: Activity?) {
     val screenList: List<Screen> = getDevices()
 
-    fun getScreenFieldsById(id: String): Screen? {
+    fun getScreenFieldsById(id: Int): Screen? {
         if (activity == null) return null
         val jsonRoot = JSONObject(readText(activity, R.raw.list_of_devices))
-        var screen: Screen? = null
-
-        for (s in screenList) {
-            if (s.id.equals(id)) {
-                screen = s
-            }
-        }
-
-        if (screen == null) return null
+        if (id > screenList.size || id < 0) return null
+        val screen: Screen = screenList[id]
 
         val mainField = try {
-            val jsonArray = jsonRoot.getJSONObject(id)
+            val jsonArray = jsonRoot.getJSONObject(screen.type)
             when (jsonArray.getString("type")) {
                 ContainerType.LIST.name -> ListScreenUnit(jsonArray, screen.pvName, activity)
                 else ->  ListScreenUnit(JSONObject(""), screen.pvName, activity)
@@ -40,7 +33,7 @@ class ScreenProvider(private val activity: Activity?) {
             null
         }
         screen.view = mainField?.view!!
-        screen.epicsListeners = mainField.epicsListeners
+        screen.mainField = mainField
         return screen
     }
 
@@ -54,11 +47,12 @@ class ScreenProvider(private val activity: Activity?) {
             for (i in 0 until jsonArray.length()) {
                 val obj = jsonArray.getJSONObject(i)
                 val device = Screen(
+                    i,
                     obj.getString("type"),
                     obj.getString("displayed_name"),
                     obj.getString("name"),
                     LinearLayout(activity),
-                    emptyList()
+                    null
                 )
                 listOfDevices.add(device)
             }

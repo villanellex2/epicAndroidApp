@@ -59,7 +59,7 @@ class FirstFragment : Fragment() {
                     val bundle = Bundle()
                     bundle.putString(PV_NAME_DEVICE_FIELD, device.pvName)
                     bundle.putString(DISPLAYED_NAME_DEVICE_FIELD, device.displayedName)
-                    bundle.putString(TYPE_DEVICE_FIELD, device.id)
+                    bundle.putString(TYPE_DEVICE_FIELD, position.toString())
                     findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
                 }
             }

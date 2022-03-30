@@ -15,12 +15,12 @@ import ru.edubinskaya.epics.app.json.screen.Field;
 
 public class EpicsListener {
 
-    public EpicsListener(){}
+    public static EpicsListener instance = new EpicsListener();
+    private EpicsListener(){
+        initializeContext(MAX_INITIALIZE_TRY);
+    };
     private static final int MAX_INITIALIZE_TRY = 5;
     private static final Context context = initializeContext(MAX_INITIALIZE_TRY);
-    private Channel channel = null;
-    private Monitor monitor = null;
-
 
     private static Context initializeContext(int maxTry) {
         if (maxTry <= 0) return null;
@@ -38,14 +38,12 @@ public class EpicsListener {
         try {
             context.flushIO();
             context.destroy();
-            if (monitor != null) monitor.clear();
-            if (channel != null) channel.destroy();
         } catch (Throwable ignored) {
         }
     }
 
     @SuppressLint("StaticFieldLeak")
-    public void execute(Field field, MonitorListener monitorListener) {
+    public void execute(Field field) {
         if (context == null) initializeContext(MAX_INITIALIZE_TRY);
         if (context == null) return;
         new AsyncTask<Object, Object, DBR>() {
@@ -53,7 +51,7 @@ public class EpicsListener {
             protected DBR doInBackground(Object[] objects) {
                 DBR result = null;
                 try {
-                    channel = context.createChannel(field.getPrefix() + ":" + field.getFieldName());
+                    Channel channel = context.createChannel(field.getPrefix() + ":" + field.getFieldName());
                     context.pendIO(5.0);
 
                     GetListenerImpl listener = new GetListenerImpl();
@@ -68,8 +66,8 @@ public class EpicsListener {
                     else
                         System.err.println("Get error: " + listener.getStatus());
 
-                    monitor = channel.addMonitor(Monitor.VALUE, monitorListener);
-
+                    field.setChannel(channel);
+                    field.setMonitor(channel.addMonitor(Monitor.VALUE, field.getMonitorListener()));
                 } catch (Throwable th) {
                     th.printStackTrace();
                 }

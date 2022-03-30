@@ -14,7 +14,6 @@ interface ScreenUnit {
     val prefix: String
     val view: View
     val activity: Activity?
-    var epicsListeners: ArrayList<EpicsListener>
 
     fun setViewLayoutParams() {
         var width = if (jsonRoot.has("width")) {

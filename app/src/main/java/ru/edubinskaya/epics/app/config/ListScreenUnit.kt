@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.json.JSONException
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
-import ru.edubinskaya.epics.app.channelaccess.EpicsListener
 import ru.edubinskaya.epics.app.json.ContainerType
 import ru.edubinskaya.epics.app.json.FieldType
 import ru.edubinskaya.epics.app.json.screen.BinaryField
@@ -21,7 +20,7 @@ class ListScreenUnit(
     override val activity: Activity,
 ) : ScreenUnit {
     override val view: View
-    override var epicsListeners: ArrayList<EpicsListener> = ArrayList()
+    private val children = getSubViewList()
 
     init {
         val orientation = if (jsonRoot.has("orientation")) {
@@ -32,9 +31,7 @@ class ListScreenUnit(
             }
         } else { LinearLayoutManager.VERTICAL }
 
-        val listOfFields = getSubViewList()
-
-        if (listOfFields.isEmpty()) {
+        if (children.isEmpty()) {
             view = View(activity)
         } else {
             var linearLayout : LinearLayout? = null
@@ -50,11 +47,8 @@ class ListScreenUnit(
             }
 
             linearLayout.orientation = orientation
-            for (child in listOfFields) {
+            for (child in children) {
                 linearLayout.addView(child.view)
-            }
-            for (field in listOfFields) {
-                epicsListeners.addAll(field.epicsListeners)
             }
         }
     }

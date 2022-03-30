@@ -29,6 +29,11 @@
         "type": "BOOLEAN_VALUE",
         "width": "match_parent",
         "height": "wrap_content"
+      },{
+        "name": "prng0:longout",
+        "type": "TEXT_FIELD",
+        "width": "match_parent",
+        "height": "wrap_content"
       },
       {
         "name": "prng1",

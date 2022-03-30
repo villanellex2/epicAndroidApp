@@ -1,10 +1,17 @@
 package ru.edubinskaya.epics.app.json.screen
 
-import android.view.View
+import gov.aps.jca.Channel
+import gov.aps.jca.Monitor
 import gov.aps.jca.event.MonitorListener
-import ru.edubinskaya.epics.app.channelaccess.EpicsListener
-import ru.edubinskaya.epics.app.json.FieldType
 
 interface Field: ScreenUnit {
     val fieldName: String?
+    var channel: Channel?
+    var monitor: Monitor?
+    val monitorListener: MonitorListener
+
+    override fun onDetachView() {
+        monitor?.clear()
+        channel?.destroy()
+    }
 }
