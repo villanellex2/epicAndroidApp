@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.config.ScreenProvider
 import ru.edubinskaya.epics.app.databinding.ScreenViewBinding
-import ru.edubinskaya.epics.app.json.screen.Screen
+import ru.edubinskaya.epics.app.json.Screen
 
 const val TYPE_DEVICE_FIELD = "type"
 const val PV_NAME_DEVICE_FIELD = "pv_name"

@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.json.screen
+package ru.edubinskaya.epics.app.json
 
 import android.view.View
 

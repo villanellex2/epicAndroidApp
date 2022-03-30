@@ -9,10 +9,11 @@ import org.json.JSONException
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.json.ContainerType
-import ru.edubinskaya.epics.app.json.FieldType
-import ru.edubinskaya.epics.app.json.screen.BinaryField
-import ru.edubinskaya.epics.app.json.screen.TextField
-import ru.edubinskaya.epics.app.json.screen.ScreenUnit
+import ru.edubinskaya.epics.app.json.fields.FieldType
+import ru.edubinskaya.epics.app.json.fields.BinaryField
+import ru.edubinskaya.epics.app.json.fields.TextField
+import ru.edubinskaya.epics.app.json.ScreenUnit
+import ru.edubinskaya.epics.app.json.fields.InputTextField
 
 class ListScreenUnit(
     override val jsonRoot: JSONObject,
@@ -64,7 +65,7 @@ class ListScreenUnit(
             for (i in 0 until jsonArray.length()) {
                 val obj = jsonArray.getJSONObject(i)
                 val field = when (obj.getString("type")) {
-                    FieldType.TEXT_FIELD.name -> TextField(obj ,prefix, activity)
+                    FieldType.TEXT_FIELD.name -> InputTextField(obj ,prefix, activity)
                     FieldType.BOOLEAN_SET.name -> BinaryField(obj, prefix, activity)
                     FieldType.BOOLEAN_VALUE.name -> BinaryField(obj, prefix, activity)
                     ContainerType.LIST.name -> ListScreenUnit(obj, prefix, activity)

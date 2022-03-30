@@ -7,7 +7,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.json.ContainerType
-import ru.edubinskaya.epics.app.json.screen.Screen
+import ru.edubinskaya.epics.app.json.Screen
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream

@@ -10,8 +10,7 @@ import gov.aps.jca.Context;
 import gov.aps.jca.JCALibrary;
 import gov.aps.jca.Monitor;
 import gov.aps.jca.dbr.DBR;
-import gov.aps.jca.event.MonitorListener;
-import ru.edubinskaya.epics.app.json.screen.Field;
+import ru.edubinskaya.epics.app.json.Field;
 
 public class EpicsListener {
 
@@ -58,7 +57,7 @@ public class EpicsListener {
                     channel.get(listener);
                     synchronized (listener) {
                         context.flushIO();
-                        listener.wait(30000);
+                        listener.wait(7000);
                     }
 
                     if (listener.getStatus() == CAStatus.NORMAL)

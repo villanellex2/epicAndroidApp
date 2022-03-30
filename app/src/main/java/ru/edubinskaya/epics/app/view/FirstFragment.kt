@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.edubinskaya.epics.app.config.ScreenProvider
 import ru.edubinskaya.epics.app.databinding.FragmentFirstBinding
-import ru.edubinskaya.epics.app.json.screen.Screen
+import ru.edubinskaya.epics.app.json.Screen
 import ru.edubinskaya.epics.app.R
 
 

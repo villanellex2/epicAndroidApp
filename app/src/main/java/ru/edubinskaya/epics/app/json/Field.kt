@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.json.screen
+package ru.edubinskaya.epics.app.json
 
 import gov.aps.jca.Channel
 import gov.aps.jca.Monitor

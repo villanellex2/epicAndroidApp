@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.edubinskaya.epics.app.R
-import ru.edubinskaya.epics.app.json.screen.Screen
+import ru.edubinskaya.epics.app.json.Screen
 
 
 class ListOfDevicesRecyclerViewAdapter internal constructor(context: Context?, data: List<Screen>) :

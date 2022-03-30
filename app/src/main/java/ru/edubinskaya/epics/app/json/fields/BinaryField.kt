@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.json.screen
+package ru.edubinskaya.epics.app.json.fields
 
 import android.app.Activity
 import android.widget.GridLayout
@@ -13,6 +13,7 @@ import gov.aps.jca.event.MonitorListener
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.channelaccess.EpicsListener
+import ru.edubinskaya.epics.app.json.Field
 
 //TODO: difference between set and value
 class BinaryField (

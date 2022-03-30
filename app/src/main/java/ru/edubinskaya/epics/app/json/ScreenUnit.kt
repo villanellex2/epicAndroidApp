@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.json.screen
+package ru.edubinskaya.epics.app.json
 
 import android.app.Activity
 import android.content.res.Resources
@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
 import org.json.JSONObject
-import ru.edubinskaya.epics.app.channelaccess.EpicsListener
 
 interface ScreenUnit {
     val jsonRoot: JSONObject
