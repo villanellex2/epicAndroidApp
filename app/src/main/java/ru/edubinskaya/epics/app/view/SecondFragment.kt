@@ -35,28 +35,24 @@ class SecondFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        screen = requireArguments().getString(PV_NAME_DEVICE_FIELD)?.let {
-            Screen(
-                arguments?.getString(TYPE_DEVICE_FIELD),
-                arguments?.getString(DISPLAYED_NAME_DEVICE_FIELD),
-                it, LinearLayout(context), emptyList()
-            )
-        }
 
-        initializeContent()
+        screenProvider = ScreenProvider(activity)
+        screen = arguments?.getString(TYPE_DEVICE_FIELD)
+            ?.let { screenProvider!!.getScreenFieldsById(it.toInt()) }
+        binding.mainView.addView(screen!!.view)
+
         val toolbar: Toolbar? = activity?.findViewById(R.id.toolbar)
         toolbar?.title = screen?.displayedName + " (" + screen?.pvName + ")"
     }
 
-    private fun initializeContent() {
-        screenProvider = ScreenProvider(activity)
-        val screen = screen?.id?.let { screenProvider!!.getScreenFieldsById(it) } ?: return
-        binding.mainView.addView(screen.view)
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-
+        object : AsyncTask<Any?, Any?, Any?>() {
+            override fun doInBackground(objects: Array<Any?>) {
+                screen?.mainField?.onDetachView()
+            }
+        }.execute()
     }
 }

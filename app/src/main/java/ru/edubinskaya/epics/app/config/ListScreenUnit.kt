@@ -53,6 +53,10 @@ class ListScreenUnit(
         }
     }
 
+    override fun onDetachView() {
+        children.forEach{ child -> child.onDetachView()}
+    }
+
     private fun getSubViewList(): List<ScreenUnit> {
         val listOfFields = ArrayList<ScreenUnit>()
         try {

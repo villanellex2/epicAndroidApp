@@ -8,5 +8,5 @@ class Screen (
     val displayedName: String?,
     val pvName: String,
     var view: View,
-    var epicsListeners: List<EpicsListener>
+    var mainField: ScreenUnit?
 )

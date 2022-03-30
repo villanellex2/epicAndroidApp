@@ -38,6 +38,8 @@ interface ScreenUnit {
         view.layoutParams.height = height
     }
 
+    fun onDetachView()
+
     fun pxToDp(px: Int?): Int {
         if (px == null) return 0
         return if (activity != null) {
