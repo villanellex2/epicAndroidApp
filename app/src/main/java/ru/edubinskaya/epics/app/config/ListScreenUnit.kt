@@ -1,11 +1,9 @@
 package ru.edubinskaya.epics.app.config
 
 import android.app.Activity
-import android.text.Layout
 import android.view.View
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
-import android.widget.ScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.json.JSONException
 import org.json.JSONObject
@@ -14,7 +12,7 @@ import ru.edubinskaya.epics.app.channelaccess.EpicsListener
 import ru.edubinskaya.epics.app.json.ContainerType
 import ru.edubinskaya.epics.app.json.FieldType
 import ru.edubinskaya.epics.app.json.screen.BinaryField
-import ru.edubinskaya.epics.app.json.screen.DoubleField
+import ru.edubinskaya.epics.app.json.screen.TextField
 import ru.edubinskaya.epics.app.json.screen.ScreenUnit
 
 class ListScreenUnit(
@@ -68,7 +66,7 @@ class ListScreenUnit(
             for (i in 0 until jsonArray.length()) {
                 val obj = jsonArray.getJSONObject(i)
                 val field = when (obj.getString("type")) {
-                    FieldType.DOUBLE_VALUE.name -> DoubleField(obj ,prefix, activity)
+                    FieldType.TEXT_FIELD.name -> TextField(obj ,prefix, activity)
                     FieldType.BOOLEAN_SET.name -> BinaryField(obj, prefix, activity)
                     FieldType.BOOLEAN_VALUE.name -> BinaryField(obj, prefix, activity)
                     ContainerType.LIST.name -> ListScreenUnit(obj, prefix, activity)

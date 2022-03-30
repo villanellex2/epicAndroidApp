@@ -22,7 +22,7 @@
     "content": [
       {
         "name": "prng0",
-        "type": "DOUBLE_VALUE"
+        "type": "TEXT_FIELD"
       },
       {
         "name": "prng0:bi",
@@ -32,7 +32,7 @@
       },
       {
         "name": "prng1",
-        "type": "DOUBLE_VALUE"
+        "type": "TEXT_FIELD"
       },
       {
         "type": "LIST",
@@ -40,27 +40,29 @@
         "content": [
           {
             "name": "prng2",
-            "type": "DOUBLE_VALUE",
-            "height": 50
+            "type": "TEXT_FIELD"
           },
           {
             "name": "conf1",
-            "type": "DOUBLE_VALUE",
-            "height": 70
+            "type": "TEXT_FIELD"
           }
         ]
       },
       {
         "name": "conf2",
-        "type": "DOUBLE_VALUE"
+        "type": "TEXT_FIELD"
       },
       {
         "name": "conf3",
-        "type": "DOUBLE_VALUE"
+        "type": "TEXT_FIELD"
+      },
+      {
+        "name": "prng0:lsi",
+        "type": "TEXT_FIELD"
       },
       {
         "name": "conf4",
-        "type": "DOUBLE_VALUE"
+        "type": "TEXT_FIELD"
       }
 
     ]
@@ -71,19 +73,19 @@
     "content": [
       {
         "name": "kiss",
-        "type": "DOUBLE_VALUE"
+        "type": "TEXT_FIELD"
       },
       {
         "name": "kiss-kiss",
-        "type": "DOUBLE_VALUE"
+        "type": "TEXT_FIELD"
       },
       {
         "name": "kiss1",
-        "type": "DOUBLE_VALUE"
+        "type": "TEXT_FIELD"
       },
       {
         "name": "kiss-kiss1",
-        "type": "DOUBLE_VALUE"
+        "type": "TEXT_FIELD"
       },
       {
         "name": "kiss-opened",
