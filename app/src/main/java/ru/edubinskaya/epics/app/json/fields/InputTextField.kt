@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.GridLayout
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
+import gov.aps.jca.dbr.*
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
 
@@ -52,7 +53,7 @@ class InputTextField(
     @SuppressLint("StaticFieldLeak")
     inner class SendNewValue : AsyncTask<Any?, Any?, Any?>() {
         override fun doInBackground(objects: Array<Any?>) {
-            /*if (channel?.readAccess != true) {
+            if (channel?.readAccess != true) {
                 Toast(activity).setText("No access")
                 return
             }
@@ -64,11 +65,7 @@ class InputTextField(
                 DBRType.SHORT -> editText.text.toString().toDoubleOrNull()?.let { channel?.put(it) }
                 DBRType.FLOAT -> editText.text.toString().toIntOrNull()?.let { channel?.put(it) }
                 else -> "Incorrect PV type for text field" //TODO
-            }*/
+            }
         }
-    }
-
-    override fun onValueChanged() {
-        TODO("Not yet implemented")
     }
 }
