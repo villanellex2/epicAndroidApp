@@ -4,12 +4,8 @@ import android.app.Activity
 import android.widget.GridLayout
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
-import gov.aps.jca.CAStatus
-import gov.aps.jca.Channel
-import gov.aps.jca.Monitor
-import gov.aps.jca.dbr.ENUM
-import gov.aps.jca.event.MonitorEvent
-import gov.aps.jca.event.MonitorListener
+import org.epics.ca.Channel
+import org.epics.ca.Monitor
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.channelaccess.EpicsListener
@@ -22,10 +18,12 @@ class BinaryField (
     override val activity: Activity?
 ) : Field {
     override var view = GridLayout(activity)
-    override val monitorListener: MonitorListener = BinaryMonitorListener()
     override val fieldName: String?
-    override var channel: Channel? = null
-    override var monitor: Monitor? = null
+    override var channel: Channel<Any?>? = null
+    override var monitor: Monitor<Any?>? = null
+    override fun onValueChanged() {
+        TODO("Not yet implemented")
+    }
 
     init {
         val epicsListener = EpicsListener.instance
@@ -45,7 +43,7 @@ class BinaryField (
         setViewLayoutParams()
     }
 
-    inner class BinaryMonitorListener() : MonitorListener {
+  /*  inner class BinaryMonitorListener() : MonitorListener {
 
         override fun monitorChanged(event: MonitorEvent) {
             if (event.status === CAStatus.NORMAL && event.dbr is ENUM) {
@@ -59,5 +57,5 @@ class BinaryField (
                 }
             }
         }
-    }
+    }*/
 }
