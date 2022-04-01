@@ -2,6 +2,7 @@ package ru.edubinskaya.epics.app.json.fields
 
 enum class FieldType {
     TEXT_FIELD,
-    BOOLEAN_VALUE,
-    BOOLEAN_SET
+    TEXT_INPUT_NUMBER,
+    BOOLEAN_FIELD,
+    BOOLEAN_INPUT
 }

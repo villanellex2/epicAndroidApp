@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.json.screen
+package ru.edubinskaya.epics.app.json.fields
 
 import android.app.Activity
 import android.widget.GridLayout
@@ -12,23 +12,26 @@ import gov.aps.jca.event.MonitorListener
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.channelaccess.EpicsListener
+import ru.edubinskaya.epics.app.json.Field
 
-class TextField (
-    override val jsonRoot: JSONObject,
+open class TextField (
+    final override val jsonRoot: JSONObject,
     override val prefix: String,
-    override val activity: Activity?
+    final override val activity: Activity?
 ) : Field {
-    override var view = GridLayout(activity)
+    final override var view = GridLayout(activity)
     override var monitor: Monitor? = null
     override var channel: Channel? = null
     override val monitorListener = DoubleMonitorListener()
-    override val fieldName: String?
+    final override val fieldName: String? = if (jsonRoot.has("name")) jsonRoot.getString("name") else null
 
     init {
-        val epicsListener = EpicsListener.instance
-        fieldName = if (jsonRoot.has("name")) jsonRoot.getString("name") else null
+        view = activity?.layoutInflater?.inflate(R.layout.text_field, null) as GridLayout
+        prepareLayout()
+    }
 
-        view = activity?.layoutInflater?.inflate(R.layout.double_field, null) as GridLayout
+    fun prepareLayout() {
+        val epicsListener = EpicsListener.instance
         if (fieldName != null) {
             view.findViewById<TextView>(R.id.item_name).text = fieldName
             epicsListener.execute(this)
@@ -43,26 +46,27 @@ class TextField (
     }
 
     inner class DoubleMonitorListener() : MonitorListener {
-        private var incorrectTryCount = 0
 
         override fun monitorChanged(event: MonitorEvent) {
             if (event.status === CAStatus.NORMAL) {
-                incorrectTryCount = 0
-                val text = when (event.dbr) {
-                    is DOUBLE -> (event.dbr as DOUBLE).doubleValue[0].toString()
-                    is INT -> (event.dbr as INT).intValue[0].toString()
-                    is FLOAT -> (event.dbr as FLOAT).floatValue[0].toString()
-                    is SHORT -> (event.dbr as SHORT).shortValue[0].toString()
-                    is STRING -> (event.dbr as STRING).stringValue[0].toString()
-                    else -> "Incorrect PV type for text field"
-                }
+                val text = event.dbr.asString()
                 activity?.runOnUiThread { view.findViewById<TextView>(R.id.item_value).text = text }
             } else {
-                incorrectTryCount++
-                if (incorrectTryCount >= 5) {
-                    activity?.runOnUiThread { view.findViewById<TextView>(R.id.item_value).text = event.status.message }
+                activity?.runOnUiThread {
+                    view.findViewById<TextView>(R.id.item_value).text = event.status.message
                 }
             }
+        }
+    }
+
+    fun DBR.asString(): String {
+        return when (this) {
+            is DOUBLE -> (this as DOUBLE).doubleValue[0].toString()
+            is INT -> (this as INT).intValue[0].toString()
+            is FLOAT -> (this as FLOAT).floatValue[0].toString()
+            is SHORT -> (this as SHORT).shortValue[0].toString()
+            is STRING -> (this as STRING).stringValue[0].toString()
+            else -> "Incorrect PV type for text field"
         }
     }
 }

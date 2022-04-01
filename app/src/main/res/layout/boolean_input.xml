@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/field"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_row="1"
+    android:layout_column="2"
+    android:layout_margin="7dp"
+    android:layout_marginBottom="8sp"
+    android:background="@drawable/device_field_background"
+    android:padding="7dp">
+
+    <TextView
+        android:id="@+id/item_name"
+        style="@style/Text.Label"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:textColor="@color/text_color_primary"
+        tools:text="name" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_gravity="end"
+        android:gravity="center_vertical">
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/item_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:theme="@style/ColorSwitchStyle.Active"
+            tools:text="" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/stub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:theme="@style/ColorSwitchStyle.Stub"
+            android:visibility="gone"
+            tools:text=""
+            android:clickable="false"/>
+    </LinearLayout>
+
+</GridLayout>

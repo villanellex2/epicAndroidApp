@@ -16,19 +16,15 @@ public class EpicsListener {
 
     public static EpicsListener instance = new EpicsListener();
     private EpicsListener(){
-        initializeContext(MAX_INITIALIZE_TRY);
+        initializeContext();
     };
-    private static final int MAX_INITIALIZE_TRY = 5;
-    private static final Context context = initializeContext(MAX_INITIALIZE_TRY);
+    public static final Context context = initializeContext();
 
-    private static Context initializeContext(int maxTry) {
-        if (maxTry <= 0) return null;
+    private static Context initializeContext() {
         JCALibrary jca = JCALibrary.getInstance();
         try {
             return jca.createContext(JCALibrary.CHANNEL_ACCESS_JAVA);
-        } catch (CAException exception) {
-            initializeContext(maxTry-1);
-        }
+        } catch (CAException exception) { }
         return null;
     }
 
@@ -43,7 +39,6 @@ public class EpicsListener {
 
     @SuppressLint("StaticFieldLeak")
     public void execute(Field field) {
-        if (context == null) initializeContext(MAX_INITIALIZE_TRY);
         if (context == null) return;
         new AsyncTask<Object, Object, DBR>() {
             @Override
@@ -52,18 +47,6 @@ public class EpicsListener {
                 try {
                     Channel channel = context.createChannel(field.getPrefix() + ":" + field.getFieldName());
                     context.pendIO(5.0);
-
-                    GetListenerImpl listener = new GetListenerImpl();
-                    channel.get(listener);
-                    synchronized (listener) {
-                        context.flushIO();
-                        listener.wait(7000);
-                    }
-
-                    if (listener.getStatus() == CAStatus.NORMAL)
-                        listener.getValue().printInfo();
-                    else
-                        System.err.println("Get error: " + listener.getStatus());
 
                     field.setChannel(channel);
                     field.setMonitor(channel.addMonitor(Monitor.VALUE, field.getMonitorListener()));

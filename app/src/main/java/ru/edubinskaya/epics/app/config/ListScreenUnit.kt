@@ -65,9 +65,10 @@ class ListScreenUnit(
             for (i in 0 until jsonArray.length()) {
                 val obj = jsonArray.getJSONObject(i)
                 val field = when (obj.getString("type")) {
-                    FieldType.TEXT_FIELD.name -> InputTextField(obj ,prefix, activity)
-                    FieldType.BOOLEAN_SET.name -> BinaryField(obj, prefix, activity)
-                    FieldType.BOOLEAN_VALUE.name -> BinaryField(obj, prefix, activity)
+                    FieldType.TEXT_FIELD.name -> TextField(obj ,prefix, activity)
+                    FieldType.TEXT_INPUT_NUMBER.name -> InputTextField(obj ,prefix, activity)
+                    FieldType.BOOLEAN_INPUT.name -> BinaryField(true, obj, prefix, activity)
+                    FieldType.BOOLEAN_FIELD.name -> BinaryField(false, obj, prefix, activity)
                     ContainerType.LIST.name -> ListScreenUnit(obj, prefix, activity)
                     else -> null
                 }

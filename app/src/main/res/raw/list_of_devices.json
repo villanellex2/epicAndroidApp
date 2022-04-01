@@ -26,7 +26,7 @@
       },
       {
         "name": "prng0:bi",
-        "type": "BOOLEAN_VALUE",
+        "type": "BOOLEAN_INPUT",
         "width": "match_parent",
         "height": "wrap_content"
       },{
@@ -34,6 +34,10 @@
         "type": "TEXT_FIELD",
         "width": "match_parent",
         "height": "wrap_content"
+      },
+      {
+        "name": "prng0:ao",
+        "type": "TEXT_INPUT_NUMBER"
       },
       {
         "name": "prng1",
@@ -94,11 +98,11 @@
       },
       {
         "name": "kiss-opened",
-        "type": "BOOLEAN_VALUE"
+        "type": "BOOLEAN_FIELD"
       },
       {
         "name": "kiss-kiss-opened",
-        "type": "BOOLEAN_VALUE"
+        "type": "BOOLEAN_INPUT"
       }
     ]
   }
