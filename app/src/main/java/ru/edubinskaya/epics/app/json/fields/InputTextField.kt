@@ -26,7 +26,7 @@ import gov.aps.jca.event.PutEvent
 import gov.aps.jca.event.PutListener
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
-import ru.edubinskaya.epics.app.channelaccess.EpicsListener
+import ru.edubinskaya.epics.app.channelaccess.EpicsContext
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -36,6 +36,11 @@ class InputTextField(
     activity: Activity?
 ) : TextField(jsonRoot, prefix, activity) {
     private val editText: EditText
+
+    override fun blockInput() {
+        editText.focusable = View.NOT_FOCUSABLE
+        editText.isClickable = false
+    }
 
     init {
         view = activity?.layoutInflater?.inflate(R.layout.input_text_field, null) as GridLayout
@@ -85,14 +90,14 @@ class InputTextField(
                 DBRType.FLOAT -> editText.text.toString().toIntOrNull()?.let { channel?.put(it, InputNumberPutListener()) }
                 else -> { return }
             }
-            EpicsListener.context.pendIO(3000.0);
+            EpicsContext.context.pendIO(3000.0);
         }
     }
 
     inner class InputNumberPutListener() : PutListener {
         override fun putCompleted(ev: PutEvent?) {
             channel?.get(InputNumberGetListener(ev))
-            EpicsListener.context.pendIO(7000.0)
+            EpicsContext.context.pendIO(7000.0)
         }
     }
 

@@ -42,16 +42,12 @@
         <item name="android:colorForeground">@color/blue_700</item>
     </style>
 
-    <style name="ColorSwitchStyle.Inactive">
-        <item name="colorControlActivated">@color/teal_200</item>
-        <item name="colorSwitchThumbNormal">@color/teal_100</item>
-        <item name="android:colorForeground">@color/teal_700</item>
-    </style>
-
     <style name="ColorSwitchStyle.Stub">
         <item name="colorControlActivated">#bbbbbb</item>
         <item name="colorSwitchThumbNormal">#bbbbbb</item>
         <item name="android:colorForeground">#888888</item>
+        <item name="android:clickable">false</item>
+        <item name="android:focusable">false</item>
     </style>
 
     <style name="Text">

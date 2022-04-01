@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:layout_width="150sp"
+        android:theme="@style/Text.Main"
         android:ems="10"/>
 
 </GridLayout>

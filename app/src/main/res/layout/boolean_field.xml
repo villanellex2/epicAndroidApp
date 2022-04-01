@@ -22,10 +22,9 @@
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/item_value"
-        android:theme="@style/ColorSwitchStyle.Inactive"
+        android:theme="@style/ColorSwitchStyle.Stub"
+        style="@style/ColorSwitchStyle.Stub"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:focusable="false"
-        android:clickable="false"
         tools:text=""/>
 </GridLayout>

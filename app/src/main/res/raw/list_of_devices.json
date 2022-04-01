@@ -25,6 +25,10 @@
         "type": "TEXT_FIELD"
       },
       {
+        "name": "prng0:asddad",
+        "type": "TEXT_FIELD"
+      },
+      {
         "name": "prng0:bi",
         "type": "BOOLEAN_INPUT",
         "width": "match_parent",

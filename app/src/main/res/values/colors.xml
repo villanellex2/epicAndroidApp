@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="light_gray">#e5e8ef</color>
-    <color name="light_l_gray">#99e5e8ef</color>
     <color name="purple_500">#00416a</color>
     <color name="hint_color">#00416a</color>
     <color name="purple_700">#002137</color>
@@ -21,6 +20,9 @@
     <color name="text_color_primary">#00416a</color>
     <color name="text_color_secondary">#50718a</color>
     <color name="text_color_tertiary">#8BA7BF</color>
+    =<color name="text_color_success">#29C529</color>
 
-    <color name="text_color_success">#29C529</color>
+    <color name="field_color_primary">#99e5e8ef</color>
+    <color name="field_color_incorrect_type">#99E6C3C3</color>
+    <color name="field_color_no_connection">#99CBC3E6</color>
 </resources>

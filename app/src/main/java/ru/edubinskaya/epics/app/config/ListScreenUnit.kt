@@ -35,7 +35,7 @@ class ListScreenUnit(
         if (children.isEmpty()) {
             view = View(activity)
         } else {
-            var linearLayout : LinearLayout? = null
+            val linearLayout : LinearLayout?
             if (orientation == LinearLayoutManager.HORIZONTAL) {
                 val scrollView = HorizontalScrollView(activity)
                 linearLayout = LinearLayout(activity)
