@@ -31,7 +31,7 @@ class BinaryField(
         }
     }
 
-    override val fieldName: String? = if (jsonRoot.has("name")) jsonRoot.getString("name") else null
+    override val fieldName: String? = jsonRoot.getString("name")
     override var channel: Channel? = null
     override var monitor: Monitor? = null
 

@@ -23,7 +23,7 @@ open class TextField (
     override val monitorListener = DoubleMonitorListener()
     override fun blockInput() {}
 
-    final override val fieldName: String? = if (jsonRoot.has("name")) jsonRoot.getString("name") else null
+    final override val fieldName: String? = jsonRoot.getString("name")
 
     init {
         view = activity?.layoutInflater?.inflate(R.layout.text_field, null) as GridLayout

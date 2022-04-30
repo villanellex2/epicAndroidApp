@@ -21,11 +21,12 @@
     "orientation": "vertical",
     "content": [
       {
-        "name": "prng0",
-        "type": "GRAPH"
+        "name": "prng0:aao",
+        "type": "GRAPH",
+        "label": "numbers",
+        "description": "hi pipi"
       },
       {
-        "name": "prng0",
         "type": "TEXT_FIELD"
       },
       {

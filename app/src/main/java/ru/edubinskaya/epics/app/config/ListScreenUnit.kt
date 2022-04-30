@@ -4,6 +4,7 @@ import android.app.Activity
 import android.view.View
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.json.JSONException
 import org.json.JSONObject
@@ -27,12 +28,14 @@ class ListScreenUnit(
                 "horizontal" -> LinearLayoutManager.HORIZONTAL
                 else -> LinearLayoutManager.VERTICAL
             }
-        } else { LinearLayoutManager.VERTICAL }
+        } else {
+            LinearLayoutManager.VERTICAL
+        }
 
         if (children.isEmpty()) {
             view = View(activity)
         } else {
-            val linearLayout : LinearLayout?
+            val linearLayout: LinearLayout?
             if (orientation == LinearLayoutManager.HORIZONTAL) {
                 val scrollView = HorizontalScrollView(activity)
                 linearLayout = LinearLayout(activity)
@@ -51,9 +54,9 @@ class ListScreenUnit(
         }
     }
 
-    override fun onDetachView() = children.forEach{ child -> child.onDetachView() }
+    override fun onDetachView() = children.forEach { child -> child.onDetachView() }
 
-    override fun createMonitor() = children.forEach{ child -> child.createMonitor() }
+    override fun createMonitor() = children.forEach { child -> child.createMonitor() }
 
     private fun getSubViewList(): List<ScreenUnit> {
         val listOfFields = ArrayList<ScreenUnit>()
@@ -61,18 +64,28 @@ class ListScreenUnit(
             val jsonArray = jsonRoot.getJSONArray("content")
             for (i in 0 until jsonArray.length()) {
                 val obj = jsonArray.getJSONObject(i)
-                val field = when (obj.getString("type")) {
-                    FieldType.TEXT_FIELD.name -> TextField(obj ,prefix, activity)
-                    FieldType.TEXT_INPUT_NUMBER.name -> InputTextField(obj ,prefix, activity)
-                    FieldType.GRAPH.name -> GraphField(obj, prefix, activity)
-                    FieldType.BOOLEAN_INPUT.name -> BinaryField(true, obj, prefix, activity)
-                    FieldType.BOOLEAN_FIELD.name -> BinaryField(false, obj, prefix, activity)
-                    ContainerType.LIST.name -> ListScreenUnit(obj, prefix, activity)
-                    else -> null
+                try {
+                    val field = when (obj.getString("type")) {
+                        FieldType.TEXT_FIELD.name -> TextField(obj, prefix, activity)
+                        FieldType.TEXT_INPUT_NUMBER.name -> InputTextField(obj, prefix, activity)
+                        FieldType.GRAPH.name -> GraphField(obj, prefix, activity)
+                        FieldType.BOOLEAN_INPUT.name -> BinaryField(true, obj, prefix, activity)
+                        FieldType.BOOLEAN_FIELD.name -> BinaryField(false, obj, prefix, activity)
+                        ContainerType.LIST.name -> ListScreenUnit(obj, prefix, activity)
+                        else -> null
+                    }
+                    field?.let { listOfFields.add(it) }
+                } catch (e: JSONException) {
+                    AlertDialog.Builder(activity)
+                        .setMessage(e.message + " in \n" + obj.toString())
+                        .setTitle("Incorrect json. Field skipped.")
+                        .setNegativeButton("OK") { _, _ -> }
+                        .show()
+
                 }
-                field?.let { listOfFields.add(it) }
             }
-        } catch (ignored: JSONException) { }
+        } catch (ignored: JSONException) {
+        }
         return listOfFields
     }
 }

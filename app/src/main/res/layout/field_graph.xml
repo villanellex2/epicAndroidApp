@@ -7,8 +7,8 @@
     android:layout_margin="7dp"
     android:layout_marginBottom="8sp"
     android:background="@drawable/device_field_background"
-    android:padding="7dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="7dp">
 
     <TextView
         android:id="@+id/item_name"
@@ -18,10 +18,17 @@
         android:gravity="center_vertical"
         tools:text="name" />
 
-
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/lineChart"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"/>
+        android:layout_height="wrap_content"
+        android:layout_margin="7dp"
+        android:background="@drawable/device_field_background_white">
 
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_margin="7dp"/>
+
+    </LinearLayout>
 </LinearLayout>

@@ -6,14 +6,18 @@ import android.graphics.DashPathEffect
 import android.widget.GridLayout
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IFillFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import com.github.mikephil.charting.utils.MPPointF
 import gov.aps.jca.Channel
 import gov.aps.jca.Monitor
+import gov.aps.jca.dbr.STRING
 import gov.aps.jca.event.*
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
@@ -49,74 +53,48 @@ class GraphField(
         chart = view.findViewById(R.id.lineChart)
 
         val values: ArrayList<Entry> = ArrayList()
-        for (i in 0..20) {
+        for (i in 0..40) {
             val value = (Math.random() * 500).toFloat() - 30
-            values.add(Entry(i.toFloat(), value, activity.resources.getDrawable(android.R.drawable.alert_dark_frame)))
+            values.add(Entry(i.toFloat()+55, value, ContextCompat.getDrawable(activity, android.R.drawable.alert_dark_frame)))
         }
 
-        val set1 = LineDataSet(values, "DataSet 1")
+        val set1 = if (jsonRoot.has("label")) {
+            LineDataSet(values, jsonRoot.getString("label")) }
+        else {
+            LineDataSet(values, "DataSet 1") }
 
+        if (jsonRoot.has("description")) {
+            chart.description = Description()
+            chart.description.textSize = 14f
+            chart.description.text = jsonRoot.getString("description")
+        } else {
+            chart.description.isEnabled = false
+        }
         set1.setDrawIcons(false)
-
-        // draw dashed line
-
-        // draw dashed line
-        set1.enableDashedLine(10f, 5f, 0f)
-
-        // black lines and points
-
-        // black lines and points
-        set1.setColor(Color.BLACK)
+        set1.color = Color.BLACK
         set1.setCircleColor(Color.BLACK)
 
-        // line thickness and point size
+        set1.lineWidth = 1f
+        set1.circleRadius = 3f
 
-        // line thickness and point size
-        set1.setLineWidth(1f)
-        set1.setCircleRadius(3f)
-
-        // draw points as solid circles
-
-        // draw points as solid circles
         set1.setDrawCircleHole(false)
 
-        // customize legend entry
+        set1.formLineWidth = 1f
+        set1.formSize = 15f
 
-        // customize legend entry
-        set1.setFormLineWidth(1f)
-        set1.setFormLineDashEffect(DashPathEffect(floatArrayOf(10f, 5f), 0f))
-        set1.setFormSize(15f)
+        chart.isDragEnabled = true
+        chart.isAutoScaleMinMaxEnabled = true
+        chart.setScaleEnabled(true)
+        set1.valueTextSize = 12f
 
-        // text size of values
-
-        // text size of values
-        set1.setValueTextSize(9f)
-
-        // draw selection line as dashed
-
-        // draw selection line as dashed
-        set1.enableDashedHighlightLine(10f, 5f, 0f)
-
-        // set the filled area
-
-        // set the filled area
         set1.setDrawFilled(true)
-        set1.setFillFormatter(IFillFormatter { dataSet, dataProvider -> chart.axisLeft.axisMinimum })
-
-        // set color of filled area
+        set1.fillFormatter = IFillFormatter { _, _ -> chart.axisLeft.axisMinimum }
 
         val dataSets: ArrayList<ILineDataSet> = ArrayList()
-        dataSets.add(set1) // add the data sets
+        dataSets.add(set1)
 
-
-        // create a data object with the data sets
-
-        // create a data object with the data sets
         val data = LineData(dataSets)
 
-        // set data
-
-        // set data
         chart.data = data
 
         setViewLayoutParams()
@@ -126,6 +104,15 @@ class GraphField(
 
         override fun monitorChanged(event: MonitorEvent) {
             activity?.runOnUiThread {
+                if (event.status.isSuccessful) {
+                    val dbr = event.dbr as STRING
+                    val isDoubles = event.dbr.isDOUBLE
+                    val isFloat = event.dbr.printInfo()
+
+                    val value = dbr.stringValue[0]
+
+                    value
+                }
             }
         }
     }
