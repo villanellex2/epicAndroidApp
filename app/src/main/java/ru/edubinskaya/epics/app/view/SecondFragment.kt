@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import ru.edubinskaya.epics.app.R
+import ru.edubinskaya.epics.app.channelaccess.EpicsContext
 import ru.edubinskaya.epics.app.config.ScreenProvider
 import ru.edubinskaya.epics.app.databinding.ScreenViewBinding
 import ru.edubinskaya.epics.app.json.Screen
+import java.lang.Exception
 
 const val TYPE_DEVICE_FIELD = "type"
 const val PV_NAME_DEVICE_FIELD = "pv_name"
@@ -45,6 +47,11 @@ class SecondFragment : Fragment() {
         toolbar?.title = screen?.displayedName + " (" + screen?.pvName + ")"
     }
 
+    override fun onStart() {
+        super.onStart()
+        InitialAsyncTask().execute()
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -54,5 +61,19 @@ class SecondFragment : Fragment() {
                 screen?.mainField?.onDetachView()
             }
         }.execute()
+    }
+
+    inner class InitialAsyncTask(): AsyncTask<Any, Any, Any>() {
+        override fun doInBackground(vararg params: Any?): Any? {
+            try { EpicsContext.context.pendIO(5.0) } catch (e: Exception) {}
+            screen?.mainField?.createMonitor()
+            try { EpicsContext.context.pendIO(5.0) } catch (e: Exception) {}
+            return null
+        }
+
+        override fun onPostExecute(result: Any?) {
+            super.onPostExecute(result)
+            binding.animationView.visibility = View.GONE
+        }
     }
 }

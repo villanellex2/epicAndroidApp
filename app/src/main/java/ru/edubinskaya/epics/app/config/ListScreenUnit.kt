@@ -18,7 +18,7 @@ class ListScreenUnit(
     override val activity: Activity,
 ) : ScreenUnit {
     override val view: View
-    private val children = getSubViewList()
+    val children = getSubViewList()
 
     init {
         val orientation = if (jsonRoot.has("orientation")) {
@@ -51,9 +51,9 @@ class ListScreenUnit(
         }
     }
 
-    override fun onDetachView() {
-        children.forEach{ child -> child.onDetachView()}
-    }
+    override fun onDetachView() = children.forEach{ child -> child.onDetachView() }
+
+    override fun createMonitor() = children.forEach{ child -> child.createMonitor() }
 
     private fun getSubViewList(): List<ScreenUnit> {
         val listOfFields = ArrayList<ScreenUnit>()

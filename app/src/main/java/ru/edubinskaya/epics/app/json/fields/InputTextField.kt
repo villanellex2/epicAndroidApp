@@ -29,7 +29,6 @@ import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.channelaccess.EpicsContext
 
 
-@RequiresApi(Build.VERSION_CODES.O)
 class InputTextField(
     jsonRoot: JSONObject,
     prefix: String,
@@ -38,7 +37,6 @@ class InputTextField(
     private val editText: EditText
 
     override fun blockInput() {
-        editText.focusable = View.NOT_FOCUSABLE
         editText.isClickable = false
     }
 
@@ -51,7 +49,6 @@ class InputTextField(
         editText.inputType = InputType.TYPE_CLASS_NUMBER or
                 InputType.TYPE_NUMBER_FLAG_DECIMAL or
                 InputType.TYPE_NUMBER_FLAG_SIGNED
-        editText.focusable = View.FOCUSABLE
         editText.setOnKeyListener(object : View.OnKeyListener {
             override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {

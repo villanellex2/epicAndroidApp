@@ -66,25 +66,23 @@ interface Field: ScreenUnit {
 
     fun blockInput()
 
+    override fun createMonitor() {
+        if (channel?.connectionState == Channel.ConnectionState.CONNECTED) {
+            monitor = channel?.addMonitor(Monitor.VALUE, monitorListener)
+        } else {
+            setDisconnected(activity)
+        }
+    }
+
     @SuppressLint("StaticFieldLeak")
     fun initializeChannel() {
         object : AsyncTask<Any?, Any?, DBR?>() {
             override fun doInBackground(objects: Array<Any?>): DBR? {
                 val result: DBR? = null
                 try {
-                    val channel =
-                        EpicsContext.context.createChannel(prefix + ":" + fieldName)
-                    EpicsContext.context.pendIO(5.0)
+                    val channel = EpicsContext.context.createChannel(prefix + ":" + fieldName)
                     this@Field.channel = channel
-                    monitor = channel.addMonitor(Monitor.VALUE, monitorListener)
-                    EpicsContext.context.pendIO(5.0)
-                } catch (th: Throwable) {
-                    if (th is TimeoutException) {
-                        activity?.runOnUiThread {
-                            setDisconnected(activity)
-                        }
-                    }
-                }
+                } catch (th: Throwable) { }
                 return result
             }
         }.execute()

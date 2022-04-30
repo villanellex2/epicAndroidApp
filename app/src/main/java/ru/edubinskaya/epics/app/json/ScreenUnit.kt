@@ -39,6 +39,8 @@ interface ScreenUnit {
 
     fun onDetachView()
 
+    fun createMonitor()
+
     fun pxToDp(px: Int?): Int {
         if (px == null) return 0
         return if (activity != null) {
