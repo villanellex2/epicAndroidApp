@@ -22,6 +22,10 @@
     "content": [
       {
         "name": "prng0",
+        "type": "GRAPH"
+      },
+      {
+        "name": "prng0",
         "type": "TEXT_FIELD"
       },
       {

@@ -4,5 +4,6 @@ enum class FieldType {
     TEXT_FIELD,
     TEXT_INPUT_NUMBER,
     BOOLEAN_FIELD,
-    BOOLEAN_INPUT
+    BOOLEAN_INPUT,
+    GRAPH
 }
