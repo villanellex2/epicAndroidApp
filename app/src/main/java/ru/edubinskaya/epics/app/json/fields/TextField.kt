@@ -21,6 +21,7 @@ open class TextField (
     override var monitor: Monitor? = null
     override var channel: Channel? = null
     override val monitorListener = DoubleMonitorListener()
+    override var descChannel: Channel? = null
     override fun blockInput() {}
 
     final override val fieldName: String? = jsonRoot.getString("name")

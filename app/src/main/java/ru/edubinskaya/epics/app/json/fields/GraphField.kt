@@ -2,7 +2,6 @@ package ru.edubinskaya.epics.app.json.fields
 
 import android.app.Activity
 import android.graphics.Color
-import android.graphics.DashPathEffect
 import android.widget.GridLayout
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -14,10 +13,9 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IFillFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import com.github.mikephil.charting.utils.MPPointF
 import gov.aps.jca.Channel
 import gov.aps.jca.Monitor
-import gov.aps.jca.dbr.STRING
+import gov.aps.jca.dbr.*
 import gov.aps.jca.event.*
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
@@ -34,8 +32,10 @@ class GraphField(
 
     override val fieldName: String? = if (jsonRoot.has("name")) jsonRoot.getString("name") else null
     override var channel: Channel? = null
+    override var descChannel: Channel? = null
     override var monitor: Monitor? = null
     private val chart: LineChart
+    private val dataSet: LineDataSet
 
     init {
         view = activity?.layoutInflater?.inflate(R.layout.field_graph, null) as LinearLayout
@@ -53,12 +53,7 @@ class GraphField(
         chart = view.findViewById(R.id.lineChart)
 
         val values: ArrayList<Entry> = ArrayList()
-        for (i in 0..40) {
-            val value = (Math.random() * 500).toFloat() - 30
-            values.add(Entry(i.toFloat()+55, value, ContextCompat.getDrawable(activity, android.R.drawable.alert_dark_frame)))
-        }
-
-        val set1 = if (jsonRoot.has("label")) {
+        dataSet = if (jsonRoot.has("label")) {
             LineDataSet(values, jsonRoot.getString("label")) }
         else {
             LineDataSet(values, "DataSet 1") }
@@ -70,28 +65,28 @@ class GraphField(
         } else {
             chart.description.isEnabled = false
         }
-        set1.setDrawIcons(false)
-        set1.color = Color.BLACK
-        set1.setCircleColor(Color.BLACK)
+        dataSet.setDrawIcons(false)
+        dataSet.color = Color.BLACK
+        dataSet.setCircleColor(Color.BLACK)
 
-        set1.lineWidth = 1f
-        set1.circleRadius = 3f
+        dataSet.lineWidth = 1f
+        dataSet.circleRadius = 3f
 
-        set1.setDrawCircleHole(false)
+        dataSet.setDrawCircleHole(false)
 
-        set1.formLineWidth = 1f
-        set1.formSize = 15f
+        dataSet.formLineWidth = 1f
+        dataSet.formSize = 15f
 
         chart.isDragEnabled = true
         chart.isAutoScaleMinMaxEnabled = true
         chart.setScaleEnabled(true)
-        set1.valueTextSize = 12f
+        dataSet.valueTextSize = 12f
 
-        set1.setDrawFilled(true)
-        set1.fillFormatter = IFillFormatter { _, _ -> chart.axisLeft.axisMinimum }
+        dataSet.setDrawFilled(true)
+        dataSet.fillFormatter = IFillFormatter { _, _ -> chart.axisLeft.axisMinimum }
 
         val dataSets: ArrayList<ILineDataSet> = ArrayList()
-        dataSets.add(set1)
+        dataSets.add(dataSet)
 
         val data = LineData(dataSets)
 
@@ -105,17 +100,19 @@ class GraphField(
         override fun monitorChanged(event: MonitorEvent) {
             activity?.runOnUiThread {
                 if (event.status.isSuccessful) {
-                    val dbr = event.dbr as STRING
-                    val isDoubles = event.dbr.isDOUBLE
-                    val isFloat = event.dbr.printInfo()
-
-                    val value = dbr.stringValue[0]
-
-                    value
+                    val set = ArrayList<Entry>()
+                    val point = ContextCompat.getDrawable(activity, android.R.drawable.alert_dark_frame)
+                    when (event.dbr.type) {
+                        DBRType.DOUBLE -> (event.dbr as DOUBLE).doubleValue.forEachIndexed { index, d ->  set.add(Entry(index.toFloat(), d.toFloat(), point))}
+                        DBRType.BYTE -> (event.dbr as BYTE).byteValue.forEachIndexed { index, d ->  set.add(Entry(index.toFloat(), d.toFloat(), point))}
+                        DBRType.FLOAT -> (event.dbr as FLOAT).floatValue.forEachIndexed { index, d ->  set.add(Entry(index.toFloat(), d.toFloat(), point))}
+                        DBRType.SHORT -> (event.dbr as SHORT).shortValue.forEachIndexed { index, d ->  set.add(Entry(index.toFloat(), d.toFloat(), point))}
+                        DBRType.INT -> (event.dbr as INT).intValue.forEachIndexed { index, d ->  set.add(Entry(index, d.toFloat(), point))}
+                    }
+                    dataSet.values = set
+                    dataSet.notifyDataSetChanged()
                 }
             }
         }
     }
-
-
 }

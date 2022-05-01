@@ -19,6 +19,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.widget.doOnTextChanged
 import gov.aps.jca.CAStatus
+import gov.aps.jca.Channel
 import gov.aps.jca.dbr.DBRType
 import gov.aps.jca.event.GetEvent
 import gov.aps.jca.event.GetListener

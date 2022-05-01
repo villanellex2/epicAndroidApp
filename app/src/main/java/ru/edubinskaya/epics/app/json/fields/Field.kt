@@ -9,6 +9,7 @@ import gov.aps.jca.Channel
 import gov.aps.jca.Monitor
 import gov.aps.jca.TimeoutException
 import gov.aps.jca.dbr.DBR
+import gov.aps.jca.event.MonitorEvent
 import gov.aps.jca.event.MonitorListener
 import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.channelaccess.EpicsContext
@@ -19,6 +20,10 @@ interface Field: ScreenUnit {
     var channel: Channel?
     var monitor: Monitor?
     val monitorListener: MonitorListener
+    var descChannel: Channel?
+
+    //TODO: disconnect listener
+    //TODO: desc to name and field name
 
     override fun onDetachView() {
         Thread {
@@ -52,7 +57,9 @@ interface Field: ScreenUnit {
                 R.drawable.device_field_background_no_connection
             )
         }
-        blockInput()
+        activity?.runOnUiThread {
+            blockInput()
+        }
     }
 
     fun setIncorrect(activity: Activity?) {
@@ -72,19 +79,29 @@ interface Field: ScreenUnit {
         } else {
             setDisconnected(activity)
         }
+        if (descChannel?.connectionState == Channel.ConnectionState.CONNECTED) {
+            monitor = descChannel?.addMonitor(Monitor.VALUE, descListener())
+        }
     }
 
     @SuppressLint("StaticFieldLeak")
     fun initializeChannel() {
+        //TODO: check if needs to
         object : AsyncTask<Any?, Any?, DBR?>() {
             override fun doInBackground(objects: Array<Any?>): DBR? {
-                val result: DBR? = null
                 try {
                     val channel = EpicsContext.context.createChannel(prefix + ":" + fieldName)
+                    descChannel = EpicsContext.context.createChannel(prefix + ":" + fieldName + ".DESC")
                     this@Field.channel = channel
                 } catch (th: Throwable) { }
-                return result
+                return null
             }
         }.execute()
+    }
+
+    fun descListener(): MonitorListener = object: MonitorListener {
+        override fun monitorChanged(ev: MonitorEvent?) {
+            ev?.dbr
+        }
     }
 }

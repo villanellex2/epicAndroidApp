@@ -14,6 +14,11 @@
       "displayed_name": "displayed name3",
       "name": "poy",
       "type": "type2"
+    },
+    {
+      "displayed_name": "displayed name5",
+      "name": "test2",
+      "type": "type4"
     }
   ],
   "type1": {
@@ -38,7 +43,8 @@
         "type": "BOOLEAN_INPUT",
         "width": "match_parent",
         "height": "wrap_content"
-      },{
+      },
+      {
         "name": "prng0:longout",
         "type": "TEXT_FIELD",
         "width": "match_parent",
@@ -82,36 +88,32 @@
         "name": "conf4",
         "type": "TEXT_FIELD"
       }
-
     ]
   },
-  "type2": {
+  "type4": {
     "type": "LIST",
-    "orientation": "horizontal",
+    "orientation": "vertical",
     "content": [
       {
-        "name": "kiss",
-        "type": "TEXT_FIELD"
+        "name": "prng0:aao",
+        "type": "GRAPH",
+        "label": "numbers"
       },
       {
-        "name": "kiss-kiss",
-        "type": "TEXT_FIELD"
+        "name": "prng0:bi",
+        "type": "BOOLEAN_INPUT",
+        "width": "match_parent",
+        "height": "wrap_content"
       },
       {
-        "name": "kiss1",
-        "type": "TEXT_FIELD"
+        "name": "prng0:longout",
+        "type": "TEXT_FIELD",
+        "width": "match_parent",
+        "height": "wrap_content"
       },
       {
-        "name": "kiss-kiss1",
-        "type": "TEXT_FIELD"
-      },
-      {
-        "name": "kiss-opened",
-        "type": "BOOLEAN_FIELD"
-      },
-      {
-        "name": "kiss-kiss-opened",
-        "type": "BOOLEAN_INPUT"
+        "name": "prng0:ao",
+        "type": "TEXT_INPUT_NUMBER"
       }
     ]
   }

@@ -32,6 +32,7 @@ class BinaryField(
     }
 
     override val fieldName: String? = jsonRoot.getString("name")
+    override var descChannel: Channel? = null
     override var channel: Channel? = null
     override var monitor: Monitor? = null
 
