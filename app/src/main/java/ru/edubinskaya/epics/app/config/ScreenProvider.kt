@@ -6,33 +6,28 @@ import android.widget.LinearLayout
 import org.json.JSONException
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
-import ru.edubinskaya.epics.app.channelaccess.EpicsContext
 import ru.edubinskaya.epics.app.json.ContainerType
 import ru.edubinskaya.epics.app.json.Screen
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
-import java.lang.Exception
 
 
 class ScreenProvider(private val activity: Activity?) {
     val screenList: List<Screen> = getDevices()
 
+    @Throws
     fun getScreenFieldsById(id: Int): Screen? {
         if (activity == null) return null
         val jsonRoot = JSONObject(readText(activity, R.raw.list_of_devices))
         if (id > screenList.size || id < 0) return null
         val screen: Screen = screenList[id]
 
-        val mainField = try {
-            val jsonArray = jsonRoot.getJSONObject(screen.type)
-            when (jsonArray.getString("type")) {
-                ContainerType.LIST.name -> ListScreenUnit(jsonArray, screen.pvName, activity)
-                else ->  ListScreenUnit(JSONObject(""), screen.pvName, activity)
-            }
-        } catch (e: JSONException) {
-            null
+        val jsonArray = jsonRoot.getJSONObject(screen.type)
+        val mainField = when (jsonArray.getString("type")) {
+            ContainerType.LIST.name -> ListScreenUnit(jsonArray, screen.pvName, activity)
+            else -> ListScreenUnit(JSONObject(""), screen.pvName, activity)
         }
         screen.view = mainField?.view!!
         screen.mainField = mainField

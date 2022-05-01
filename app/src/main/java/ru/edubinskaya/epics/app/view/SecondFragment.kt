@@ -5,15 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import com.airbnb.lottie.LottieAnimationView
+import androidx.navigation.fragment.findNavController
+import org.json.JSONException
 import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.channelaccess.EpicsContext
 import ru.edubinskaya.epics.app.config.ScreenProvider
 import ru.edubinskaya.epics.app.databinding.ScreenViewBinding
 import ru.edubinskaya.epics.app.json.Screen
-import java.lang.Exception
 
 const val TYPE_DEVICE_FIELD = "type"
 const val PV_NAME_DEVICE_FIELD = "pv_name"
@@ -40,9 +41,24 @@ class SecondFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         screenProvider = ScreenProvider(activity)
-        screen = arguments?.getString(TYPE_DEVICE_FIELD)
-            ?.let { screenProvider!!.getScreenFieldsById(it.toInt()) }
-        binding.mainView.addView(screen!!.view)
+        try {
+            screen = arguments?.getString(TYPE_DEVICE_FIELD)
+                ?.let { screenProvider!!.getScreenFieldsById(it.toInt()) }
+            binding.mainView.addView(screen!!.view)
+        } catch (e: JSONException) {
+            activity?.let {
+                AlertDialog.Builder(it)
+                    .setMessage(e.message)
+                    .setTitle("Incorrect json. Can't show screen.")
+                    .setNegativeButton("OK") { _, _ ->
+                        findNavController().navigate(
+                            R.id.action_SecondFragment_to_FirstFragment,
+                            Bundle()
+                        )
+                    }
+                    .show()
+            }
+        }
 
         val toolbar: Toolbar? = activity?.findViewById(R.id.toolbar)
         toolbar?.title = screen?.displayedName + " (" + screen?.pvName + ")"

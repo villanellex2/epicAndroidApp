@@ -107,7 +107,7 @@ class GraphField(
                         DBRType.BYTE -> (event.dbr as BYTE).byteValue.forEachIndexed { index, d ->  set.add(Entry(index.toFloat(), d.toFloat(), point))}
                         DBRType.FLOAT -> (event.dbr as FLOAT).floatValue.forEachIndexed { index, d ->  set.add(Entry(index.toFloat(), d.toFloat(), point))}
                         DBRType.SHORT -> (event.dbr as SHORT).shortValue.forEachIndexed { index, d ->  set.add(Entry(index.toFloat(), d.toFloat(), point))}
-                        DBRType.INT -> (event.dbr as INT).intValue.forEachIndexed { index, d ->  set.add(Entry(index, d.toFloat(), point))}
+                        DBRType.INT -> (event.dbr as INT).intValue.forEachIndexed { index, d ->  set.add(Entry(index.toFloat(), d.toFloat(), point))}
                     }
                     dataSet.values = set
                     dataSet.notifyDataSetChanged()
