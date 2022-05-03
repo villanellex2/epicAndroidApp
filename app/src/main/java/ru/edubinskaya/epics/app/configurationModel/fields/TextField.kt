@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.json.fields
+package ru.edubinskaya.epics.app.configurationModel.fields
 
 import android.app.Activity
 import android.widget.GridLayout

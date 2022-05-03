@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.json
+package ru.edubinskaya.epics.app.configurationModel
 
 import android.app.Activity
 import android.content.res.Resources

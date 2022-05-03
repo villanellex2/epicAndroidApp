@@ -5,12 +5,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.edubinskaya.epics.app.R
-import ru.edubinskaya.epics.app.json.Screen
+import ru.edubinskaya.epics.app.configurationModel.Screen
 
 
-class ListOfDevicesRecyclerViewAdapter internal constructor(context: Context?, data: List<Screen>) :
+class ListOfDevicesRecyclerViewAdapter internal constructor(context: Context?, private val data: List<Screen>) :
     RecyclerView.Adapter<ListOfDevicesRecyclerViewAdapter.ViewHolder>() {
-    private val mData: List<Screen> = data
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
     private var mClickListener: ItemClickListener? = null
 
@@ -20,11 +19,11 @@ class ListOfDevicesRecyclerViewAdapter internal constructor(context: Context?, d
     }
 
     override fun onBindViewHolder(holder: ViewHolder, pos: Int) {
-        holder.deviceName.text = mData[pos].displayedName
+        holder.deviceName.text = data[pos].displayedName
     }
 
     override fun getItemCount(): Int {
-        return mData.size
+        return data.size
     }
 
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
@@ -41,7 +40,7 @@ class ListOfDevicesRecyclerViewAdapter internal constructor(context: Context?, d
     }
 
     fun getItem(id: Int): Screen {
-        return mData[id]
+        return data[id]
     }
 
     fun setClickListener(itemClickListener: ItemClickListener?) {

@@ -6,8 +6,9 @@ import android.widget.LinearLayout
 import org.json.JSONException
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
-import ru.edubinskaya.epics.app.json.ContainerType
-import ru.edubinskaya.epics.app.json.Screen
+import ru.edubinskaya.epics.app.configurationModel.ContainerType
+import ru.edubinskaya.epics.app.configurationModel.ListScreenUnit
+import ru.edubinskaya.epics.app.configurationModel.Screen
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream

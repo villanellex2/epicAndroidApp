@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.json.fields
+package ru.edubinskaya.epics.app.configurationModel.fields
 
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
@@ -7,7 +7,6 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.os.AsyncTask
-import android.os.Build
 import android.text.InputType
 import android.util.Log
 import android.view.KeyEvent
@@ -16,10 +15,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.GridLayout
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.widget.doOnTextChanged
 import gov.aps.jca.CAStatus
-import gov.aps.jca.Channel
 import gov.aps.jca.dbr.DBRType
 import gov.aps.jca.event.GetEvent
 import gov.aps.jca.event.GetListener

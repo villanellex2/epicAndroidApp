@@ -1,12 +1,53 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
-
     <TextView
-        android:id="@+id/add_file"
+        style="@style/Text.Main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/action_settings"
+        android:padding="10dp"/>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/add_file"
+                style="@style/Text.Label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/configuration" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/screen_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp" />
+
+
+            <TextView
+                android:id="@+id/create_file"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/create_file"
+                style="@style/Text.Label"
+                android:padding="5dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/device_field_background" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

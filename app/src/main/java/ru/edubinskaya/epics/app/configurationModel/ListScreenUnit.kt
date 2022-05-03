@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.config
+package ru.edubinskaya.epics.app.configurationModel
 
 import android.app.Activity
 import android.view.View
@@ -9,9 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.json.JSONException
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
-import ru.edubinskaya.epics.app.json.ContainerType
-import ru.edubinskaya.epics.app.json.ScreenUnit
-import ru.edubinskaya.epics.app.json.fields.*
+import ru.edubinskaya.epics.app.configurationModel.fields.*
 
 class ListScreenUnit(
     override val jsonRoot: JSONObject,

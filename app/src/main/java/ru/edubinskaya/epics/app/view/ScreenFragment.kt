@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.json.JSONException
@@ -14,7 +14,7 @@ import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.channelaccess.EpicsContext
 import ru.edubinskaya.epics.app.config.ScreenProvider
 import ru.edubinskaya.epics.app.databinding.ScreenViewBinding
-import ru.edubinskaya.epics.app.json.Screen
+import ru.edubinskaya.epics.app.configurationModel.Screen
 
 const val TYPE_DEVICE_FIELD = "type"
 const val PV_NAME_DEVICE_FIELD = "pv_name"
@@ -22,9 +22,7 @@ const val DISPLAYED_NAME_DEVICE_FIELD = "displayed_name"
 
 class SecondFragment : Fragment() {
 
-    private var _binding: ScreenViewBinding? = null
-
-    private val binding get() = _binding!!
+    private var binding: ScreenViewBinding? = null
 
     private var screen: Screen? = null
     private var screenProvider: ScreenProvider? = null
@@ -32,9 +30,9 @@ class SecondFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        _binding = ScreenViewBinding.inflate(inflater, container, false)
-        return binding.root
+    ): ConstraintLayout? {
+        binding = ScreenViewBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,7 +42,7 @@ class SecondFragment : Fragment() {
         try {
             screen = arguments?.getString(TYPE_DEVICE_FIELD)
                 ?.let { screenProvider!!.getScreenFieldsById(it.toInt()) }
-            binding.mainView.addView(screen!!.view)
+            binding?.mainView?.addView(screen!!.view)
         } catch (e: JSONException) {
             activity?.let {
                 AlertDialog.Builder(it)
@@ -54,14 +52,10 @@ class SecondFragment : Fragment() {
                         findNavController().navigate(
                             R.id.action_SecondFragment_to_FirstFragment,
                             Bundle()
-                        )
-                    }
+                        ) }
                     .show()
             }
         }
-
-        val toolbar: Toolbar? = activity?.findViewById(R.id.toolbar)
-        toolbar?.title = screen?.displayedName + " (" + screen?.pvName + ")"
     }
 
     override fun onStart() {
@@ -72,7 +66,7 @@ class SecondFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding = null
         object : AsyncTask<Any?, Any?, Any?>() {
             override fun doInBackground(objects: Array<Any?>) {
                 screen?.mainField?.onDetachView()
@@ -90,7 +84,7 @@ class SecondFragment : Fragment() {
 
         override fun onPostExecute(result: Any?) {
             super.onPostExecute(result)
-            binding.animationView.visibility = View.GONE
+            binding?.animationView?.visibility = View.GONE
         }
     }
 }

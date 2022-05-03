@@ -2,13 +2,8 @@
     <string name="app_name">epic android app</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">List of device</string>
-    <string name="next">Get the number</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">A number</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="first_fragment_label">List of devices</string>
+    <string name="title_activity_settings">Settings</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
@@ -24,4 +19,8 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="create_file">Create file</string>
+    <string name="configuration">Configuration:</string>
+    <string name="file_name">File name...</string>
+    <string name="screens_configuration">Screens configuration</string>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="light_gray">#e5e8ef</color>
+    <color name="light_gray">#CDD0E3</color>
     <color name="purple_500">#00416a</color>
     <color name="hint_color">#00416a</color>
     <color name="purple_700">#002137</color>
@@ -27,4 +27,6 @@
     <color name="field_color_primary">#99e5e8ef</color>
     <color name="field_color_incorrect_type">#99E6C3C3</color>
     <color name="field_color_no_connection">#99CBC3E6</color>
+
+    <color name="edit_text_color_primary">#0A000000</color>
 </resources>

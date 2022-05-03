@@ -1,25 +1,26 @@
 package ru.edubinskaya.epics.app.view
 
 import ListOfDevicesRecyclerViewAdapter
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.config.ScreenProvider
 import ru.edubinskaya.epics.app.databinding.FragmentFirstBinding
-import ru.edubinskaya.epics.app.json.Screen
-import ru.edubinskaya.epics.app.R
+import ru.edubinskaya.epics.app.configurationModel.Screen
 
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class ListOfDevicesFragment : Fragment() {
+class MainFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
     private val binding get() = _binding!!
@@ -33,12 +34,15 @@ class ListOfDevicesFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("RestrictedApi")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeRecyclerView()
 
-        val toolbar: Toolbar? = activity?.findViewById(R.id.toolbar)
-        toolbar?.setTitle("List of devices.")
+        binding.actionSettings.setOnClickListener {
+            val intent = Intent(context, SettingsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onDestroyView() {

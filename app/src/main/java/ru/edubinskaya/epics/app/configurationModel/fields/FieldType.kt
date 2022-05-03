@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.json.fields
+package ru.edubinskaya.epics.app.configurationModel.fields
 
 enum class FieldType {
     TEXT_FIELD,

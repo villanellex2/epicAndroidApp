@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.json.fields
+package ru.edubinskaya.epics.app.configurationModel.fields
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -7,13 +7,12 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import gov.aps.jca.Channel
 import gov.aps.jca.Monitor
-import gov.aps.jca.TimeoutException
 import gov.aps.jca.dbr.DBR
 import gov.aps.jca.event.MonitorEvent
 import gov.aps.jca.event.MonitorListener
 import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.channelaccess.EpicsContext
-import ru.edubinskaya.epics.app.json.ScreenUnit
+import ru.edubinskaya.epics.app.configurationModel.ScreenUnit
 
 interface Field: ScreenUnit {
     val fieldName: String?
