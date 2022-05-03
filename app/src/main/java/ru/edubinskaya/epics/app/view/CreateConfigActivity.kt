@@ -53,7 +53,7 @@ class CreateConfigActivity : AppCompatActivity() {
             db?.execSQL("INSERT OR IGNORE INTO files VALUES (\"$name\")")
             val config = findViewById<EditText>(R.id.config).text
 
-            val fos = BufferedWriter(OutputStreamWriter(openFileOutput(name, MODE_PRIVATE)))
+            val fos = BufferedWriter(OutputStreamWriter(openFileOutput(name + ".json", MODE_PRIVATE)))
             fos.write(config.toString())
             super.onBackPressed()
         }
