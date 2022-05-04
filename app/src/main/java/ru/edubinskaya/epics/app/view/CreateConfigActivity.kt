@@ -55,6 +55,7 @@ class CreateConfigActivity : AppCompatActivity() {
 
             val fos = BufferedWriter(OutputStreamWriter(openFileOutput(name + ".json", MODE_PRIVATE)))
             fos.write(config.toString())
+            fos.close()
             super.onBackPressed()
         }
     }

@@ -1,6 +1,7 @@
 package ru.edubinskaya.epics.app.configurationModel
 
 import android.view.View
+import java.io.Serializable
 
 class Screen (
     val id: Int,
@@ -8,5 +9,6 @@ class Screen (
     val displayedName: String?,
     val pvName: String,
     var view: View,
-    var mainField: ScreenUnit?
-)
+    var mainField: ScreenUnit?,
+    val root: String
+): Serializable

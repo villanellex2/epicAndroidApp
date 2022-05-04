@@ -44,6 +44,8 @@ class SettingsRecyclerViewAdapter internal constructor(val context: Context?, pr
                     this@SettingsRecyclerViewAdapter.notifyItemRemoved(pos!!)
                 }
 
+                db?.close()
+
                 context?.deleteFile(name + ".json")
             }
 

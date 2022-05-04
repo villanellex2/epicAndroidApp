@@ -18,7 +18,9 @@
             android:layout_weight="1"
             android:hint="@string/file_name"
             android:maxLines="1"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+            android:maxLength="20"/>
 
         <TextView
             android:id="@+id/done"
@@ -38,9 +40,7 @@
         android:autofillHints="{ }"
         android:gravity="top|start"
         android:hint="@string/screens_configuration"
-        android:inputType="text|textMultiLine|textCapSentences"
-        android:padding="10dp"
-        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        android:maxLength="20"/>
+        android:inputType="textMultiLine"
+        android:padding="10dp" />
 
 </LinearLayout>

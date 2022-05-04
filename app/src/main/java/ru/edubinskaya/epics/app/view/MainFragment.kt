@@ -37,12 +37,16 @@ class MainFragment : Fragment() {
     @SuppressLint("RestrictedApi")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initializeRecyclerView()
 
         binding.actionSettings.setOnClickListener {
             val intent = Intent(context, SettingsActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onStart() {
+        initializeRecyclerView()
+        super.onStart()
     }
 
     override fun onDestroyView() {
@@ -63,7 +67,7 @@ class MainFragment : Fragment() {
                     val bundle = Bundle()
                     bundle.putString(PV_NAME_DEVICE_FIELD, device.pvName)
                     bundle.putString(DISPLAYED_NAME_DEVICE_FIELD, device.displayedName)
-                    bundle.putString(TYPE_DEVICE_FIELD, position.toString())
+                    bundle.putSerializable(SERIALIZED_SCREEN_FIELD, adapter.getItem(position))
                     findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
                 }
             }
