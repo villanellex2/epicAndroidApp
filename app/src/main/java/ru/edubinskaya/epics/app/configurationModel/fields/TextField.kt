@@ -4,8 +4,6 @@ import android.app.Activity
 import android.widget.GridLayout
 import android.widget.TextView
 import gov.aps.jca.CAStatus
-import gov.aps.jca.Channel
-import gov.aps.jca.Monitor
 import gov.aps.jca.dbr.*
 import gov.aps.jca.event.MonitorEvent
 import gov.aps.jca.event.MonitorListener
@@ -22,8 +20,8 @@ open class TextField (
     override val monitorListener = DoubleMonitorListener()
     override fun blockInput() {}
 
-    override val pvName: String? = jsonRoot.getString("name")
-    final override var fieldLabel: String? = jsonRoot.getString("name")
+    override val pvName: String? = jsonRoot.getString("pv_name")
+    final override var fieldLabel: String? = jsonRoot.getString("pv_name")
 
     init {
         view = activity?.layoutInflater?.inflate(R.layout.text_field, null) as GridLayout

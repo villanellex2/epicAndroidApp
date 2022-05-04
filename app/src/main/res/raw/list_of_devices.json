@@ -1,18 +1,18 @@
 {
-  "devices": [
+  "screens": [
     {
       "displayed_name": "dev 1",
-      "name": "test",
+      "pv_name": "test",
       "type": "type1"
     },
     {
       "displayed_name": "displayed name2",
-      "name": "test2",
+      "pv_name": "test2",
       "type": "type1"
     },
     {
       "displayed_name": "displayed name3",
-      "name": "poy",
+      "pv_name": "poy",
       "type": "type2"
     },
     {
@@ -26,7 +26,7 @@
     "orientation": "vertical",
     "content": [
       {
-        "name": "prng0:aao",
+        "pv_name": "prng0:aao",
         "type": "GRAPH",
         "label": "numbers",
         "description": "hi pipi"
@@ -35,27 +35,27 @@
         "type": "TEXT_FIELD"
       },
       {
-        "name": "prng0:asddad",
+        "pv_name": "prng0:asddad",
         "type": "TEXT_FIELD"
       },
       {
-        "name": "prng0:bi",
+        "pv_name": "prng0:bi",
         "type": "BOOLEAN_INPUT",
         "width": "match_parent",
         "height": "wrap_content"
       },
       {
-        "name": "prng0:longout",
+        "pv_name": "prng0:longout",
         "type": "TEXT_FIELD",
         "width": "match_parent",
         "height": "wrap_content"
       },
       {
-        "name": "prng0:ao",
+        "pv_name": "prng0:ao",
         "type": "TEXT_INPUT_NUMBER"
       },
       {
-        "name": "prng1",
+        "pv_name": "prng1",
         "type": "TEXT_FIELD"
       },
       {
@@ -63,29 +63,29 @@
         "orientation": "horizontal",
         "content": [
           {
-            "name": "prng2",
+            "pv_name": "prng2",
             "type": "TEXT_FIELD"
           },
           {
-            "name": "conf1",
+            "pv_name": "conf1",
             "type": "TEXT_FIELD"
           }
         ]
       },
       {
-        "name": "conf2",
+        "pv_name": "conf2",
         "type": "TEXT_FIELD"
       },
       {
-        "name": "conf3",
+        "pv_name": "conf3",
         "type": "TEXT_FIELD"
       },
       {
-        "name": "prng0:lsi",
+        "pv_name": "prng0:lsi",
         "type": "TEXT_FIELD"
       },
       {
-        "name": "conf4",
+        "pv_name": "conf4",
         "type": "TEXT_FIELD"
       }
     ]
@@ -95,24 +95,24 @@
     "orientation": "vertical",
     "content": [
       {
-        "name": "prng0:aao",
+        "pv_name": "prng0:aao",
         "type": "GRAPH",
         "label": "numbers"
       },
       {
-        "name": "prng0:bi",
+        "pv_name": "prng0:bi",
         "type": "BOOLEAN_INPUT",
         "width": "match_parent",
         "height": "wrap_content"
       },
       {
-        "name": "prng0:longout",
+        "pv_name": "prng0:longout",
         "type": "TEXT_FIELD",
         "width": "match_parent",
         "height": "wrap_content"
       },
       {
-        "name": "prng0:ao",
+        "pv_name": "prng0:ao",
         "type": "TEXT_INPUT_NUMBER"
       }
     ]

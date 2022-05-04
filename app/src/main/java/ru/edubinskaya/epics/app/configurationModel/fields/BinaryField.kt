@@ -32,8 +32,8 @@ class BinaryField(
         }
     }
 
-    override var fieldLabel: String? = jsonRoot.getString("name")
-    override val pvName: String? = jsonRoot.getString("name")
+    override var fieldLabel: String? = jsonRoot.getString("pv_name")
+    override val pvName: String? = jsonRoot.getString("pv_name")
 
     private val switch: SwitchCompat
     private val stub: SwitchCompat?

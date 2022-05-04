@@ -3,6 +3,7 @@ package ru.edubinskaya.epics.app.config
 import android.app.Activity
 import android.database.Cursor
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.json.JSONException
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.configurationModel.ContainerType
@@ -45,25 +46,38 @@ class ScreenProvider(private val activity: Activity?) {
 
         while (query.moveToNext()) {
             val filename = query.getString(0) + ".json"
-            try {
-                val file = readFile(filename)
-                val jsonRoot = JSONObject(file)
-                val jsonArray = jsonRoot.getJSONArray("devices")
+            val file = readFile(filename)
+            val jsonRoot = JSONObject(file)
 
+            try {
+                val jsonArray = jsonRoot.getJSONArray("screens")
                 for (i in 0 until jsonArray.length()) {
                     val obj = jsonArray.getJSONObject(i)
-                    val device = ScreenInfo(
-                        obj.getString("type"),
-                        obj.getString("displayed_name"),
-                        obj.getString("name"),
-                        filename
-                    )
-                    list.add(device)
+                    try {
+                        val screen = ScreenInfo(
+                            obj.getString("type"),
+                            obj.getString("displayed_name"),
+                            obj.getString("pv_name"), //TODO: this is really bad
+                            filename
+                        )
+                        list.add(screen)
+                    } catch (e: JSONException) {
+                        MaterialAlertDialogBuilder(activity)
+                            .setTitle("Incorrect config: $filename")
+                            .setMessage(e.message + "\n" + obj.toString())
+                            .setPositiveButton("OK") { _, _ -> }
+                            .show()
+                    }
                 }
             } catch (e: JSONException) {
-                e.printStackTrace()
+                MaterialAlertDialogBuilder(activity)
+                    .setTitle("Incorrect config: $filename")
+                    .setMessage("Configuration file should contain field \"screens\"")
+                    .setPositiveButton("OK") { _, _ -> }
+                    .show()
             }
         }
+
         return list
     }
 
@@ -78,8 +92,20 @@ class ScreenProvider(private val activity: Activity?) {
             }
             return sb.toString()
         } catch (e: FileNotFoundException) {
-            e.printStackTrace()
-            //TODO: maybe delete from db? show alert
+            if (activity != null) {
+                MaterialAlertDialogBuilder(activity)
+                    .setTitle("File not found")
+                    .setMessage("Configuration file $filename.json not found")
+                    .setPositiveButton("OK") { _, _ ->
+                        val db = activity.openOrCreateDatabase(
+                            "configuration.db",
+                            AppCompatActivity.MODE_PRIVATE, null
+                        )
+                        db.execSQL("CREATE TABLE IF NOT EXISTS files (fileName TEXT)")
+                        db?.execSQL("DELETE FROM files WHERE (filename = \"$filename\")")
+                    }.show()
+            }
+
         } catch (e: IOException) {
             e.printStackTrace()
         }

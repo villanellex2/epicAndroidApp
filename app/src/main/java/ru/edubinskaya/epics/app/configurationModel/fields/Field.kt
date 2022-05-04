@@ -30,7 +30,6 @@ abstract class Field: ScreenUnit {
 
     private var isIncorrect = false
     private var isConnected = true
-    //TODO: disconnect listener
 
     override fun onDetachView() {
         Thread {

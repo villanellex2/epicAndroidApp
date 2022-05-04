@@ -30,8 +30,8 @@ class GraphField(
     override val monitorListener: MonitorListener = BinaryMonitorListener()
     override fun blockInput() {}
 
-    override var fieldLabel: String? = if (jsonRoot.has("name")) jsonRoot.getString("name") else null
-    override val pvName: String? = jsonRoot.getString("name")
+    override var fieldLabel: String? = if (jsonRoot.has("pv_name")) jsonRoot.getString("pv_name") else null
+    override val pvName: String? = jsonRoot.getString("pv_name")
     private val chart: LineChart
     private val dataSet: LineDataSet
 
