@@ -25,17 +25,13 @@ class GraphField(
     override val jsonRoot: JSONObject,
     override val prefix: String,
     override val activity: Activity?
-) : Field {
+) : Field() {
     override var view = LinearLayout(activity)
     override val monitorListener: MonitorListener = BinaryMonitorListener()
     override fun blockInput() {}
 
-    override var hasDisplayName: Boolean = false
     override var fieldLabel: String? = if (jsonRoot.has("name")) jsonRoot.getString("name") else null
     override val pvName: String? = jsonRoot.getString("name")
-    override var channel: Channel? = null
-    override var descChannel: Channel? = null
-    override var monitor: Monitor? = null
     private val chart: LineChart
     private val dataSet: LineDataSet
 

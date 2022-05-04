@@ -19,15 +19,17 @@ import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.channelaccess.EpicsContext
 import ru.edubinskaya.epics.app.configurationModel.ScreenUnit
 
-interface Field: ScreenUnit {
-    var fieldLabel: String?
-    val pvName: String?
-    var hasDisplayName: Boolean
-    var channel: Channel?
-    var monitor: Monitor?
-    val monitorListener: MonitorListener
-    var descChannel: Channel?
+abstract class Field: ScreenUnit {
+    abstract var fieldLabel: String?
+    abstract val pvName: String?
+    var hasDisplayName: Boolean = false
+    var channel: Channel? = null
+    var monitor: Monitor? = null
+    abstract val monitorListener: MonitorListener
+    var descChannel: Channel? = null
 
+    private var isIncorrect = false
+    private var isConnected = true
     //TODO: disconnect listener
 
     override fun onDetachView() {
@@ -57,27 +59,34 @@ interface Field: ScreenUnit {
     }
 
     fun setConnected(activity: Activity?) {
-        view.background = activity?.let {
-            ContextCompat.getDrawable(
-                it,
-                R.drawable.device_field_background
-            )
+        isConnected = true
+        if (!isIncorrect) {
+            view.background = activity?.let {
+                ContextCompat.getDrawable(
+                    it,
+                    R.drawable.device_field_background
+                )
+            }
         }
     }
 
     fun setDisconnected(activity: Activity?) {
-        view.background = activity?.let {
-            ContextCompat.getDrawable(
-                it,
-                R.drawable.device_field_background_no_connection
-            )
-        }
-        activity?.runOnUiThread {
-            blockInput()
+        isConnected = false
+        if (!isIncorrect) {
+            view.background = activity?.let {
+                ContextCompat.getDrawable(
+                    it,
+                    R.drawable.device_field_background_no_connection
+                )
+            }
+            activity?.runOnUiThread {
+                blockInput()
+            }
         }
     }
 
     fun setIncorrect(activity: Activity?) {
+        isIncorrect = true
         view.background = activity?.let {
             ContextCompat.getDrawable(
                 it,
@@ -86,7 +95,7 @@ interface Field: ScreenUnit {
         }
     }
 
-    fun blockInput()
+    open fun blockInput() {}
 
     fun setLabel(label: String) {
         if (label.isNotEmpty()) {
@@ -132,6 +141,13 @@ interface Field: ScreenUnit {
                         }
                     })
                 }.start()
+            }
+        }
+        channel?.addConnectionListener { connectionEvent ->
+            if (connectionEvent.isConnected) {
+                setConnected(activity)
+            } else {
+                setDisconnected(activity)
             }
         }
     }

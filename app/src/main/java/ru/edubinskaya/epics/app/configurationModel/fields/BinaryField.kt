@@ -21,8 +21,7 @@ class BinaryField(
     override val jsonRoot: JSONObject,
     override val prefix: String,
     override val activity: Activity?
-) : Field {
-    override var hasDisplayName: Boolean = false
+) : Field() {
     override var view = GridLayout(activity)
     override val monitorListener: MonitorListener = BinaryMonitorListener()
 
@@ -35,9 +34,6 @@ class BinaryField(
 
     override var fieldLabel: String? = jsonRoot.getString("name")
     override val pvName: String? = jsonRoot.getString("name")
-    override var descChannel: Channel? = null
-    override var channel: Channel? = null
-    override var monitor: Monitor? = null
 
     private val switch: SwitchCompat
     private val stub: SwitchCompat?

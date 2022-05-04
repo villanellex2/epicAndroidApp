@@ -16,14 +16,10 @@ open class TextField (
     final override val jsonRoot: JSONObject,
     override val prefix: String,
     final override val activity: Activity?
-) : Field {
+) : Field() {
 
-    override var hasDisplayName: Boolean = false
     final override var view = GridLayout(activity)
-    override var monitor: Monitor? = null
-    override var channel: Channel? = null
     override val monitorListener = DoubleMonitorListener()
-    override var descChannel: Channel? = null
     override fun blockInput() {}
 
     override val pvName: String? = jsonRoot.getString("name")
