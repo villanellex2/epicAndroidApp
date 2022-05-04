@@ -10,5 +10,4 @@ class Screen(
     val type get() = info.type
     val displayedName get() = info.displayedName
     val root get() = info.root
-    val pvName get() = info.pvName
 }

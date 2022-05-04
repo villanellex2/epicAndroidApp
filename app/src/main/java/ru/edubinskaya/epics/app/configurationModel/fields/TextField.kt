@@ -12,16 +12,15 @@ import ru.edubinskaya.epics.app.R
 
 open class TextField (
     final override val jsonRoot: JSONObject,
-    override val prefix: String,
-    final override val activity: Activity?
-) : Field() {
+    final override val activity: Activity?,
+    override val screenConfig: JSONObject
+) : Field(jsonRoot, screenConfig) {
 
     final override var view = GridLayout(activity)
     override val monitorListener = DoubleMonitorListener()
     override fun blockInput() {}
 
-    override val pvName: String? = jsonRoot.getString("pv_name")
-    final override var fieldLabel: String? = jsonRoot.getString("pv_name")
+    final override var fieldLabel: String? = pvName
 
     init {
         view = activity?.layoutInflater?.inflate(R.layout.text_field, null) as GridLayout

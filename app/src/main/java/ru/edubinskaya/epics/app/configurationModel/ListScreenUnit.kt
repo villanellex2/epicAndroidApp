@@ -13,8 +13,8 @@ import ru.edubinskaya.epics.app.configurationModel.fields.*
 
 class ListScreenUnit(
     override val jsonRoot: JSONObject,
-    override val prefix: String,
     override val activity: Activity,
+    override val screenConfig: JSONObject,
 ) : ScreenUnit {
     override val view: View
     val children = getSubViewList()
@@ -66,12 +66,12 @@ class ListScreenUnit(
                 val obj = jsonArray.getJSONObject(i)
                 try {
                     val field = when (obj.getString("type")) {
-                        FieldType.TEXT_FIELD.name -> TextField(obj, prefix, activity)
-                        FieldType.TEXT_INPUT_NUMBER.name -> InputTextField(obj, prefix, activity)
-                        FieldType.GRAPH.name -> GraphField(obj, prefix, activity)
-                        FieldType.BOOLEAN_INPUT.name -> BinaryField(true, obj, prefix, activity)
-                        FieldType.BOOLEAN_FIELD.name -> BinaryField(false, obj, prefix, activity)
-                        ContainerType.LIST.name -> ListScreenUnit(obj, prefix, activity)
+                        FieldType.TEXT_FIELD.name -> TextField(obj, activity, screenConfig)
+                        FieldType.TEXT_INPUT_NUMBER.name -> InputTextField(obj, activity, screenConfig)
+                        FieldType.GRAPH.name -> GraphField(obj, activity, screenConfig)
+                        FieldType.BOOLEAN_INPUT.name -> BinaryField(true, obj, activity, screenConfig)
+                        FieldType.BOOLEAN_FIELD.name -> BinaryField(false, obj, activity, screenConfig)
+                        ContainerType.LIST.name -> ListScreenUnit(obj, activity, screenConfig)
                         else -> null
                     }
                     field?.let { listOfFields.add(it) }

@@ -24,15 +24,14 @@ import ru.edubinskaya.epics.app.R
 
 class GraphField(
     override val jsonRoot: JSONObject,
-    override val prefix: String,
-    override val activity: Activity?
-) : Field() {
+    override val activity: Activity?,
+    override val screenConfig: JSONObject
+) : Field(jsonRoot, screenConfig) {
     override var view = LinearLayout(activity)
     override val monitorListener: MonitorListener = BinaryMonitorListener()
     override fun blockInput() {}
 
-    override var fieldLabel: String? = if (jsonRoot.has("pv_name")) jsonRoot.getString("pv_name") else null
-    override val pvName: String? = jsonRoot.getString("pv_name")
+    override var fieldLabel: String? = pvName
     private val chart: LineChart
     private val dataSet: LineDataSet
 

@@ -19,17 +19,33 @@ import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.channelaccess.EpicsContext
 import ru.edubinskaya.epics.app.configurationModel.ScreenUnit
 
-abstract class Field: ScreenUnit {
+abstract class Field(root: JSONObject, config: JSONObject): ScreenUnit {
     abstract var fieldLabel: String?
-    abstract val pvName: String?
+    val pvName: String?
     var hasDisplayName: Boolean = false
     var channel: Channel? = null
-    var monitor: Monitor? = null
+    private var monitor: Monitor? = null
     abstract val monitorListener: MonitorListener
     var descChannel: Channel? = null
 
     private var isIncorrect = false
     private var isConnected = true
+
+    init {
+        val pvName = root.getString("pv_name")
+        if (!pvName.startsWith("$")) {
+            this.pvName = pvName
+        } else {
+            val index = pvName.indexOf(':')
+            if (index == -1) {
+                this.pvName = pvName
+            } else {
+                val prefix = pvName.substring(0, index)
+                val prefixValue = config.getString(prefix)
+                this.pvName = prefixValue + ":" + pvName.substringAfter(":")
+            }
+        }
+    }
 
     override fun onDetachView() {
         Thread {
@@ -119,8 +135,8 @@ abstract class Field: ScreenUnit {
             override fun doInBackground(objects: Array<Any?>): DBR? {
                 try {
                     //TODO: more prefix
-                    channel = EpicsContext.context.createChannel("$prefix:$pvName")
-                    descChannel = EpicsContext.context.createChannel("$prefix:$pvName.DESC")
+                    channel = EpicsContext.context.createChannel("$pvName")
+                    descChannel = EpicsContext.context.createChannel("$pvName.DESC")
                 } catch (th: Throwable) { }
                 return null
             }

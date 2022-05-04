@@ -10,7 +10,7 @@ import org.json.JSONObject
 
 interface ScreenUnit {
     val jsonRoot: JSONObject
-    val prefix: String
+    val screenConfig: JSONObject
     val view: View
     val activity: Activity?
 

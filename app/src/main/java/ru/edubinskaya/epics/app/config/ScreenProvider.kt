@@ -26,8 +26,8 @@ class ScreenProvider(private val activity: Activity?) {
 
         val jsonArray = jsonRoot.getJSONObject(info.type)
         val mainField = when (jsonArray.getString("type")) {
-            ContainerType.LIST.name -> ListScreenUnit(jsonArray, info.pvName, activity)
-            else -> ListScreenUnit(JSONObject(""), info.pvName, activity)
+            ContainerType.LIST.name -> ListScreenUnit(jsonArray, activity, info.jsonObject)
+            else -> ListScreenUnit(JSONObject(""), activity, info.jsonObject)
         }
         return Screen(info, mainField.view, mainField)
     }
@@ -57,8 +57,8 @@ class ScreenProvider(private val activity: Activity?) {
                         val screen = ScreenInfo(
                             obj.getString("type"),
                             obj.getString("displayed_name"),
-                            obj.getString("pv_name"), //TODO: this is really bad
-                            filename
+                            filename,
+                            obj
                         )
                         list.add(screen)
                     } catch (e: JSONException) {

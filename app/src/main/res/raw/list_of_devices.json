@@ -17,7 +17,8 @@
     },
     {
       "displayed_name": "displayed name5",
-      "name": "test2",
+      "$pv": "test",
+      "$pv2": "test2",
       "type": "type4"
     }
   ],
@@ -95,24 +96,24 @@
     "orientation": "vertical",
     "content": [
       {
-        "pv_name": "prng0:aao",
+        "pv_name": "$pv2:prng0:aao",
         "type": "GRAPH",
         "label": "numbers"
       },
       {
-        "pv_name": "prng0:bi",
+        "pv_name": "$pv:prng0:bi",
         "type": "BOOLEAN_INPUT",
         "width": "match_parent",
         "height": "wrap_content"
       },
       {
-        "pv_name": "prng0:longout",
+        "pv_name": "$pv:prng0:longout",
         "type": "TEXT_FIELD",
         "width": "match_parent",
         "height": "wrap_content"
       },
       {
-        "pv_name": "prng0:ao",
+        "pv_name": "$pv:prng0:ao",
         "type": "TEXT_INPUT_NUMBER"
       }
     ]

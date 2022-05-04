@@ -19,9 +19,9 @@ import ru.edubinskaya.epics.app.channelaccess.EpicsContext
 class BinaryField(
     private val isActive: Boolean,
     override val jsonRoot: JSONObject,
-    override val prefix: String,
-    override val activity: Activity?
-) : Field() {
+    override val activity: Activity?,
+    override val screenConfig: JSONObject
+) : Field(jsonRoot, screenConfig) {
     override var view = GridLayout(activity)
     override val monitorListener: MonitorListener = BinaryMonitorListener()
 
@@ -32,8 +32,7 @@ class BinaryField(
         }
     }
 
-    override var fieldLabel: String? = jsonRoot.getString("pv_name")
-    override val pvName: String? = jsonRoot.getString("pv_name")
+    override var fieldLabel: String? = pvName
 
     private val switch: SwitchCompat
     private val stub: SwitchCompat?
