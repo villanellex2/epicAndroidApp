@@ -14,12 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EpicAndroidApp">
         <activity
-            android:name=".view.SettingsActivity"
+            android:name=".view.settings.SettingsActivity"
             android:exported="true"
             android:label="@string/title_activity_settings"
             android:theme="@style/Theme.EpicAndroidApp.NoActionBar"/>
         <activity
-            android:name=".view.CreateConfigActivity"
+            android:name=".view.settings.CreateConfigActivity"
+            android:exported="true"
+            android:theme="@style/Theme.EpicAndroidApp.NoActionBar"/>
+        <activity
+            android:name=".view.settings.EditConfigActivity"
             android:exported="true"
             android:theme="@style/Theme.EpicAndroidApp.NoActionBar"/>
         <activity

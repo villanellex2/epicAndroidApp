@@ -1,11 +1,16 @@
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.edubinskaya.epics.app.R
+import ru.edubinskaya.epics.app.view.settings.CreateConfigActivity
+import ru.edubinskaya.epics.app.view.settings.EDIT_FILE
+import ru.edubinskaya.epics.app.view.settings.EditConfigActivity
 
 
 class SettingsRecyclerViewAdapter internal constructor(val context: Context?, private val data: ArrayList<String>) :
@@ -50,7 +55,9 @@ class SettingsRecyclerViewAdapter internal constructor(val context: Context?, pr
             }
 
             edit.setOnClickListener {
-                //todo
+                val intent = Intent(context, EditConfigActivity::class.java)
+                intent.putExtra(EDIT_FILE, deviceName.text.toString())
+                context?.startActivity(intent)
             }
         }
     }

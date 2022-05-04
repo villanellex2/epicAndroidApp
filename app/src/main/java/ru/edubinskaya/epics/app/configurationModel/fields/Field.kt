@@ -20,7 +20,8 @@ import ru.edubinskaya.epics.app.channelaccess.EpicsContext
 import ru.edubinskaya.epics.app.configurationModel.ScreenUnit
 
 interface Field: ScreenUnit {
-    var fieldLable: String?
+    var fieldLabel: String?
+    val pvName: String?
     var hasDisplayName: Boolean
     var channel: Channel?
     var monitor: Monitor?
@@ -50,7 +51,7 @@ interface Field: ScreenUnit {
 
     fun setIncorrectPvType(activity: Activity?) {
         setIncorrect(activity)
-        Toast.makeText(activity, "Incorrect PV type for field $fieldLable", Toast.LENGTH_LONG)
+        Toast.makeText(activity, "Incorrect PV type for field $fieldLabel", Toast.LENGTH_LONG)
             .show()
         onDetachView()
     }
@@ -89,8 +90,10 @@ interface Field: ScreenUnit {
 
     fun setLabel(label: String) {
         if (label.isNotEmpty()) {
-            fieldLable = label
-            view.findViewById<TextView>(R.id.item_name).text = fieldLable
+            activity?.runOnUiThread {
+                fieldLabel = label
+                view.findViewById<TextView>(R.id.item_name).text = fieldLabel
+            }
         }
     }
 
@@ -108,8 +111,8 @@ interface Field: ScreenUnit {
             override fun doInBackground(objects: Array<Any?>): DBR? {
                 try {
                     //TODO: more prefix
-                    channel = EpicsContext.context.createChannel("$prefix:$fieldLable")
-                    descChannel = EpicsContext.context.createChannel("$prefix:$fieldLable.DESC")
+                    channel = EpicsContext.context.createChannel("$prefix:$pvName")
+                    descChannel = EpicsContext.context.createChannel("$prefix:$pvName.DESC")
                 } catch (th: Throwable) { }
                 return null
             }

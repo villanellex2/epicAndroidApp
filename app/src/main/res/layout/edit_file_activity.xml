@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@drawable/device_field_background_white">
+
+        <TextView
+            android:id="@+id/filename"
+            style="@style/Text.Label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|start"
+            android:layout_weight="1"
+            android:hint="@string/file_name"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:maxLength="20"/>
+
+        <TextView
+            android:id="@+id/done"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/ic_done" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/blue_200"/>
+
+    <EditText
+        android:id="@+id/config"
+        style="@style/Text.Label"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:autofillHints="{ }"
+        android:gravity="top|start"
+        android:hint="@string/screens_configuration"
+        android:inputType="textMultiLine"
+        android:padding="10dp" />
+
+</LinearLayout>

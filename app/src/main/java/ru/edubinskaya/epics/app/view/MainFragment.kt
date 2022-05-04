@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.config.ScreenProvider
 import ru.edubinskaya.epics.app.databinding.FragmentFirstBinding
-import ru.edubinskaya.epics.app.configurationModel.Screen
 import ru.edubinskaya.epics.app.configurationModel.ScreenInfo
+import ru.edubinskaya.epics.app.view.settings.SettingsActivity
 
 
 /**
@@ -64,10 +64,7 @@ class MainFragment : Fragment() {
         adapter.setClickListener(
             object : ListOfDevicesRecyclerViewAdapter.ItemClickListener{
                 override fun onItemClick(view: View?, position: Int) {
-                    val screen = adapter.getItem(position)
                     val bundle = Bundle()
-                    bundle.putString(PV_NAME_DEVICE_FIELD, screen.pvName)
-                    bundle.putString(DISPLAYED_NAME_DEVICE_FIELD, screen.displayedName)
                     bundle.putSerializable(SERIALIZED_SCREEN_FIELD, adapter.getItem(position))
                     findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
                 }

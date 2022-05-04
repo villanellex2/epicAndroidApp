@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.view
+package ru.edubinskaya.epics.app.view.settings
 
 import SettingsRecyclerViewAdapter
 import android.content.Intent

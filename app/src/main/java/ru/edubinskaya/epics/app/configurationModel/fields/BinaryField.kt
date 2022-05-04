@@ -33,7 +33,8 @@ class BinaryField(
         }
     }
 
-    override var fieldLable: String? = jsonRoot.getString("name")
+    override var fieldLabel: String? = jsonRoot.getString("name")
+    override val pvName: String? = jsonRoot.getString("name")
     override var descChannel: Channel? = null
     override var channel: Channel? = null
     override var monitor: Monitor? = null
@@ -55,10 +56,10 @@ class BinaryField(
             switch.isClickable = false
         }
 
-        if (fieldLable != null) {
+        if (fieldLabel != null) {
             setDisplayName(jsonRoot)
             if (!hasDisplayName) {
-                view.findViewById<TextView>(R.id.item_name).text = fieldLable
+                view.findViewById<TextView>(R.id.item_name).text = fieldLabel
             }
             initializeChannel()
         }

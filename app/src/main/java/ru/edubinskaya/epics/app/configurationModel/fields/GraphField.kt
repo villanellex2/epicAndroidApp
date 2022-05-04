@@ -31,7 +31,8 @@ class GraphField(
     override fun blockInput() {}
 
     override var hasDisplayName: Boolean = false
-    override var fieldLable: String? = if (jsonRoot.has("name")) jsonRoot.getString("name") else null
+    override var fieldLabel: String? = if (jsonRoot.has("name")) jsonRoot.getString("name") else null
+    override val pvName: String? = jsonRoot.getString("name")
     override var channel: Channel? = null
     override var descChannel: Channel? = null
     override var monitor: Monitor? = null
@@ -41,10 +42,10 @@ class GraphField(
     init {
         view = activity?.layoutInflater?.inflate(R.layout.field_graph, null) as LinearLayout
 
-        if (fieldLable != null) {
+        if (fieldLabel != null) {
             setDisplayName(jsonRoot)
             if (!hasDisplayName) {
-                view.findViewById<TextView>(R.id.item_name).text = fieldLable
+                view.findViewById<TextView>(R.id.item_name).text = fieldLabel
             }
             initializeChannel()
         }

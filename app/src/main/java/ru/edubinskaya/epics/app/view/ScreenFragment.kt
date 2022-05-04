@@ -18,8 +18,6 @@ import ru.edubinskaya.epics.app.configurationModel.Screen
 import ru.edubinskaya.epics.app.configurationModel.ScreenInfo
 
 const val SERIALIZED_SCREEN_FIELD = "screen"
-const val PV_NAME_DEVICE_FIELD = "pv_name"
-const val DISPLAYED_NAME_DEVICE_FIELD = "displayed_name"
 
 class SecondFragment : Fragment() {
 
@@ -43,6 +41,7 @@ class SecondFragment : Fragment() {
         try {
             screen = arguments?.getSerializable(SERIALIZED_SCREEN_FIELD)
                 ?.let { screenProvider!!.getScreenFields(it as ScreenInfo) }
+
             binding?.mainView?.addView(screen!!.view)
         } catch (e: JSONException) {
             activity?.let {

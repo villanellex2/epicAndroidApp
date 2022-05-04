@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.view
+package ru.edubinskaya.epics.app.view.settings
 
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
