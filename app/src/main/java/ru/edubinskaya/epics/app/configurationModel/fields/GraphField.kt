@@ -1,7 +1,6 @@
 package ru.edubinskaya.epics.app.configurationModel.fields
 
 import android.app.Activity
-import android.graphics.Color
 import android.widget.GridLayout
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -16,7 +15,8 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import gov.aps.jca.Channel
 import gov.aps.jca.Monitor
 import gov.aps.jca.dbr.*
-import gov.aps.jca.event.*
+import gov.aps.jca.event.MonitorEvent
+import gov.aps.jca.event.MonitorListener
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
 
@@ -54,9 +54,10 @@ class GraphField(
 
         val values: ArrayList<Entry> = ArrayList()
         dataSet = if (jsonRoot.has("label")) {
-            LineDataSet(values, jsonRoot.getString("label")) }
-        else {
-            LineDataSet(values, "DataSet 1") }
+            LineDataSet(values, jsonRoot.getString("label"))
+        } else {
+            LineDataSet(values, "DataSet 1")
+        }
 
         if (jsonRoot.has("description")) {
             chart.description = Description()
@@ -65,21 +66,27 @@ class GraphField(
         } else {
             chart.description.isEnabled = false
         }
+
+        dataSet.setDrawFilled(false)
         dataSet.setDrawIcons(false)
-        dataSet.color = Color.BLACK
-        dataSet.setCircleColor(Color.BLACK)
+        dataSet.color = ContextCompat.getColor(activity, R.color.blue_200)
+        dataSet.setCircleColor(ContextCompat.getColor(activity, R.color.blue_200))
 
         dataSet.lineWidth = 1f
         dataSet.circleRadius = 3f
 
-        dataSet.setDrawCircleHole(false)
+        dataSet.setDrawCircleHole(true)
 
         dataSet.formLineWidth = 1f
         dataSet.formSize = 15f
 
-        chart.isDragEnabled = true
         chart.isAutoScaleMinMaxEnabled = true
+
+        chart.setTouchEnabled(true)
+        chart.setDragEnabled(true)
         chart.setScaleEnabled(true)
+        chart.setPinchZoom(true)
+
         dataSet.valueTextSize = 12f
 
         dataSet.setDrawFilled(true)
@@ -87,10 +94,14 @@ class GraphField(
 
         val dataSets: ArrayList<ILineDataSet> = ArrayList()
         dataSets.add(dataSet)
-
         val data = LineData(dataSets)
 
         chart.data = data
+        chart.data.isHighlightEnabled = false
+
+        data.notifyDataChanged()
+        chart.notifyDataSetChanged()
+        chart.invalidate()
 
         setViewLayoutParams()
     }
@@ -100,17 +111,41 @@ class GraphField(
         override fun monitorChanged(event: MonitorEvent) {
             activity?.runOnUiThread {
                 if (event.status.isSuccessful) {
-                    val set = ArrayList<Entry>()
+                    val dataSet = chart.data.dataSets[0] as LineDataSet
+                    val index = dataSet.values.size - 1
+                    for (i in 0..index) {
+                        dataSet.values.removeFirst()
+                    }
                     val point = ContextCompat.getDrawable(activity, android.R.drawable.alert_dark_frame)
                     when (event.dbr.type) {
-                        DBRType.DOUBLE -> (event.dbr as DOUBLE).doubleValue.forEachIndexed { index, d ->  set.add(Entry(index.toFloat(), d.toFloat(), point))}
-                        DBRType.BYTE -> (event.dbr as BYTE).byteValue.forEachIndexed { index, d ->  set.add(Entry(index.toFloat(), d.toFloat(), point))}
-                        DBRType.FLOAT -> (event.dbr as FLOAT).floatValue.forEachIndexed { index, d ->  set.add(Entry(index.toFloat(), d.toFloat(), point))}
-                        DBRType.SHORT -> (event.dbr as SHORT).shortValue.forEachIndexed { index, d ->  set.add(Entry(index.toFloat(), d.toFloat(), point))}
-                        DBRType.INT -> (event.dbr as INT).intValue.forEachIndexed { index, d ->  set.add(Entry(index.toFloat(), d.toFloat(), point))}
+                        DBRType.DOUBLE -> (event.dbr as DOUBLE).doubleValue.forEachIndexed { index, d ->
+                            dataSet.values.add(Entry(index.toFloat(), d.toFloat(), point))
+                            chart.data.notifyDataChanged()
+                        }
+                        DBRType.BYTE -> (event.dbr as BYTE).byteValue.forEachIndexed { index, d ->
+                            dataSet.values.add(Entry(index.toFloat(), d.toFloat(), point))
+                            chart.data.notifyDataChanged()
+                        }
+                        DBRType.FLOAT -> (event.dbr as FLOAT).floatValue.forEachIndexed { index, d ->
+                            dataSet.values.add(Entry(index.toFloat(), d.toFloat(), point))
+                            chart.data.notifyDataChanged()
+                        }
+                        DBRType.SHORT -> (event.dbr as SHORT).shortValue.forEachIndexed { index, d ->
+                            dataSet.values.add(Entry(index.toFloat(), d.toFloat(), point))
+                            chart.data.notifyDataChanged()
+                        }
+                        DBRType.INT -> (event.dbr as INT).intValue.forEachIndexed { index, d ->
+                            dataSet.values.add(Entry(index.toFloat(), d.toFloat(), point))
+                            chart.data.notifyDataChanged()
+                        }
                     }
-                    dataSet.values = set
-                    dataSet.notifyDataSetChanged()
+
+                    activity.runOnUiThread {
+                        dataSet.notifyDataSetChanged()
+                        chart.data.notifyDataChanged()
+                        chart.notifyDataSetChanged()
+                        chart.invalidate()
+                    }
                 }
             }
         }
