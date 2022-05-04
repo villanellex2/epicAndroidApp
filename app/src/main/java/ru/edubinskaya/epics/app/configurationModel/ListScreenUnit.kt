@@ -56,6 +56,8 @@ class ListScreenUnit(
 
     override fun createMonitor() = children.forEach { child -> child.createMonitor() }
 
+    override fun onChannelCreated()  = children.forEach { child -> child.onChannelCreated()}
+
     private fun getSubViewList(): List<ScreenUnit> {
         val listOfFields = ArrayList<ScreenUnit>()
         try {

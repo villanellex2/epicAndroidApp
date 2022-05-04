@@ -22,8 +22,10 @@ class BinaryField(
     override val prefix: String,
     override val activity: Activity?
 ) : Field {
+    override var hasDisplayName: Boolean = false
     override var view = GridLayout(activity)
     override val monitorListener: MonitorListener = BinaryMonitorListener()
+
     override fun blockInput() {
         if (isActive) {
             stub?.visibility = View.VISIBLE
@@ -31,7 +33,7 @@ class BinaryField(
         }
     }
 
-    override val fieldName: String? = jsonRoot.getString("name")
+    override var fieldLable: String? = jsonRoot.getString("name")
     override var descChannel: Channel? = null
     override var channel: Channel? = null
     override var monitor: Monitor? = null
@@ -53,8 +55,11 @@ class BinaryField(
             switch.isClickable = false
         }
 
-        if (fieldName != null) {
-            view.findViewById<TextView>(R.id.item_name).text = fieldName
+        if (fieldLable != null) {
+            setDisplayName(jsonRoot)
+            if (!hasDisplayName) {
+                view.findViewById<TextView>(R.id.item_name).text = fieldLable
+            }
             initializeChannel()
         }
 

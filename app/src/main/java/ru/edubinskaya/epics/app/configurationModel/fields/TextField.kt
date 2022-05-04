@@ -17,6 +17,8 @@ open class TextField (
     override val prefix: String,
     final override val activity: Activity?
 ) : Field {
+
+    override var hasDisplayName: Boolean = false
     final override var view = GridLayout(activity)
     override var monitor: Monitor? = null
     override var channel: Channel? = null
@@ -24,7 +26,7 @@ open class TextField (
     override var descChannel: Channel? = null
     override fun blockInput() {}
 
-    final override val fieldName: String? = jsonRoot.getString("name")
+    final override var fieldLable: String? = jsonRoot.getString("name")
 
     init {
         view = activity?.layoutInflater?.inflate(R.layout.text_field, null) as GridLayout
@@ -32,8 +34,11 @@ open class TextField (
     }
 
     fun prepareLayout() {
-        if (fieldName != null) {
-            view.findViewById<TextView>(R.id.item_name).text = fieldName
+        if (fieldLable != null) {
+            setDisplayName(jsonRoot)
+            if (!hasDisplayName) {
+                view.findViewById<TextView>(R.id.item_name).text = fieldLable
+            }
             initializeChannel()
         }
 
@@ -54,6 +59,8 @@ open class TextField (
                     if (text != null) {
                         view.findViewById<TextView>(R.id.item_value).text = text
                         setConnected(activity)
+                        view.invalidate()
+                        view.requestFocus()
                     } else {
                         setIncorrectPvType(activity)
                     }

@@ -1,14 +1,14 @@
 package ru.edubinskaya.epics.app.configurationModel
 
 import android.view.View
-import java.io.Serializable
 
-class Screen (
-    val id: Int,
-    val type: String?,
-    val displayedName: String?,
-    val pvName: String,
+class Screen(
+    private val info: ScreenInfo,
     var view: View,
-    var mainField: ScreenUnit?,
-    val root: String
-): Serializable
+    var mainField: ScreenUnit?
+) {
+    val type get() = info.type
+    val displayedName get() = info.displayedName
+    val root get() = info.root
+    val pvName get() = info.pvName
+}

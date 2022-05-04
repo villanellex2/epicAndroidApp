@@ -6,9 +6,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.configurationModel.Screen
+import ru.edubinskaya.epics.app.configurationModel.ScreenInfo
 
 
-class ListOfDevicesRecyclerViewAdapter internal constructor(context: Context?, private val data: List<Screen>) :
+class ListOfDevicesRecyclerViewAdapter internal constructor(context: Context?, private val data: List<ScreenInfo>) :
     RecyclerView.Adapter<ListOfDevicesRecyclerViewAdapter.ViewHolder>() {
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
     private var mClickListener: ItemClickListener? = null
@@ -39,7 +40,7 @@ class ListOfDevicesRecyclerViewAdapter internal constructor(context: Context?, p
         }
     }
 
-    fun getItem(id: Int): Screen {
+    fun getItem(id: Int): ScreenInfo {
         return data[id]
     }
 

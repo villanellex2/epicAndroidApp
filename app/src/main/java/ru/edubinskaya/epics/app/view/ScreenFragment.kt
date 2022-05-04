@@ -15,6 +15,7 @@ import ru.edubinskaya.epics.app.channelaccess.EpicsContext
 import ru.edubinskaya.epics.app.config.ScreenProvider
 import ru.edubinskaya.epics.app.databinding.ScreenViewBinding
 import ru.edubinskaya.epics.app.configurationModel.Screen
+import ru.edubinskaya.epics.app.configurationModel.ScreenInfo
 
 const val SERIALIZED_SCREEN_FIELD = "screen"
 const val PV_NAME_DEVICE_FIELD = "pv_name"
@@ -41,7 +42,7 @@ class SecondFragment : Fragment() {
         screenProvider = ScreenProvider(activity)
         try {
             screen = arguments?.getSerializable(SERIALIZED_SCREEN_FIELD)
-                ?.let { screenProvider!!.getScreenFields(it as Screen) }
+                ?.let { screenProvider!!.getScreenFields(it as ScreenInfo) }
             binding?.mainView?.addView(screen!!.view)
         } catch (e: JSONException) {
             activity?.let {
@@ -78,13 +79,22 @@ class SecondFragment : Fragment() {
         override fun doInBackground(vararg params: Any?): Any? {
             try { EpicsContext.context.pendIO(5.0) } catch (e: Exception) {}
             screen?.mainField?.createMonitor()
-            try { EpicsContext.context.pendIO(5.0) } catch (e: Exception) {}
+            try { EpicsContext.context.pendIO(2.0) } catch (e: Exception) {}
             return null
         }
 
         override fun onPostExecute(result: Any?) {
             super.onPostExecute(result)
             binding?.animationView?.visibility = View.GONE
+            DescriptionAsync().execute()
+        }
+    }
+
+    inner class DescriptionAsync(): AsyncTask<Any, Any, Any>() {
+        override fun doInBackground(vararg params: Any?): Any? {
+            screen?.mainField?.onChannelCreated()
+            try { EpicsContext.context.pendIO(2.0) } catch (e: Exception) {}
+            return null
         }
     }
 }

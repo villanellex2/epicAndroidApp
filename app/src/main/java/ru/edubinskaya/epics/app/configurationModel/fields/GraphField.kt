@@ -30,7 +30,8 @@ class GraphField(
     override val monitorListener: MonitorListener = BinaryMonitorListener()
     override fun blockInput() {}
 
-    override val fieldName: String? = if (jsonRoot.has("name")) jsonRoot.getString("name") else null
+    override var hasDisplayName: Boolean = false
+    override var fieldLable: String? = if (jsonRoot.has("name")) jsonRoot.getString("name") else null
     override var channel: Channel? = null
     override var descChannel: Channel? = null
     override var monitor: Monitor? = null
@@ -40,8 +41,11 @@ class GraphField(
     init {
         view = activity?.layoutInflater?.inflate(R.layout.field_graph, null) as LinearLayout
 
-        if (fieldName != null) {
-            view.findViewById<TextView>(R.id.item_name).text = fieldName
+        if (fieldLable != null) {
+            setDisplayName(jsonRoot)
+            if (!hasDisplayName) {
+                view.findViewById<TextView>(R.id.item_name).text = fieldLable
+            }
             initializeChannel()
         }
 
@@ -67,13 +71,12 @@ class GraphField(
             chart.description.isEnabled = false
         }
 
-        dataSet.setDrawFilled(false)
         dataSet.setDrawIcons(false)
         dataSet.color = ContextCompat.getColor(activity, R.color.blue_200)
         dataSet.setCircleColor(ContextCompat.getColor(activity, R.color.blue_200))
 
-        dataSet.lineWidth = 1f
-        dataSet.circleRadius = 3f
+        dataSet.lineWidth = 2f
+        dataSet.circleRadius = 3.5f
 
         dataSet.setDrawCircleHole(true)
 
@@ -89,7 +92,7 @@ class GraphField(
 
         dataSet.valueTextSize = 12f
 
-        dataSet.setDrawFilled(true)
+        dataSet.setDrawFilled(false)
         dataSet.fillFormatter = IFillFormatter { _, _ -> chart.axisLeft.axisMinimum }
 
         val dataSets: ArrayList<ILineDataSet> = ArrayList()

@@ -2,13 +2,13 @@ package ru.edubinskaya.epics.app.config
 
 import android.app.Activity
 import android.database.Cursor
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import org.json.JSONException
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.configurationModel.ContainerType
 import ru.edubinskaya.epics.app.configurationModel.ListScreenUnit
 import ru.edubinskaya.epics.app.configurationModel.Screen
+import ru.edubinskaya.epics.app.configurationModel.ScreenInfo
 import java.io.BufferedReader
 import java.io.FileNotFoundException
 import java.io.IOException
@@ -16,24 +16,22 @@ import java.io.InputStreamReader
 
 
 class ScreenProvider(private val activity: Activity?) {
-    val screenList: List<Screen> = getScreens()
+    val screenList: List<ScreenInfo> get() = getScreens()
 
     @Throws
-    fun getScreenFields(screen: Screen): Screen? {
+    fun getScreenFields(info: ScreenInfo): Screen? {
         if (activity == null) return null
-        val jsonRoot = JSONObject(readFile(screen.root))
+        val jsonRoot = JSONObject(readFile(info.root))
 
-        val jsonArray = jsonRoot.getJSONObject(screen.type)
+        val jsonArray = jsonRoot.getJSONObject(info.type)
         val mainField = when (jsonArray.getString("type")) {
-            ContainerType.LIST.name -> ListScreenUnit(jsonArray, screen.pvName, activity)
-            else -> ListScreenUnit(JSONObject(""), screen.pvName, activity)
+            ContainerType.LIST.name -> ListScreenUnit(jsonArray, info.pvName, activity)
+            else -> ListScreenUnit(JSONObject(""), info.pvName, activity)
         }
-        screen.view = mainField?.view!!
-        screen.mainField = mainField
-        return screen
+        return Screen(info, mainField.view, mainField)
     }
 
-    private fun getScreens(): List<Screen> {
+    private fun getScreens(): List<ScreenInfo> {
         if (activity == null) return emptyList()
 
         val db = activity.openOrCreateDatabase(
@@ -43,7 +41,7 @@ class ScreenProvider(private val activity: Activity?) {
         db.execSQL("CREATE TABLE IF NOT EXISTS files (fileName TEXT)")
 
         val query: Cursor = db.rawQuery("SELECT * FROM files;", null)
-        val list = ArrayList<Screen>()
+        val list = ArrayList<ScreenInfo>()
 
         while (query.moveToNext()) {
             val filename = query.getString(0) + ".json"
@@ -54,13 +52,10 @@ class ScreenProvider(private val activity: Activity?) {
 
                 for (i in 0 until jsonArray.length()) {
                     val obj = jsonArray.getJSONObject(i)
-                    val device = Screen(
-                        i,
+                    val device = ScreenInfo(
                         obj.getString("type"),
                         obj.getString("displayed_name"),
                         obj.getString("name"),
-                        LinearLayout(activity),
-                        null,
                         filename
                     )
                     list.add(device)

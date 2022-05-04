@@ -41,6 +41,8 @@ interface ScreenUnit {
 
     fun createMonitor()
 
+    fun onChannelCreated()
+
     fun pxToDp(px: Int?): Int {
         if (px == null) return 0
         return if (activity != null) {

@@ -15,6 +15,7 @@ import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.config.ScreenProvider
 import ru.edubinskaya.epics.app.databinding.FragmentFirstBinding
 import ru.edubinskaya.epics.app.configurationModel.Screen
+import ru.edubinskaya.epics.app.configurationModel.ScreenInfo
 
 
 /**
@@ -24,7 +25,7 @@ class MainFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
     private val binding get() = _binding!!
-    private lateinit var listOfScreen: List<Screen>
+    private lateinit var listOfScreen: List<ScreenInfo>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,10 +64,10 @@ class MainFragment : Fragment() {
         adapter.setClickListener(
             object : ListOfDevicesRecyclerViewAdapter.ItemClickListener{
                 override fun onItemClick(view: View?, position: Int) {
-                    val device = adapter.getItem(position)
+                    val screen = adapter.getItem(position)
                     val bundle = Bundle()
-                    bundle.putString(PV_NAME_DEVICE_FIELD, device.pvName)
-                    bundle.putString(DISPLAYED_NAME_DEVICE_FIELD, device.displayedName)
+                    bundle.putString(PV_NAME_DEVICE_FIELD, screen.pvName)
+                    bundle.putString(DISPLAYED_NAME_DEVICE_FIELD, screen.displayedName)
                     bundle.putSerializable(SERIALIZED_SCREEN_FIELD, adapter.getItem(position))
                     findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
                 }
