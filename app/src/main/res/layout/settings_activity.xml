@@ -13,6 +13,11 @@
         android:text="@string/action_settings"
         android:padding="10dp"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/field_color_primary"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,10 +30,12 @@
 
             <TextView
                 android:id="@+id/add_file"
-                style="@style/Text.Label"
+                style="@style/Text.SettingsTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
                 android:text="@string/configuration" />
 
 
@@ -46,8 +53,9 @@
                 android:text="@string/create_file"
                 style="@style/Text.Label"
                 android:padding="5dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/device_field_background" />
+                android:layout_marginRight="10dp"
+                android:layout_gravity="right"
+                android:drawableEnd="@drawable/ic_add"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

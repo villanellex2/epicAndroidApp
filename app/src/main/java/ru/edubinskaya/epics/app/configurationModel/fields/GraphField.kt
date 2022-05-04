@@ -1,6 +1,7 @@
 package ru.edubinskaya.epics.app.configurationModel.fields
 
 import android.app.Activity
+import android.util.Log
 import android.widget.GridLayout
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -135,6 +136,7 @@ class GraphField(
                             chart.data.notifyDataChanged()
                         }
                         DBRType.INT -> (event.dbr as INT).intValue.forEachIndexed { index, d ->
+                            Log.d("hi?", d.toString())
                             dataSet.values.add(Entry(index.toFloat(), d.toFloat(), point))
                             chart.data.notifyDataChanged()
                         }

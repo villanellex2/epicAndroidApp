@@ -46,6 +46,7 @@
         android:gravity="top|start"
         android:hint="@string/screens_configuration"
         android:inputType="textMultiLine"
-        android:padding="10dp" />
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"/>
 
 </LinearLayout>
