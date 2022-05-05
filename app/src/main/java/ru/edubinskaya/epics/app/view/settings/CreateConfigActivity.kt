@@ -7,6 +7,8 @@ import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import org.json.JSONException
+import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
 import java.io.BufferedWriter
 import java.io.OutputStreamWriter
@@ -35,7 +37,7 @@ class CreateConfigActivity : AppCompatActivity() {
         }
     }
 
-    fun saveFile() {
+    private fun saveFile() {
         val name = this.name.replace(" ", "_")
         if (isExist(name)) {
             MaterialAlertDialogBuilder(this).setTitle("Can't save file")
@@ -50,13 +52,28 @@ class CreateConfigActivity : AppCompatActivity() {
                 .setPositiveButton("Change name") { _, _ -> }
                 .show()
         } else {
-            db?.execSQL("INSERT OR IGNORE INTO files VALUES (\"$name\")")
-            val config = findViewById<EditText>(R.id.config).text
+            saveIfJsonCorrect(findViewById<EditText>(R.id.config).text.toString())
+        }
+    }
 
+    private fun saveIfJsonCorrect(config: String) {
+        try {
+            val json = JSONObject(config)
+            val screens = json.getJSONArray("screens")
+            val templates = json.getJSONObject("templates")
+
+            db?.execSQL("INSERT OR IGNORE INTO files VALUES (\"$name\")")
             val fos = BufferedWriter(OutputStreamWriter(openFileOutput(name + ".json", MODE_PRIVATE)))
             fos.write(config.toString())
             fos.close()
+
             super.onBackPressed()
+        } catch (e: JSONException) {
+            MaterialAlertDialogBuilder(this)
+                .setTitle("Incorrect configuration")
+                .setMessage(e.message)
+                .setPositiveButton("EDIT CONFIGURATION") {_,_ -> }
+                .show()
         }
     }
 
@@ -68,10 +85,10 @@ class CreateConfigActivity : AppCompatActivity() {
             .show()
     }
 
-    fun isExist(name: String): Boolean {
+    private fun isExist(name: String): Boolean {
         if (db == null) return true // TODO
         val query: Cursor = db!!.rawQuery("SELECT * FROM files WHERE (filename = \"$name\");", null)
-        val res = query?.count > 0
+        val res = query.count > 0
         query.close()
         return res
     }

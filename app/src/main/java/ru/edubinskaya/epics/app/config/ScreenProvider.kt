@@ -24,10 +24,11 @@ class ScreenProvider(private val activity: Activity?) {
         if (activity == null) return null
         val jsonRoot = JSONObject(readFile(info.root))
 
-        val jsonArray = jsonRoot.getJSONObject(info.type)
+        val jsonArray = jsonRoot.getJSONObject("templates").getJSONObject(info.type)
         val mainField = when (jsonArray.getString("type")) {
-            ContainerType.LIST.name -> ListScreenUnit(jsonArray, activity, info.jsonObject)
-            else -> ListScreenUnit(JSONObject(""), activity, info.jsonObject)
+            ContainerType.LIST.name -> ListScreenUnit(jsonArray, activity, JSONObject(info.jsonObject))
+            //TODO -> graph
+            else -> ListScreenUnit(JSONObject(""), activity, JSONObject(info.jsonObject).getJSONObject("templates"))
         }
         return Screen(info, mainField.view, mainField)
     }
@@ -47,9 +48,8 @@ class ScreenProvider(private val activity: Activity?) {
         while (query.moveToNext()) {
             val filename = query.getString(0) + ".json"
             val file = readFile(filename)
-            val jsonRoot = JSONObject(file)
-
             try {
+                val jsonRoot = JSONObject(file)
                 val jsonArray = jsonRoot.getJSONArray("screens")
                 for (i in 0 until jsonArray.length()) {
                     val obj = jsonArray.getJSONObject(i)
@@ -58,7 +58,7 @@ class ScreenProvider(private val activity: Activity?) {
                             obj.getString("type"),
                             obj.getString("displayed_name"),
                             filename,
-                            obj
+                            obj.toString()
                         )
                         list.add(screen)
                     } catch (e: JSONException) {
@@ -72,7 +72,7 @@ class ScreenProvider(private val activity: Activity?) {
             } catch (e: JSONException) {
                 MaterialAlertDialogBuilder(activity)
                     .setTitle("Incorrect config: $filename")
-                    .setMessage("Configuration file should contain field \"screens\"")
+                    .setMessage(e.message)
                     .setPositiveButton("OK") { _, _ -> }
                     .show()
             }

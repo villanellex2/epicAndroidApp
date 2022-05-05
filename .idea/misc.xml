@@ -6,11 +6,12 @@
         <entry key="../../../../layout/custom_preview.xml" value="0.21302083333333333" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/animation_background.xml" value="0.322" />
-        <entry key="app/src/main/res/drawable/device_field_background.xml" value="0.371875" />
+        <entry key="app/src/main/res/drawable/device_field_background.xml" value="0.22" />
         <entry key="app/src/main/res/drawable/device_field_background_icorrect_type.xml" value="0.249" />
         <entry key="app/src/main/res/drawable/device_field_background_no_connection.xml" value="0.1575" />
         <entry key="app/src/main/res/drawable/device_field_background_white.xml" value="0.1495" />
         <entry key="app/src/main/res/drawable/edit_text_background.xml" value="0.1865" />
+        <entry key="app/src/main/res/drawable/ic_add.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.1865" />
         <entry key="app/src/main/res/drawable/ic_done.xml" value="0.1865" />
         <entry key="app/src/main/res/drawable/ic_edit.xml" value="0.1865" />
@@ -25,6 +26,7 @@
         <entry key="app/src/main/res/layout/create_file_activity.xml" value="0.335149863760218" />
         <entry key="app/src/main/res/layout/device_double_value_item.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/device_name_item.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/edit_file_activity.xml" value="0.19429347826086957" />
         <entry key="app/src/main/res/layout/field.xml" value="0.29438405797101447" />
         <entry key="app/src/main/res/layout/field_graph.xml" value="0.1037037037037037" />
         <entry key="app/src/main/res/layout/filename_items.xml" value="0.35625" />

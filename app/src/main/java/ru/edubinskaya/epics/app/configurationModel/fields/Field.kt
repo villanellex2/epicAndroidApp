@@ -134,7 +134,6 @@ abstract class Field(root: JSONObject, config: JSONObject): ScreenUnit {
         object : AsyncTask<Any?, Any?, DBR?>() {
             override fun doInBackground(objects: Array<Any?>): DBR? {
                 try {
-                    //TODO: more prefix
                     channel = EpicsContext.context.createChannel("$pvName")
                     descChannel = EpicsContext.context.createChannel("$pvName.DESC")
                 } catch (th: Throwable) { }
