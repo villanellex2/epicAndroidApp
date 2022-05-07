@@ -83,3 +83,56 @@ $name - Android приложение, предоставляющее возмо�
 * "lable" - строковое значение. Описание набора данных.
 * "pintch_zoom" - boolean_int. В случае 0 - оси маштабируются по отдельности. Иначе оси маштабируются одновременно. //todo
 * "filled" - boolean_int. В случае 1 - пространство под графиком не окрашивается. //todo
+
+### Пример раздела "templates":
+``` json
+"templates": {
+    "Resonator": {
+      "type": "LIST",
+      "orientation": "vertical",
+      "content": [
+        {
+          "pv_name": "$pv:prng0:bi",
+          "type": "BOOLEAN_INPUT",
+          "width": "match_parent",
+          "height": "wrap_content"
+        },
+        {
+          "pv_name": "$pv2:prng0:aao",
+          "type": "GRAPH",
+          "label": "numbers"
+        },
+        {
+          "pv_name": "$pv:prng0:longout",
+          "type": "TEXT_FIELD",
+          "width": "match_parent",
+          "height": "wrap_content"
+        },
+        {
+          "pv_name": "$pv:prng0:ao",
+          "type": "TEXT_INPUT_NUMBER"
+        },
+        {
+          "type": "LIST",
+          "orientation": "horizontal",
+          "content": [
+            {
+              "pv_name": "$pv:prng0:ao",
+              "type": "TEXT_FIELD",
+              "height": "20"
+            },
+            {
+              "pv_name": "$pv2:prng0:ao",
+              "type": "TEXT_FIELD",
+              "height": "30"
+            }
+          ]
+        },
+        {
+          "pv_name": "$pv2:prng0:ao0",
+          "type": "TEXT_FIELD"
+        }
+      ]
+    }
+  }
+  ```
