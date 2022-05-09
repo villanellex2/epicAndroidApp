@@ -89,8 +89,22 @@
           ]
         },
         {
-          "pv_name": "$pv2:prng0:ao0",
-          "type": "TEXT_FIELD"
+          "pv_name": "$pv2:prng0:mbbi",
+          "type": "MBBI",
+          "bits_to_show": [
+            {
+              "bit": 0,
+              "label": "Success"
+            },
+            {
+              "bit": 1,
+              "label": "-"
+            },
+            {
+              "bit": 2,
+              "label": "--"
+            }
+          ]
         }
       ]
     }
