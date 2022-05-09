@@ -96,3 +96,122 @@
     }
   }
 }
+{
+  "screens": [
+    {
+      "displayed_name": "dev 1",
+      "$pv": "test",
+      "type": "type1"
+    },
+    {
+      "displayed_name": "displayed name2",
+      "$pv": "test2",
+      "type": "type1"
+    },
+    {
+      "displayed_name": "displayed name5",
+      "$pv": "test",
+      "$pv2": "test2",
+      "type": "type4"
+    }
+  ],
+  "templates": {
+    "type1": {
+      "type": "LIST",
+      "orientation": "vertical",
+      "content": [
+        {
+          "pv_name": "$pv:prng0:aao",
+          "type": "GRAPH",
+          "label": "numbers",
+          "description": "hi pipi"
+        },
+        {
+          "type": "TEXT_FIELD"
+        },
+        {
+          "pv_name": "$pv:prng0:asddad",
+          "type": "TEXT_FIELD"
+        },
+        {
+          "pv_name": "$pv:prng0:bi",
+          "type": "BOOLEAN_INPUT",
+          "width": "match_parent",
+          "height": "wrap_content"
+        },
+        {
+          "pv_name": "$pv:prng0:longout",
+          "type": "TEXT_FIELD",
+          "width": "match_parent",
+          "height": "wrap_content"
+        },
+        {
+          "pv_name": "$pv:prng0:ao",
+          "type": "TEXT_INPUT_NUMBER"
+        },
+        {
+          "pv_name": "$pv:prng1",
+          "type": "TEXT_FIELD"
+        },
+        {
+          "type": "LIST",
+          "orientation": "horizontal",
+          "content": [
+            {
+              "pv_name": "$pv:prng2",
+              "type": "TEXT_FIELD"
+            },
+            {
+              "pv_name": "$pv:conf1",
+              "type": "TEXT_FIELD"
+            }
+          ]
+        },
+        {
+          "pv_name": "$pv:conf2",
+          "type": "TEXT_FIELD"
+        },
+        {
+          "pv_name": "$pv:conf3",
+          "type": "TEXT_FIELD"
+        },
+        {
+          "pv_name": "$pv:prng0:lsi",
+          "type": "TEXT_FIELD"
+        },
+        {
+          "pv_name": "$pv:conf4",
+          "type": "TEXT_FIELD"
+        }
+      ]
+    },
+    "type4": {
+      "type": "LIST",
+      "orientation": "vertical",
+      "content": [
+        {
+          "pv_name": "$pv2:prng0:aao",
+          "type": "GRAPH",
+          "label": "numbers"
+        },
+        {
+          "pv_name": "$pv:prng0:bi",
+          "type": "BOOLEAN_INPUT",
+          "width": "match_parent",
+          "height": "wrap_content"
+        },
+        {
+          "pv_name": "$pv:prng0:longout",
+          "type": "TEXT_FIELD",
+          "width": "match_parent",
+          "height": "wrap_content"
+        },
+        {
+          "pv_name": "$pv:prng0:ao",
+          "type": "TEXT_INPUT_NUMBER"
+        }
+      ]
+    }
+  }
+}
+

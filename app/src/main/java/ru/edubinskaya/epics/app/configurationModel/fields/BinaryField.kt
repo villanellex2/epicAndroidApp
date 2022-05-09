@@ -2,13 +2,11 @@ package ru.edubinskaya.epics.app.configurationModel.fields
 
 import android.app.Activity
 import android.view.View
-import android.widget.GridLayout
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SwitchCompat
 import gov.aps.jca.CAStatus
-import gov.aps.jca.Channel
-import gov.aps.jca.Monitor
 import gov.aps.jca.dbr.ENUM
 import gov.aps.jca.dbr.SHORT
 import gov.aps.jca.event.*
@@ -22,7 +20,7 @@ class BinaryField(
     override val activity: Activity?,
     override val screenConfig: JSONObject
 ) : Field(jsonRoot, screenConfig) {
-    override var view = GridLayout(activity)
+    override var view = LinearLayout(activity)
     override val monitorListener: MonitorListener = BinaryMonitorListener()
 
     override fun blockInput() {
@@ -39,9 +37,9 @@ class BinaryField(
 
     init {
         view = if (isActive) {
-            activity?.layoutInflater?.inflate(R.layout.boolean_input, null) as GridLayout
+            activity?.layoutInflater?.inflate(R.layout.boolean_input, null) as LinearLayout
         } else {
-            activity?.layoutInflater?.inflate(R.layout.boolean_field, null) as GridLayout
+            activity?.layoutInflater?.inflate(R.layout.boolean_field, null) as LinearLayout
         }
 
         switch = view.findViewById(R.id.item_value)
@@ -59,10 +57,9 @@ class BinaryField(
             initializeChannel()
         }
 
-        val layoutParams = GridLayout.LayoutParams()
-        layoutParams.layoutDirection
-        layoutParams.setMargins(15, 15, 15, 15)
-        view.layoutParams = layoutParams
+        val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        lp.setMargins(15, 15, 15, 15)
+        view.layoutParams = lp
 
         setViewLayoutParams()
 

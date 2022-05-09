@@ -13,7 +13,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.GridLayout
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import gov.aps.jca.CAStatus
@@ -39,7 +39,7 @@ class InputTextField(
     }
 
     init {
-        view = activity?.layoutInflater?.inflate(R.layout.input_text_field, null) as GridLayout
+        view = activity?.layoutInflater?.inflate(R.layout.input_text_field, null) as LinearLayout
         prepareLayout()
 
         editText = view.findViewById(R.id.item_value)

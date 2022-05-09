@@ -50,8 +50,11 @@ abstract class Field(root: JSONObject, config: JSONObject): ScreenUnit {
     override fun onDetachView() {
         Thread {
             monitor?.clear()
-            channel?.destroy()
-            descChannel?.destroy()
+            try {
+                channel?.destroy()
+                descChannel?.destroy()
+            } catch (e: IllegalStateException) {
+            }
             channel = null
             monitor = null
         }.start()

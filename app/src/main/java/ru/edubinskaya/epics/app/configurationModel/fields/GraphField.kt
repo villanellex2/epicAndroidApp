@@ -46,10 +46,9 @@ class GraphField(
             initializeChannel()
         }
 
-        val layoutParams = GridLayout.LayoutParams()
-        layoutParams.layoutDirection
-        layoutParams.setMargins(15, 15, 15, 15)
-        view.layoutParams = layoutParams
+        val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        lp.setMargins(15, 15, 15, 15)
+        view.layoutParams = lp
 
         chart = view.findViewById(R.id.lineChart)
 
@@ -97,7 +96,7 @@ class GraphField(
         val data = LineData(dataSets)
 
         chart.data = data
-        chart.data.isHighlightEnabled = false
+        chart.data.isHighlightEnabled = true
 
         data.notifyDataChanged()
         chart.notifyDataSetChanged()

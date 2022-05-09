@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/field"
+    style="@style/Field"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:layout_row="1"
-    android:layout_column="2"
-    android:background="@drawable/device_field_background"
-    style="@style/Field">
+    android:background="@drawable/device_field_background">
 
     <TextView
         android:id="@+id/item_name"
@@ -15,14 +14,23 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
+        app:autoSizeMaxTextSize="18sp"
+        app:autoSizeMinTextSize="10sp"
+        app:autoSizeStepGranularity="2sp"
+        app:autoSizeTextType="uniform"
         tools:text="name" />
 
     <EditText
         android:id="@+id/item_value"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_width="150sp"
+        android:ems="10"
+        android:layout_weight="1"
         android:theme="@style/Text.Main"
-        android:ems="10"/>
+        app:autoSizeMaxTextSize="20sp"
+        app:autoSizeMinTextSize="10sp"
+        app:autoSizeStepGranularity="2sp"
+        app:autoSizeTextType="uniform" />
 
-</GridLayout>
+</LinearLayout>

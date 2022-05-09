@@ -5,7 +5,6 @@ import android.content.res.Resources
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
 import org.json.JSONObject
 
 interface ScreenUnit {
@@ -15,7 +14,7 @@ interface ScreenUnit {
     val activity: Activity?
 
     fun setViewLayoutParams() {
-        var width = if (jsonRoot.has("width")) {
+        val width = if (jsonRoot.has("width")) {
             val value = jsonRoot.getString("width")
             when (jsonRoot.getString("width")) {
                 "wrap_content" -> ViewGroup.LayoutParams.WRAP_CONTENT
@@ -23,7 +22,7 @@ interface ScreenUnit {
                 else -> pxToDp(value.toIntOrNull())
             }
         } else ViewGroup.LayoutParams.MATCH_PARENT
-        var height = if (jsonRoot.has("height")) {
+        val height = if (jsonRoot.has("height")) {
             val value = jsonRoot.getString("height")
             when (jsonRoot.getString("height")) {
                 "wrap_content" -> ViewGroup.LayoutParams.WRAP_CONTENT
@@ -31,8 +30,6 @@ interface ScreenUnit {
                 else -> pxToDp(value.toIntOrNull())
             }
         } else ViewGroup.LayoutParams.MATCH_PARENT
-        width = width ?: GridLayout.LayoutParams.MATCH_PARENT
-        height = height ?: GridLayout.LayoutParams.MATCH_PARENT
         view.layoutParams.width = width
         view.layoutParams.height = height
     }

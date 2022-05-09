@@ -19,7 +19,7 @@
         <entry key="app/src/main/res/drawable/ic_settings.xml" value="0.1905" />
         <entry key="app/src/main/res/drawable/shadow.xml" value="0.1905" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.35572916666666665" />
-        <entry key="app/src/main/res/layout/boolean_field.xml" value="0.2907608695652174" />
+        <entry key="app/src/main/res/layout/boolean_field.xml" value="0.33" />
         <entry key="app/src/main/res/layout/boolean_field_1.xml" value="0.33967391304347827" />
         <entry key="app/src/main/res/layout/boolean_input.xml" value="0.33" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.1" />
@@ -32,7 +32,7 @@
         <entry key="app/src/main/res/layout/filename_items.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.35572916666666665" />
-        <entry key="app/src/main/res/layout/input_text_field.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/input_text_field.xml" value="0.33" />
         <entry key="app/src/main/res/layout/list_of_devices_item.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/llsadkaksd.xml" value="0.1" />
         <entry key="app/src/main/res/layout/screen_recycler_item.xml" value="0.25" />

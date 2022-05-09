@@ -1,7 +1,7 @@
 package ru.edubinskaya.epics.app.configurationModel.fields
 
 import android.app.Activity
-import android.widget.GridLayout
+import android.widget.LinearLayout
 import android.widget.TextView
 import gov.aps.jca.CAStatus
 import gov.aps.jca.dbr.*
@@ -10,20 +10,21 @@ import gov.aps.jca.event.MonitorListener
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
 
+
 open class TextField (
     final override val jsonRoot: JSONObject,
     final override val activity: Activity?,
     override val screenConfig: JSONObject
 ) : Field(jsonRoot, screenConfig) {
 
-    final override var view = GridLayout(activity)
+    final override var view = LinearLayout(activity)
     override val monitorListener = DoubleMonitorListener()
     override fun blockInput() {}
 
     final override var fieldLabel: String? = pvName
 
     init {
-        view = activity?.layoutInflater?.inflate(R.layout.text_field, null) as GridLayout
+        view = activity?.layoutInflater?.inflate(R.layout.text_field, null) as LinearLayout
         prepareLayout()
     }
 
@@ -36,10 +37,9 @@ open class TextField (
             initializeChannel()
         }
 
-        val layoutParams = GridLayout.LayoutParams()
-        layoutParams.layoutDirection
-        layoutParams.setMargins(15, 15, 15, 15)
-        view.layoutParams = layoutParams
+        val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        lp.setMargins(15, 15, 15, 15)
+        view.layoutParams = lp
 
         setViewLayoutParams()
     }

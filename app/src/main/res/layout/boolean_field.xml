@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/field"
-    android:layout_width="wrap_content"
-    android:layout_height="50dp"
-    android:layout_row="1"
-    android:layout_column="2"
-   style="@style/Field">
+    style="@style/Field"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
 
     <TextView
         android:id="@+id/item_name"
         style="@style/Text.Label"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
+        android:gravity="center_vertical|start"
         android:textColor="@color/text_color_primary"
+        app:autoSizeMaxTextSize="18sp"
+        app:autoSizeMinTextSize="10sp"
+        app:autoSizeStepGranularity="2sp"
+        app:autoSizeTextType="uniform"
         tools:text="name" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/item_value"
-        android:theme="@style/ColorSwitchStyle.Stub"
         style="@style/ColorSwitchStyle.Stub"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        tools:text=""/>
-</GridLayout>
+        android:layout_weight="1"
+        android:layout_gravity="end|center_vertical"
+        android:theme="@style/ColorSwitchStyle.Stub"
+        android:layout_width="0dp" />
+</LinearLayout>

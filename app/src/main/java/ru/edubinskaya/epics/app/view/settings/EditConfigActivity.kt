@@ -13,7 +13,6 @@ import java.io.*
 internal val EDIT_FILE = "edit_file"
 
 class EditConfigActivity : AppCompatActivity() {
-//TODO: simple JSON validation
     val name: String get() = findViewById<TextView>(R.id.filename).text.toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {

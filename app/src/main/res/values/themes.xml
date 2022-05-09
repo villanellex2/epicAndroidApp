@@ -65,6 +65,7 @@
     <style name="Text.Main">
         <item name="android:textSize">20sp</item>
         <item name="android:gravity">center_vertical|end</item>
+
     </style>
 
     <style name="Field">
