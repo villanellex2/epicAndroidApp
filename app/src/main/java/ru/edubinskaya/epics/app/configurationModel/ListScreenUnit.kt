@@ -65,7 +65,8 @@ class ListScreenUnit(
             for (i in 0 until jsonArray.length()) {
                 val obj = jsonArray.getJSONObject(i)
                 try {
-                    val field = when (obj.getString("type")) {
+                    val type = obj.getString("type")
+                    val field = when (type) {
                         FieldType.TEXT_FIELD.name -> TextField(obj, activity, screenConfig)
                         FieldType.TEXT_INPUT_NUMBER.name -> InputTextField(obj, activity, screenConfig)
                         FieldType.GRAPH.name -> GraphField(obj, activity, screenConfig)
@@ -74,18 +75,21 @@ class ListScreenUnit(
                         ContainerType.LIST.name -> ListScreenUnit(obj, activity, screenConfig)
                         else -> null
                     }
-                    field?.let { listOfFields.add(it) }
+                    if (field == null) showAlert("Incorrect field type: $type in $obj")
+                    else listOfFields.add(field)
                 } catch (e: JSONException) {
-                    AlertDialog.Builder(activity)
-                        .setMessage(e.message + " in \n" + obj.toString())
-                        .setTitle("Incorrect json. Field skipped.")
-                        .setNegativeButton("OK") { _, _ -> }
-                        .show()
-
+                    showAlert("${e.message} in$obj")
                 }
             }
-        } catch (ignored: JSONException) {
-        }
+        } catch (ignored: JSONException) { }
         return listOfFields
+    }
+
+    private fun showAlert(m: String) {
+        AlertDialog.Builder(activity)
+            .setMessage(m)
+            .setTitle("Incorrect json. Field skipped.")
+            .setNegativeButton("OK") { _, _ -> }
+            .show()
     }
 }
