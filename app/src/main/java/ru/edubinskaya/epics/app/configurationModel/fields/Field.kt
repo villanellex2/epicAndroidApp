@@ -50,10 +50,11 @@ abstract class Field(root: JSONObject, config: JSONObject): ScreenUnit {
     override fun onDetachView() {
         Thread {
             monitor?.clear()
-            try {
+            if (channel?.connectionState != Channel.ConnectionState.CLOSED) {
                 channel?.destroy()
+            }
+            if (descChannel?.connectionState != Channel.ConnectionState.CLOSED) {
                 descChannel?.destroy()
-            } catch (e: IllegalStateException) {
             }
             channel = null
             monitor = null

@@ -62,12 +62,26 @@ class CreateConfigActivity : AppCompatActivity() {
             val screens = json.getJSONArray("screens")
             val templates = json.getJSONObject("templates")
 
-            db?.execSQL("INSERT OR IGNORE INTO files VALUES (\"$name\")")
-            val fos = BufferedWriter(OutputStreamWriter(openFileOutput(name + ".json", MODE_PRIVATE)))
-            fos.write(config.toString())
-            fos.close()
-
-            super.onBackPressed()
+            if (screens.isNull(0)) {
+                MaterialAlertDialogBuilder(this)
+                    .setTitle("Incorrect configuration")
+                    .setMessage("\"screens\" can not be empty")
+                    .setPositiveButton("EDIT CONFIGURATION") {_,_ -> }
+                    .show()
+            } else if (templates.length() == 0) {
+                MaterialAlertDialogBuilder(this)
+                    .setTitle("Incorrect configuration")
+                    .setMessage("\"templates\" can not be empty")
+                    .setPositiveButton("EDIT CONFIGURATION") {_,_ -> }
+                    .show()
+            } else {
+                db?.execSQL("INSERT OR IGNORE INTO files VALUES (\"$name\")")
+                val fos =
+                    BufferedWriter(OutputStreamWriter(openFileOutput(name + ".json", MODE_PRIVATE)))
+                fos.write(config.toString())
+                fos.close()
+                super.onBackPressed()
+            }
         } catch (e: JSONException) {
             MaterialAlertDialogBuilder(this)
                 .setTitle("Incorrect configuration")
@@ -86,7 +100,7 @@ class CreateConfigActivity : AppCompatActivity() {
     }
 
     private fun isExist(name: String): Boolean {
-        if (db == null) return true // TODO
+        if (db == null) return true
         val query: Cursor = db!!.rawQuery("SELECT * FROM files WHERE (filename = \"$name\");", null)
         val res = query.count > 0
         query.close()

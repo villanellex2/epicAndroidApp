@@ -72,5 +72,11 @@ class MainFragment : Fragment() {
         )
         binding.listOfDevices.addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
         binding.listOfDevices.adapter = adapter
+
+        binding.empty.visibility = if (adapter.itemCount == 0) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
     }
 }

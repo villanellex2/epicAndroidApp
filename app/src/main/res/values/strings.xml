@@ -2,7 +2,7 @@
     <string name="app_name">Место для вашего названия</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">List of devices</string>
+    <string name="first_fragment_label">Screens</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Preference Titles -->
@@ -23,4 +23,5 @@
     <string name="configuration">Configuration:</string>
     <string name="file_name">File name...</string>
     <string name="screens_configuration">Screens configuration</string>
+    <string name="empty">Empty!\nYou can add new\nscreen in settings</string>
 </resources>

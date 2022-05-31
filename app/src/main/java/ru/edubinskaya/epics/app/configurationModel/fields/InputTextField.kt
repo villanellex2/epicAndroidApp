@@ -17,6 +17,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import gov.aps.jca.CAStatus
+import gov.aps.jca.Channel
 import gov.aps.jca.dbr.DBRType
 import gov.aps.jca.event.GetEvent
 import gov.aps.jca.event.GetListener
@@ -71,28 +72,39 @@ class InputTextField(
     @SuppressLint("StaticFieldLeak")
     inner class SendNewValue : AsyncTask<Any?, Any?, Any?>() {
         override fun doInBackground(objects: Array<Any?>) {
-            if (channel?.readAccess != true) {
-                Toast(activity).setText("No access")
-                return
-            }
-
-            when (channel?.fieldType){
-                DBRType.DOUBLE -> editText.text.toString().toDoubleOrNull()?.let {
-                    channel?.put(it, InputNumberPutListener())
+            if (channel?.connectionState == Channel.ConnectionState.CONNECTED) {
+                //TODO: очередь на Connected
+                if (channel?.readAccess != true) {
+                    Toast(activity).setText("No access")
+                    return
                 }
-                DBRType.INT -> editText.text.toString().toIntOrNull()?.let { channel?.put(it, InputNumberPutListener()) }
-                DBRType.SHORT -> editText.text.toString().toDoubleOrNull()?.let { channel?.put(it, InputNumberPutListener()) }
-                DBRType.FLOAT -> editText.text.toString().toIntOrNull()?.let { channel?.put(it, InputNumberPutListener()) }
-                else -> { return }
+
+                when (channel?.fieldType) {
+                    DBRType.DOUBLE -> editText.text.toString().toDoubleOrNull()?.let {
+                        channel?.put(it, InputNumberPutListener())
+                    }
+                    DBRType.INT -> editText.text.toString().toIntOrNull()
+                        ?.let { channel?.put(it, InputNumberPutListener()) }
+                    DBRType.SHORT -> editText.text.toString().toDoubleOrNull()
+                        ?.let { channel?.put(it, InputNumberPutListener()) }
+                    DBRType.FLOAT -> editText.text.toString().toIntOrNull()
+                        ?.let { channel?.put(it, InputNumberPutListener()) }
+                    else -> {
+                        return
+                    }
+                }
+                EpicsContext.context.pendIO(3000.0)
             }
-            EpicsContext.context.pendIO(3000.0);
         }
     }
 
     inner class InputNumberPutListener() : PutListener {
         override fun putCompleted(ev: PutEvent?) {
-            channel?.get(InputNumberGetListener(ev))
-            EpicsContext.context.pendIO(7000.0)
+            if (channel?.connectionState == Channel.ConnectionState.CONNECTED) {
+                //todo: очередь на Connected
+                channel?.get(InputNumberGetListener(ev))
+                EpicsContext.context.pendIO(7000.0)
+            }
         }
     }
 

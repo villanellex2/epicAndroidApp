@@ -7,6 +7,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SwitchCompat
 import gov.aps.jca.CAStatus
+import gov.aps.jca.Channel
 import gov.aps.jca.dbr.ENUM
 import gov.aps.jca.dbr.SHORT
 import gov.aps.jca.event.*
@@ -66,14 +67,17 @@ class BinaryField(
         switch.setOnClickListener {
             if (!isActive) return@setOnClickListener
             val value = if (switch.isChecked) 1 else 0
-
-            channel?.put(value, BinaryPutListener())
-            Thread() {
-                EpicsContext.context.pendIO(7.0)
-            }.start()
-            stub.isChecked = switch.isChecked
-            stub.visibility = View.VISIBLE
-            switch.visibility = View.GONE
+            if (channel?.connectionState == Channel.ConnectionState.CONNECTED) {
+                channel?.put(value, BinaryPutListener())
+                Thread() {
+                    EpicsContext.context.pendIO(7.0)
+                }.start()
+                stub.isChecked = switch.isChecked
+                stub.visibility = View.VISIBLE
+                switch.visibility = View.GONE
+            } else {
+                switch.isChecked = !switch.isChecked
+            }
         }
     }
 
@@ -99,8 +103,11 @@ class BinaryField(
 
     inner class BinaryPutListener() : PutListener {
         override fun putCompleted(ev: PutEvent?) {
-            channel?.get(InputBinaryGetListener(ev))
-            EpicsContext.context.pendIO(7000.0)
+            if (channel?.connectionState == Channel.ConnectionState.CONNECTED) {
+                //TODO: очередь действий на Connected
+                channel?.get(InputBinaryGetListener(ev))
+                EpicsContext.context.pendIO(7000.0)
+            }
         }
     }
 

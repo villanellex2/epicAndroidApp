@@ -1,5 +1,6 @@
 package ru.edubinskaya.epics.app.view.settings
 
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.view.View
@@ -7,6 +8,8 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import org.json.JSONException
+import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
 import java.io.*
 
@@ -19,27 +22,50 @@ class EditConfigActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_file_activity)
 
+        val config = findViewById<EditText>(R.id.config)
         findViewById<View>(R.id.done).setOnClickListener {
-            saveFile()
+            saveIfJsonCorrect(config.text.toString())
         }
 
         val name = intent.extras?.getString(EDIT_FILE)
         if (name != null) {
             findViewById<TextView>(R.id.filename).text = name
             findViewById<EditText>(R.id.config).setText(readFile(name+".json"))
-        } else {
-            //TODO
         }
     }
 
-    fun saveFile() {
-        val name = this.name.replace(" ", "_")
-        val config = findViewById<EditText>(R.id.config).text
+    private fun saveIfJsonCorrect(config: String) {
+        try {
+            val json = JSONObject(config)
+            val screens = json.getJSONArray("screens")
+            val templates = json.getJSONObject("templates")
 
-        val fos = BufferedWriter(OutputStreamWriter(openFileOutput(name + ".json", MODE_PRIVATE)))
-        fos.write(config.toString())
-        fos.close()
-        super.onBackPressed()
+            if (screens.isNull(0)) {
+                MaterialAlertDialogBuilder(this)
+                    .setTitle("Incorrect configuration")
+                    .setMessage("\"screens\" can not be empty")
+                    .setPositiveButton("EDIT CONFIGURATION") {_,_ -> }
+                    .show()
+            } else if (templates.length() == 0) {
+                MaterialAlertDialogBuilder(this)
+                    .setTitle("Incorrect configuration")
+                    .setMessage("\"templates\" can not be empty")
+                    .setPositiveButton("EDIT CONFIGURATION") {_,_ -> }
+                    .show()
+            } else {
+                val fos =
+                    BufferedWriter(OutputStreamWriter(openFileOutput(name + ".json", MODE_PRIVATE)))
+                fos.write(config.toString())
+                fos.close()
+                super.onBackPressed()
+            }
+        } catch (e: JSONException) {
+            MaterialAlertDialogBuilder(this)
+                .setTitle("Incorrect configuration")
+                .setMessage(e.message)
+                .setPositiveButton("EDIT CONFIGURATION") {_,_ -> }
+                .show()
+        }
     }
 
     override fun onBackPressed() {
