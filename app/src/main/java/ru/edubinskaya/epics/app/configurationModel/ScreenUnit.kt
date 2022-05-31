@@ -29,7 +29,7 @@ interface ScreenUnit {
                 "match_parent" -> ViewGroup.LayoutParams.MATCH_PARENT
                 else -> pxToDp(value.toIntOrNull())
             }
-        } else ViewGroup.LayoutParams.MATCH_PARENT
+        } else pxToDp(50)
         view.layoutParams.width = width
         view.layoutParams.height = height
     }

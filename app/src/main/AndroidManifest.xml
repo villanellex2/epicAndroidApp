@@ -21,7 +21,32 @@
         <activity
             android:name=".view.settings.CreateConfigActivity"
             android:exported="true"
-            android:theme="@style/Theme.EpicAndroidApp.NoActionBar"/>
+            android:theme="@style/Theme.EpicAndroidApp.NoActionBar">
+
+            <intent-filter
+                android:icon="@mipmap/ic_launcher"
+                android:label="@string/app_name"
+                android:priority="10000" >
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="file" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="*"
+                    android:scheme="http" />
+                <data
+                    android:host="*"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".view.settings.EditConfigActivity"
             android:exported="true"

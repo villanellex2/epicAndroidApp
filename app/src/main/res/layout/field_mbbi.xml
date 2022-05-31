@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="7dp"
     android:layout_marginBottom="8sp"
-    android:background="@drawable/device_field_background_white"
+    android:background="@drawable/device_field_background"
     android:orientation="vertical"
     android:padding="7dp">
 
@@ -24,6 +24,7 @@
         tools:text="name" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="10dp"
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

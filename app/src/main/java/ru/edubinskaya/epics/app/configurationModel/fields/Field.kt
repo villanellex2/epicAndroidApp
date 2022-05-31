@@ -8,10 +8,10 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import gov.aps.jca.CAStatus
 import gov.aps.jca.Channel
+import gov.aps.jca.Channel.ConnectionState.CONNECTED
 import gov.aps.jca.Monitor
 import gov.aps.jca.dbr.DBR
 import gov.aps.jca.dbr.STRING
-import gov.aps.jca.event.GetListener
 import gov.aps.jca.event.MonitorListener
 import org.json.JSONException
 import org.json.JSONObject
@@ -125,7 +125,7 @@ abstract class Field(root: JSONObject, config: JSONObject): ScreenUnit {
     }
 
     override fun createMonitor() {
-        if (channel?.connectionState == Channel.ConnectionState.CONNECTED) {
+        if (channel?.connectionState == CONNECTED) {
             monitor = channel?.addMonitor(Monitor.VALUE, monitorListener)
         } else {
             setDisconnected(activity)
@@ -146,25 +146,29 @@ abstract class Field(root: JSONObject, config: JSONObject): ScreenUnit {
     }
 
     override fun onChannelCreated() {
-        if (!hasDisplayName && channel?.connectionState == Channel.ConnectionState.CONNECTED) {
-            if (descChannel?.connectionState == Channel.ConnectionState.CONNECTED) {
+        if (!hasDisplayName && channel?.connectionState == CONNECTED) {
+            if (descChannel?.connectionState == CONNECTED) {
                 Thread {
-                    descChannel?.get(GetListener { ev ->
-                        if (ev?.status == CAStatus.NORMAL && ev?.dbr is STRING) {
-                            val value = (ev.dbr as? STRING)?.stringValue
-                            if (value?.size == 1) {
-                                setLabel(value[0])
+                    if (descChannel?.connectionState == CONNECTED) {
+                        descChannel?.get { ev ->
+                            if (ev?.status == CAStatus.NORMAL && ev?.dbr is STRING) {
+                                val value = (ev.dbr as? STRING)?.stringValue
+                                if (value?.size == 1) {
+                                    setLabel(value[0])
+                                }
                             }
                         }
-                    })
+                    }
                 }.start()
             }
         }
-        channel?.addConnectionListener { connectionEvent ->
-            if (connectionEvent.isConnected) {
-                setConnected(activity)
-            } else {
-                setDisconnected(activity)
+        if (channel?.connectionState == CONNECTED) {
+            channel?.addConnectionListener { connectionEvent ->
+                if (connectionEvent.isConnected) {
+                    setConnected(activity)
+                } else {
+                    setDisconnected(activity)
+                }
             }
         }
     }

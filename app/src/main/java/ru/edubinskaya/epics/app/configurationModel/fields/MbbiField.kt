@@ -1,8 +1,11 @@
 package ru.edubinskaya.epics.app.configurationModel.fields
 
+import MbbiRecyclerViewAdapter
 import android.app.Activity
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import gov.aps.jca.event.MonitorEvent
 import gov.aps.jca.event.MonitorListener
 import org.json.JSONObject
@@ -24,10 +27,11 @@ class MbbiField(
     override fun blockInput() {}
 
     override var fieldLabel: String? = pvName
+    private val adapter: MbbiRecyclerViewAdapter
 
     init {
         view = activity?.layoutInflater?.inflate(R.layout.field_mbbi, null) as LinearLayout
-
+        val recyclerView = view.findViewById<RecyclerView>(R.id.container)
         if (fieldLabel != null) {
             setDisplayName(jsonRoot)
             if (!hasDisplayName) {
@@ -36,6 +40,25 @@ class MbbiField(
             initializeChannel()
         }
         val array = jsonRoot.getJSONArray("bits_to_show")
+        val data = ArrayList<MbbiBitModel>()
+        for (i in 0 until array.length()) {
+            val obj = array.getJSONObject(i)
+            val bit = MbbiBitModel(
+                obj.getInt("bit"),
+                obj.getString("label"),
+                i == 0 || i == 4
+            )
+            data.add(bit)
+        }
+
+        recyclerView.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        adapter = MbbiRecyclerViewAdapter(activity, data)
+        recyclerView.adapter = adapter
+
+        val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        lp.setMargins(15, 15, 15, 15)
+        view.layoutParams = lp
     }
 
     inner class BinaryMonitorListener() : MonitorListener {

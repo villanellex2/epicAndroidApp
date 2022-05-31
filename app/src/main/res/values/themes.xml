@@ -53,6 +53,7 @@
     </style>
 
     <style name="Text.Label">
+        <item name="android:singleLine">true</item>
         <item name="android:textSize">18sp</item>
     </style>
 

@@ -98,11 +98,11 @@
             },
             {
               "bit": 1,
-              "label": "-"
+              "label": "Processing"
             },
             {
               "bit": 2,
-              "label": "--"
+              "label": "Wrong state"
             }
           ]
         }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/field"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -23,17 +23,12 @@
         app:autoSizeTextType="uniform"
         tools:text="name" />
 
-    <LinearLayout
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChart"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="500dp"
+        android:layout_margin="7dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/device_field_background_white">
+        android:background="@drawable/device_field_background_white" />
 
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/lineChart"
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:layout_margin="7dp"/>
-
-    </LinearLayout>
 </LinearLayout>

@@ -2,7 +2,6 @@ package ru.edubinskaya.epics.app.configurationModel.fields
 
 import android.app.Activity
 import android.util.Log
-import android.widget.GridLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -13,11 +12,10 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IFillFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import gov.aps.jca.Channel
-import gov.aps.jca.Monitor
 import gov.aps.jca.dbr.*
 import gov.aps.jca.event.MonitorEvent
 import gov.aps.jca.event.MonitorListener
+import org.json.JSONException
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
 
@@ -46,7 +44,7 @@ class GraphField(
             initializeChannel()
         }
 
-        val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         lp.setMargins(15, 15, 15, 15)
         view.layoutParams = lp
 
@@ -84,11 +82,11 @@ class GraphField(
         chart.setTouchEnabled(true)
         chart.setDragEnabled(true)
         chart.setScaleEnabled(true)
-        chart.setPinchZoom(true)
+        chart.setPinchZoom(getBooleanInt("pinch_zoom", true))
 
         dataSet.valueTextSize = 12f
 
-        dataSet.setDrawFilled(false)
+        dataSet.setDrawFilled(getBooleanInt("filled", false))
         dataSet.fillFormatter = IFillFormatter { _, _ -> chart.axisLeft.axisMinimum }
 
         val dataSets: ArrayList<ILineDataSet> = ArrayList()
@@ -101,8 +99,6 @@ class GraphField(
         data.notifyDataChanged()
         chart.notifyDataSetChanged()
         chart.invalidate()
-
-        setViewLayoutParams()
     }
 
     inner class BinaryMonitorListener() : MonitorListener {
@@ -138,6 +134,9 @@ class GraphField(
                             dataSet.values.add(Entry(index.toFloat(), d.toFloat(), point))
                             chart.data.notifyDataChanged()
                         }
+                        else -> {
+                            setIncorrect(activity)
+                        }
                     }
 
                     activity.runOnUiThread {
@@ -149,5 +148,14 @@ class GraphField(
                 }
             }
         }
+    }
+
+    private fun getBooleanInt(field: String, default: Boolean): Boolean {
+        if (jsonRoot.has(field)) {
+            try {
+                return (1 == jsonRoot.getInt(field))
+            } catch (e: JSONException) { }
+        }
+        return default
     }
 }
