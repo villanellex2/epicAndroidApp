@@ -33,7 +33,7 @@
 
     <EditText
         android:id="@+id/config"
-        style="@style/Text.Label"
+        style="@style/Text.JSON"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"

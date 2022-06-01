@@ -5,7 +5,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/blue_200</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/primary</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
@@ -52,14 +52,22 @@
         <item name="android:layout_marginEnd">10sp</item>
     </style>
 
+    <style name="Text.JSON">
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="Text.Label">
         <item name="android:singleLine">true</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
         <item name="android:textSize">18sp</item>
     </style>
 
     <style name="Text.SettingsTitle">
         <item name="android:textColor">@color/dark_gray</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLines">1</item>
         <item name="android:textAllCaps">true</item>
     </style>
 

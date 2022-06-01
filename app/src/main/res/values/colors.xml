@@ -7,7 +7,7 @@
     <color name="purple_700">#002137</color>
 
     <color name="blue_100">#CDE7EF</color>
-    <color name="blue_200">#1687DF</color>
+    <color name="blue_200">#B2DCFD</color>
     <color name="blue_700">#0A487E</color>
 
     <color name="teal_100">#B9DFDB</color>
@@ -16,8 +16,9 @@
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="primary">#FFFFFFFF</color>
 
-    <color name="text_color_accent">#9edaff</color>
+    <color name="text_color_accent">#D2EEFF</color>
     <color name="text_color_primary">#00416a</color>
     <color name="text_color_secondary">#50718a</color>
     <color name="text_color_tertiary">#8BA7BF</color>
