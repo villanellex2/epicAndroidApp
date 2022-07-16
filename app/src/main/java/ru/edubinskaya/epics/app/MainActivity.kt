@@ -1,13 +1,15 @@
-package ru.edubinskaya.epics.app.view
+package ru.edubinskaya.epics.app
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import android.view.Menu
-import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.databinding.ActivityMainBinding
+import ru.edubinskaya.epics.app.screencreation.CreateScreenActivity
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,6 +24,10 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
+
+        binding.add.setOnClickListener {
+            startActivity(Intent(this, CreateScreenActivity::class.java))
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

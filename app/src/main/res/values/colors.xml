@@ -5,6 +5,7 @@
     <color name="purple_500">#00416a</color>
     <color name="hint_color">#00416a</color>
     <color name="purple_700">#002137</color>
+    <color name="transparent">#00ffffff</color>
 
     <color name="blue_100">#CDE7EF</color>
     <color name="blue_200">#B2DCFD</color>

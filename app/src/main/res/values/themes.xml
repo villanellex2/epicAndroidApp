@@ -90,4 +90,8 @@
         <item name="android:padding">5dp</item>
     </style>
 
+    <style name="Fab" parent="Text.Label">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 </resources>

@@ -111,7 +111,9 @@ class GraphField(
                     for (i in 0..index) {
                         dataSet.values.removeFirst()
                     }
+                    event.status.statusCode
                     val point = ContextCompat.getDrawable(activity, android.R.drawable.alert_dark_frame)
+                    //TODO: create unified class for getting digits
                     when (event.dbr.type) {
                         DBRType.DOUBLE -> (event.dbr as DOUBLE).doubleValue.forEachIndexed { index, d ->
                             dataSet.values.add(Entry(index.toFloat(), d.toFloat(), point))

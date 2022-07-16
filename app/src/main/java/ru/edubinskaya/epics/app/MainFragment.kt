@@ -1,6 +1,6 @@
-package ru.edubinskaya.epics.app.view
+package ru.edubinskaya.epics.app
 
-import ListOfDevicesRecyclerViewAdapter
+import ru.edubinskaya.epics.app.config.ListOfDevicesRecyclerViewAdapter
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -11,11 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.config.ScreenProvider
 import ru.edubinskaya.epics.app.databinding.FragmentFirstBinding
 import ru.edubinskaya.epics.app.configurationModel.ScreenInfo
-import ru.edubinskaya.epics.app.view.settings.SettingsActivity
+import ru.edubinskaya.epics.app.settings.SettingsActivity
 
 
 /**

@@ -1,3 +1,5 @@
+package ru.edubinskaya.epics.app.config
+
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -5,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.edubinskaya.epics.app.R
-import ru.edubinskaya.epics.app.configurationModel.Screen
 import ru.edubinskaya.epics.app.configurationModel.ScreenInfo
 
 

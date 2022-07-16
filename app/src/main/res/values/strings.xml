@@ -21,7 +21,16 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="create_file">Create file</string>
     <string name="configuration">Configuration:</string>
-    <string name="file_name">File name...</string>
+    <string name="file_name">File name…</string>
     <string name="screens_configuration">Screens configuration</string>
     <string name="empty">Empty!\nYou can add new\nscreen in settings</string>
+    <string name="screen_name">Screen name…</string>
+    <string name="add_item">Add item</string>
+    <string name="add_screen">Add screen</string>
+
+    <string-array name="size">
+        <item>wrap_content</item>
+        <item>match_parent</item>
+        <item>fixed</item>
+    </string-array>
 </resources>

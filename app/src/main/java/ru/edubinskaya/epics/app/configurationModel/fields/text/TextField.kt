@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.configurationModel.fields
+package ru.edubinskaya.epics.app.configurationModel.fields.text
 
 import android.app.Activity
 import android.widget.LinearLayout
@@ -9,6 +9,7 @@ import gov.aps.jca.event.MonitorEvent
 import gov.aps.jca.event.MonitorListener
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
+import ru.edubinskaya.epics.app.configurationModel.fields.Field
 
 
 open class TextField (

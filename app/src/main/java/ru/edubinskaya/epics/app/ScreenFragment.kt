@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.view
+package ru.edubinskaya.epics.app
 
 import android.os.AsyncTask
 import android.os.Bundle

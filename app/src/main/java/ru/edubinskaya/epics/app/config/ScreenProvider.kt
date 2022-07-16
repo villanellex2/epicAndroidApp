@@ -7,11 +7,13 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.json.JSONException
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.configurationModel.containers.ContainerType
-import ru.edubinskaya.epics.app.configurationModel.containers.List
+import ru.edubinskaya.epics.app.configurationModel.containers.list.List
 import ru.edubinskaya.epics.app.configurationModel.Screen
 import ru.edubinskaya.epics.app.configurationModel.ScreenInfo
 import ru.edubinskaya.epics.app.configurationModel.containers.Table
 import ru.edubinskaya.epics.app.configurationModel.fields.*
+import ru.edubinskaya.epics.app.configurationModel.fields.text.InputTextField
+import ru.edubinskaya.epics.app.configurationModel.fields.text.TextField
 import java.io.BufferedReader
 import java.io.FileNotFoundException
 import java.io.IOException

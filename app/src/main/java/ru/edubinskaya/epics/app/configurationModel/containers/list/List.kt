@@ -1,16 +1,14 @@
-package ru.edubinskaya.epics.app.configurationModel.containers
+package ru.edubinskaya.epics.app.configurationModel.containers.list
 
 import android.app.Activity
 import android.view.View
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
-import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.json.JSONException
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.configurationModel.ScreenUnit
-import ru.edubinskaya.epics.app.configurationModel.fields.*
+import ru.edubinskaya.epics.app.configurationModel.containers.Container
 import kotlin.collections.List
 
 class List(
