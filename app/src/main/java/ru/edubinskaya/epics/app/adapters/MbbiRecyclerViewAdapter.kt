@@ -6,10 +6,10 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import ru.edubinskaya.epics.app.R
-import ru.edubinskaya.epics.app.configurationModel.fields.MbbiBitModel
+import ru.edubinskaya.epics.app.configurationModel.fields.MbbiBit
 
 
-class MbbiRecyclerViewAdapter internal constructor(val context: Context?, private val data: List<MbbiBitModel>) :
+class MbbiRecyclerViewAdapter internal constructor(val context: Context?, private val data: List<MbbiBit>) :
     RecyclerView.Adapter<MbbiRecyclerViewAdapter.ViewHolder>() {
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
     private var mClickListener: ItemClickListener? = null

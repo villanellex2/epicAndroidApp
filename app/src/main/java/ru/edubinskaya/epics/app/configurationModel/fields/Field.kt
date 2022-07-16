@@ -92,14 +92,14 @@ abstract class Field(root: JSONObject, config: JSONObject): ScreenUnit {
     fun setDisconnected(activity: Activity?) {
         isConnected = false
         if (!isIncorrect) {
-            view.background = activity?.let {
-                ContextCompat.getDrawable(
-                    it,
-                    R.drawable.device_field_background_no_connection
-                )
-            }
             activity?.runOnUiThread {
                 blockInput()
+                view.background = activity?.let {
+                    ContextCompat.getDrawable(
+                        it,
+                        R.drawable.device_field_background_no_connection
+                    )
+                }
             }
         }
     }

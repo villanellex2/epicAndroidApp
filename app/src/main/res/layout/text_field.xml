@@ -18,6 +18,7 @@
         app:autoSizeMinTextSize="10sp"
         app:autoSizeStepGranularity="2sp"
         app:autoSizeTextType="uniform"
+        android:ellipsize="end"
         tools:text="name" />
 
     <TextView
@@ -28,9 +29,10 @@
         app:autoSizeMaxTextSize="20sp"
         app:autoSizeMinTextSize="10sp"
         android:layout_weight="1"
-        app:autoSizeStepGranularity="2sp"
+        app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform"
         tools:text="value"
+        android:maxLines="1"
         android:layout_width="0dp" />
 
 </LinearLayout>

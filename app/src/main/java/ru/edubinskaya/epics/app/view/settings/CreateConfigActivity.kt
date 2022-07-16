@@ -7,9 +7,8 @@ import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import org.json.JSONException
-import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
+import ru.edubinskaya.epics.app.config.checkConfigAndGetMessage
 import java.io.BufferedWriter
 import java.io.OutputStreamWriter
 
@@ -57,37 +56,20 @@ class CreateConfigActivity : AppCompatActivity() {
     }
 
     private fun saveIfJsonCorrect(config: String) {
-        try {
-            val json = JSONObject(config)
-            val screens = json.getJSONArray("screens")
-            val templates = json.getJSONObject("templates")
-
-            if (screens.isNull(0)) {
-                MaterialAlertDialogBuilder(this)
-                    .setTitle("Incorrect configuration")
-                    .setMessage("\"screens\" can not be empty")
-                    .setPositiveButton("EDIT CONFIGURATION") {_,_ -> }
-                    .show()
-            } else if (templates.length() == 0) {
-                MaterialAlertDialogBuilder(this)
-                    .setTitle("Incorrect configuration")
-                    .setMessage("\"templates\" can not be empty")
-                    .setPositiveButton("EDIT CONFIGURATION") {_,_ -> }
-                    .show()
-            } else {
-                db?.execSQL("INSERT OR IGNORE INTO files VALUES (\"$name\")")
-                val fos =
-                    BufferedWriter(OutputStreamWriter(openFileOutput(name + ".json", MODE_PRIVATE)))
-                fos.write(config.toString())
-                fos.close()
-                super.onBackPressed()
-            }
-        } catch (e: JSONException) {
+        val message = checkConfigAndGetMessage(config, this)
+        if (message != null) {
             MaterialAlertDialogBuilder(this)
                 .setTitle("Incorrect configuration")
-                .setMessage(e.message)
+                .setMessage(message)
                 .setPositiveButton("EDIT CONFIGURATION") {_,_ -> }
                 .show()
+        } else {
+            db?.execSQL("INSERT OR IGNORE INTO files VALUES (\"$name\")")
+            val fos =
+                BufferedWriter(OutputStreamWriter(openFileOutput(name + ".json", MODE_PRIVATE)))
+            fos.write(config)
+            fos.close()
+            super.onBackPressed()
         }
     }
 

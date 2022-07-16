@@ -10,6 +10,7 @@ import gov.aps.jca.event.MonitorEvent
 import gov.aps.jca.event.MonitorListener
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
+import gov.aps.jca.dbr.ENUM
 
 private val fields = arrayOf(
     "ZRVL", "ONVL", "TWVL", "THVL", "FRVL",
@@ -23,11 +24,12 @@ class MbbiField(
     override val screenConfig: JSONObject
 ) : Field(jsonRoot, screenConfig) {
     override var view = LinearLayout(activity)
-    override val monitorListener: MonitorListener = BinaryMonitorListener()
+    override val monitorListener: MonitorListener = MbbiMonitorListener()
     override fun blockInput() {}
 
     override var fieldLabel: String? = pvName
     private val adapter: MbbiRecyclerViewAdapter
+    private val data = ArrayList<MbbiBit>()
 
     init {
         view = activity?.layoutInflater?.inflate(R.layout.field_mbbi, null) as LinearLayout
@@ -40,13 +42,12 @@ class MbbiField(
             initializeChannel()
         }
         val array = jsonRoot.getJSONArray("bits_to_show")
-        val data = ArrayList<MbbiBitModel>()
         for (i in 0 until array.length()) {
             val obj = array.getJSONObject(i)
-            val bit = MbbiBitModel(
+            val bit = MbbiBit(
                 obj.getInt("bit"),
                 obj.getString("label"),
-                i == 0 || i == 4
+                false
             )
             data.add(bit)
         }
@@ -61,13 +62,16 @@ class MbbiField(
         view.layoutParams = lp
     }
 
-    inner class BinaryMonitorListener() : MonitorListener {
-
+    inner class MbbiMonitorListener() : MonitorListener {
         override fun monitorChanged(event: MonitorEvent) {
-            activity?.runOnUiThread {
-                if (event.status.isSuccessful) {
-
+            if (event.status.isSuccessful) {
+                if (event.dbr?.isENUM == true) {
+                    val short = (event.dbr as ENUM).enumValue[0]
+                    for (bit in data) {
+                        bit.state = bit.bit.toShort() == short
+                    }
                 }
+                activity?.runOnUiThread { adapter.notifyDataSetChanged() }
             }
         }
     }
