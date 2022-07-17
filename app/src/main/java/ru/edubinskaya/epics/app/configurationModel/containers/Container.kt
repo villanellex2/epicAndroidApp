@@ -9,12 +9,14 @@ import ru.edubinskaya.epics.app.configurationModel.fields.text.InputTextField
 import ru.edubinskaya.epics.app.configurationModel.fields.text.TextField
 
 interface Container: ScreenUnit {
-    val children: kotlin.collections.List<ScreenUnit>
+    val children: List<ScreenUnit>
 
-    fun getSubViewList(): kotlin.collections.List<ScreenUnit> {
+    fun getSubViewList(): List<ScreenUnit> {
         val listOfFields = ArrayList<ScreenUnit>()
         try {
+            val root = jsonRoot
             val jsonArray = jsonRoot.getJSONArray("content")
+
             for (i in 0 until jsonArray.length()) {
                 val obj = jsonArray.getJSONObject(i)
                 try {
@@ -40,7 +42,9 @@ interface Container: ScreenUnit {
                     showAlert("${e.message} in$obj")
                 }
             }
-        } catch (ignored: JSONException) { }
+        } catch (ignored: JSONException) {
+            val kotik = "dfdf"
+        }
         return listOfFields
     }
 

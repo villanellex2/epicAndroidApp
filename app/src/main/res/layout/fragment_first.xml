@@ -1,63 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainFragment">
 
-    <GridLayout
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <TextView
-            style="@style/Text.Main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="@string/first_fragment_label" />
-
-        <TextView
-            android:id="@+id/action_settings"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="end|center_vertical"
-            android:background="@drawable/ic_settings"
-            android:gravity="end|center_vertical" />
-    </GridLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/field_color_primary"/>
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list_of_devices"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp" />
+            android:orientation="vertical">
+        <GridLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                style="@style/Text.Main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/first_fragment_label" />
+
+            <TextView
+                android:id="@+id/action_settings"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="end|center_vertical"
+                android:background="@drawable/ic_settings"
+                android:gravity="end|center_vertical" />
+        </GridLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/field_color_primary" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_of_devices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp" />
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+            android:background="@drawable/bubble"
+            android:gravity="center_vertical|center"
+            android:padding="10dp"
+            android:text="@string/empty"
+            android:textColor="@color/text_color_primary"
+            android:textSize="16sp"
+            android:visibility="gone" />
+        </LinearLayout>
+
     </ScrollView>
 
-    <TextView
-        android:id="@+id/empty"
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/add"
+        style="@style/Fab"
         android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:layout_gravity="end"
-        android:layout_margin="10dp"
-        android:background="@drawable/bubble"
-        android:gravity="center_vertical|center"
-        android:padding="10dp"
-        android:text="@string/empty"
-        android:textColor="@color/text_color_primary"
-        android:textSize="16sp"
-        android:visibility="gone" />
-</LinearLayout>
+        android:layout_height="50dp"
+        android:layout_margin="15dp"
+        android:clickable="true"
+        android:contentDescription="Adding item"
+        android:paddingStart="20dp"
+        android:text="@string/add_screen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="@color/white"
+
+        app:srcCompat="@drawable/ic_add" />
+</androidx.constraintlayout.widget.ConstraintLayout>

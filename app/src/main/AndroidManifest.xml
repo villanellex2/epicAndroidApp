@@ -14,32 +14,33 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EpicAndroidApp">
         <activity
-            android:name="ru.edubinskaya.epics.app.settings.SettingsActivity"
+            android:name=".screencreation.CreateItemActivity"
+            android:theme="@style/Theme.EpicAndroidApp.NoActionBar"
+            android:exported="true" />
+        <activity
+            android:name=".settings.SettingsActivity"
             android:exported="true"
             android:label="@string/title_activity_settings"
-            android:theme="@style/Theme.EpicAndroidApp.NoActionBar"/>
+            android:theme="@style/Theme.EpicAndroidApp.NoActionBar" />
         <activity
-            android:name="ru.edubinskaya.epics.app.settings.CreateConfigActivity"
+            android:name=".settings.CreateConfigActivity"
             android:exported="true"
-            android:theme="@style/Theme.EpicAndroidApp.NoActionBar">
-        </activity>
-
+            android:theme="@style/Theme.EpicAndroidApp.NoActionBar"></activity>
         <activity
             android:name=".screencreation.CreateScreenActivity"
             android:exported="true"
-            android:theme="@style/Theme.EpicAndroidApp.NoActionBar">
-        </activity>
-
+            android:theme="@style/Theme.EpicAndroidApp.NoActionBar"></activity>
         <activity
-            android:name="ru.edubinskaya.epics.app.settings.EditConfigActivity"
+            android:name=".settings.EditConfigActivity"
             android:exported="true"
-            android:theme="@style/Theme.EpicAndroidApp.NoActionBar"/>
+            android:theme="@style/Theme.EpicAndroidApp.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.EpicAndroidApp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

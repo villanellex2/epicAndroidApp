@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import org.json.JSONObject
 
 interface ScreenUnit {
-    val jsonRoot: JSONObject
-    val screenConfig: JSONObject
+    var jsonRoot: JSONObject
+    val screenConfig: JSONObject?
     val view: View
     val activity: Activity?
 
@@ -32,6 +32,10 @@ interface ScreenUnit {
         } else pxToDp(50)
         view.layoutParams.width = width
         view.layoutParams.height = height
+    }
+
+    fun setJSONRoot(jsonRoot: JSONObject) {
+
     }
 
     fun onDetachView()

@@ -19,9 +19,9 @@ import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.channelaccess.EpicsContext
 import ru.edubinskaya.epics.app.configurationModel.ScreenUnit
 
-abstract class Field(root: JSONObject, config: JSONObject): ScreenUnit {
-    abstract var fieldLabel: String?
-    val pvName: String?
+abstract class Field(private var root: JSONObject, private val config: JSONObject?) : ScreenUnit {
+    abstract var fieldLabel: String
+    lateinit var pvName: String
     var hasDisplayName: Boolean = false
     var channel: Channel? = null
     private var monitor: Monitor? = null
@@ -32,19 +32,7 @@ abstract class Field(root: JSONObject, config: JSONObject): ScreenUnit {
     private var isConnected = true
 
     init {
-        val pvName = root.getString("pv_name")
-        if (!pvName.startsWith("$")) {
-            this.pvName = pvName
-        } else {
-            val index = pvName.indexOf(':')
-            if (index == -1) {
-                this.pvName = pvName
-            } else {
-                val prefix = pvName.substring(0, index)
-                val prefixValue = config.getString(prefix)
-                this.pvName = prefixValue + ":" + pvName.substringAfter(":")
-            }
-        }
+        setDisplayName()
     }
 
     override fun onDetachView() {
@@ -61,12 +49,39 @@ abstract class Field(root: JSONObject, config: JSONObject): ScreenUnit {
         }.start()
     }
 
-    fun setDisplayName(jsonRoot: JSONObject) {
+    fun setDisplayName() {
+        if (jsonRoot == null) return
+        val pvName = jsonRoot.getString("pv_name")
+        if (!pvName.startsWith("$")) {
+            this.pvName = pvName
+        } else {
+            val index = pvName.indexOf(':')
+            if (index == -1) {
+                this.pvName = pvName
+            } else {
+                val prefix = pvName.substring(0, index)
+                val prefixValue = config?.getString(prefix)
+                this.pvName = prefixValue + ":" + pvName.substringAfter(":")
+            }
+        }
+
         if (jsonRoot.has("displayed_name")) {
             try {
-                setLabel(jsonRoot.getString("displayed_name"))
-                hasDisplayName = true
-            } catch (e: JSONException) {}
+                val displayedName = jsonRoot.getString("displayed_name")
+                if (displayedName.trim().isNotEmpty()) {
+                    setLabel(displayedName)
+                    hasDisplayName = true
+                } else {
+                    setLabel(pvName ?: "")
+                    hasDisplayName = false
+                }
+            } catch (e: JSONException) {
+                setLabel(pvName ?: "")
+                hasDisplayName = false
+            }
+        } else {
+            setLabel(pvName ?: "")
+            hasDisplayName = false
         }
     }
 
@@ -117,12 +132,11 @@ abstract class Field(root: JSONObject, config: JSONObject): ScreenUnit {
     open fun blockInput() {}
 
     fun setLabel(label: String) {
-        if (label.isNotEmpty()) {
-            activity?.runOnUiThread {
-                fieldLabel = label
-                view.findViewById<TextView>(R.id.item_name).text = fieldLabel
-            }
+        activity?.runOnUiThread {
+            fieldLabel = label
+            view.findViewById<TextView>(R.id.item_name).text = fieldLabel
         }
+
     }
 
     override fun createMonitor() {
@@ -140,7 +154,8 @@ abstract class Field(root: JSONObject, config: JSONObject): ScreenUnit {
                 try {
                     channel = EpicsContext.context.createChannel("$pvName")
                     descChannel = EpicsContext.context.createChannel("$pvName.DESC")
-                } catch (th: Throwable) { }
+                } catch (th: Throwable) {
+                }
                 return null
             }
         }.execute()

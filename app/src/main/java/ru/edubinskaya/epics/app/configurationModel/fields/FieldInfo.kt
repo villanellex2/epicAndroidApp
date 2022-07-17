@@ -1,7 +1,6 @@
 package ru.edubinskaya.epics.app.configurationModel.fields
 
 import android.app.Activity
-import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -26,33 +25,40 @@ abstract class FieldInfo(
             put("height", height.toString())
             put("width", width.toString())
             put("pv_name", pvName)
+            put("displayed_name", displayedName)
             displayedName?.let { put("displayed_name", displayedName) }
         }
     }
 
-    open fun getListOfParamSetters(activity: Activity): ArrayList<View> {
+
+    open fun getListOfParamSetters(activity: Activity, onUpdate: () -> Unit): ArrayList<View> {
         val list = ArrayList<View>()
 
-        list.add(createStringParamSetter("pv name", activity) { newText: String -> pvName = newText })
-        list.add(createStringParamSetter("displayed name", activity) { newText: String -> displayedName = newText })
-        list.add(height.getParamSetter("height", activity, SizeInfoType.WRAP_CONTENT))
-        list.add(width.getParamSetter("width", activity, SizeInfoType.MATCH_PARENT))
+        list.add(createStringParamSetter("pv name", activity, onUpdate) { newText: String -> pvName = newText })
+        list.add(createStringParamSetter("displayed name", activity, onUpdate) { newText: String -> displayedName = newText })
+        list.add(height.getParamSetter("height", activity, SizeInfoType.WRAP_CONTENT, onUpdate))
+        list.add(width.getParamSetter("width", activity, SizeInfoType.MATCH_PARENT, onUpdate))
 
         return list
     }
 
-    fun createStringParamSetter(title: String, activity: Activity, onChangeListener: TextChangeListener): View {
-        val view = activity.layoutInflater.inflate(R.layout.string_param_setter, null) as LinearLayout
-
-        view.findViewById<TextView>(R.id.title).text = title
-        view.findViewById<EditText>(R.id.edit_text).addTextChangedListener(object :
-            TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable) {
-                onChangeListener.onTextChanged(s.toString())
+    protected fun createStringParamSetter(title: String, activity: Activity, onUpdate: () -> Unit, onChangeListener: TextChangeListener): View {
+        val view = LinearLayout(activity).apply {
+            addView(TextView(activity).apply { text = title })
+            addView(EditText(activity).apply {
+                addTextChangedListener(object :
+                    TextWatcher {
+                    override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+                    override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+                    override fun afterTextChanged(s: Editable) {
+                        onChangeListener.onTextChanged(s.toString())
+                        onUpdate()
+                    }
+                })
             }
-        })
+            )
+            orientation = LinearLayout.VERTICAL
+        }
 
         return view
     }

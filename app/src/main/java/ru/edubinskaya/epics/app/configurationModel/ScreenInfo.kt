@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.view.ViewGroup
 import android.widget.*
 import ru.edubinskaya.epics.app.R
 import java.io.Serializable
@@ -31,7 +32,12 @@ class SizeInfo(
         }
     }
 
-    fun getParamSetter(title: String, activity: Activity?, value: SizeInfoType): View {
+    fun getParamSetter(
+        title: String,
+        activity: Activity?,
+        value: SizeInfoType,
+        onUpdate: () -> Unit
+    ): View {
         this.type = value
 
         val view = activity?.layoutInflater?.inflate(R.layout.size_info_view, null) as LinearLayout
@@ -69,6 +75,7 @@ class SizeInfo(
                         SizeInfoType.WRAP_CONTENT
                     }
                 }
+                onUpdate()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -81,7 +88,8 @@ class SizeInfo(
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable) {
-               this@SizeInfo.value = s.toString().toIntOrNull() ?: 50
+                this@SizeInfo.value = s.toString().toIntOrNull() ?: 50
+                onUpdate()
             }
         })
 

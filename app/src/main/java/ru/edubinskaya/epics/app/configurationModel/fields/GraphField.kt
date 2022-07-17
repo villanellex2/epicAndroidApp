@@ -21,15 +21,15 @@ import ru.edubinskaya.epics.app.R
 
 
 class GraphField(
-    override val jsonRoot: JSONObject,
+    override var jsonRoot: JSONObject,
     override val activity: Activity?,
-    override val screenConfig: JSONObject
+    override val screenConfig: JSONObject?
 ) : Field(jsonRoot, screenConfig) {
     override var view = LinearLayout(activity)
     override val monitorListener: MonitorListener = BinaryMonitorListener()
     override fun blockInput() {}
 
-    override var fieldLabel: String? = pvName
+    override var fieldLabel: String = pvName
     private val chart: LineChart
     private val dataSet: LineDataSet
 
@@ -37,7 +37,7 @@ class GraphField(
         view = activity?.layoutInflater?.inflate(R.layout.field_graph, null) as LinearLayout
 
         if (fieldLabel != null) {
-            setDisplayName(jsonRoot)
+            setDisplayName()
             if (!hasDisplayName) {
                 view.findViewById<TextView>(R.id.item_name).text = fieldLabel
             }

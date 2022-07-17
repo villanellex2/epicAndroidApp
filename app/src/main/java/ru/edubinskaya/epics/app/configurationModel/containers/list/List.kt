@@ -12,9 +12,9 @@ import ru.edubinskaya.epics.app.configurationModel.containers.Container
 import kotlin.collections.List
 
 class List(
-    override val jsonRoot: JSONObject,
+    override var jsonRoot: JSONObject,
     override val activity: Activity?,
-    override val screenConfig: JSONObject,
+    override val screenConfig: JSONObject?,
 ) : Container {
     override val children: List<ScreenUnit> = getSubViewList()
     override val view: View

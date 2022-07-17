@@ -11,7 +11,7 @@ class ListInfo(
     private val orientation: ListOrientation,
     private val height: SizeInfo,
     private val width: SizeInfo,
-    private val items: ArrayList<FieldInfo> = ArrayList(),
+    private val items: ArrayList<JSONObject> = ArrayList(),
 ) {
     fun toJson(): JSONObject {
         return JSONObject().apply {
@@ -19,13 +19,17 @@ class ListInfo(
             put("height", height.toString())
             put("width", width.toString())
             val itemsJson = JSONArray()
-            items.forEach { itemsJson.put(it.toJson())  }
-            put("content", items)
+            items.forEach { itemsJson.put(it)  }
+            put("content", itemsJson)
             put("type", "LIST")
         }
     }
 
     fun addItem(item: FieldInfo) {
+        items.add(item.toJson())
+    }
+
+    fun addItem(item: JSONObject) {
         items.add(item)
     }
 }

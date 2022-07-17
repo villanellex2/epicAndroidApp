@@ -13,16 +13,16 @@ import ru.edubinskaya.epics.app.configurationModel.fields.Field
 
 
 open class TextField (
-    final override val jsonRoot: JSONObject,
+    override var jsonRoot: JSONObject,
     final override val activity: Activity?,
-    override val screenConfig: JSONObject
+    override val screenConfig: JSONObject?
 ) : Field(jsonRoot, screenConfig) {
 
     final override var view = LinearLayout(activity)
     override val monitorListener = DoubleMonitorListener()
     override fun blockInput() {}
 
-    final override var fieldLabel: String? = pvName
+    final override lateinit var fieldLabel: String
 
     init {
         view = activity?.layoutInflater?.inflate(R.layout.text_field, null) as LinearLayout
@@ -30,13 +30,12 @@ open class TextField (
     }
 
     fun prepareLayout() {
-        if (fieldLabel != null) {
-            setDisplayName(jsonRoot)
-            if (!hasDisplayName) {
-                view.findViewById<TextView>(R.id.item_name).text = fieldLabel
-            }
-            initializeChannel()
+        setJSONRoot(jsonRoot)
+        setDisplayName()
+        if (!hasDisplayName) {
+            view.findViewById<TextView>(R.id.item_name).text = fieldLabel
         }
+        initializeChannel()
 
         val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         lp.setMargins(15, 15, 15, 15)

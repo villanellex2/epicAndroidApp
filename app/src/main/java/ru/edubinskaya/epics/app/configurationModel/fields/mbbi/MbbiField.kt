@@ -19,15 +19,15 @@ private val fields = arrayOf(
 )
 
 class MbbiField(
-    override val jsonRoot: JSONObject,
+    override var jsonRoot: JSONObject,
     override val activity: Activity?,
-    override val screenConfig: JSONObject
+    override val screenConfig: JSONObject?
 ) : Field(jsonRoot, screenConfig) {
     override var view = LinearLayout(activity)
     override val monitorListener: MonitorListener = MbbiMonitorListener()
     override fun blockInput() {}
 
-    override var fieldLabel: String? = pvName
+    override var fieldLabel: String = pvName
     private val adapter: MbbiRecyclerViewAdapter
     private val data = ArrayList<MbbiBit>()
 
@@ -35,7 +35,7 @@ class MbbiField(
         view = activity?.layoutInflater?.inflate(R.layout.field_mbbi, null) as LinearLayout
         val recyclerView = view.findViewById<RecyclerView>(R.id.container)
         if (fieldLabel != null) {
-            setDisplayName(jsonRoot)
+            setDisplayName()
             if (!hasDisplayName) {
                 view.findViewById<TextView>(R.id.item_name).text = fieldLabel
             }

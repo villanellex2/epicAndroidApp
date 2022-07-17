@@ -31,7 +31,7 @@ import ru.edubinskaya.epics.app.channelaccess.EpicsContext
 class InputTextField(
     jsonRoot: JSONObject,
     activity: Activity?,
-    override val screenConfig: JSONObject
+    override val screenConfig: JSONObject?
 ) : TextField(jsonRoot, activity, screenConfig) {
     private val editText: EditText
 

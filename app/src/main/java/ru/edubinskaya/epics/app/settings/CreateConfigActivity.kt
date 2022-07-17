@@ -1,5 +1,6 @@
 package ru.edubinskaya.epics.app.settings
 
+import android.app.Activity
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
@@ -51,25 +52,7 @@ class CreateConfigActivity : AppCompatActivity() {
                 .setPositiveButton("Change name") { _, _ -> }
                 .show()
         } else {
-            saveIfJsonCorrect(findViewById<EditText>(R.id.config).text.toString())
-        }
-    }
-
-    private fun saveIfJsonCorrect(config: String) {
-        val message = checkConfigAndGetMessage(config, this)
-        if (message != null) {
-            MaterialAlertDialogBuilder(this)
-                .setTitle("Incorrect configuration")
-                .setMessage(message)
-                .setPositiveButton("EDIT CONFIGURATION") {_,_ -> }
-                .show()
-        } else {
-            db?.execSQL("INSERT OR IGNORE INTO files VALUES (\"$name\")")
-            val fos =
-                BufferedWriter(OutputStreamWriter(openFileOutput(name + ".json", MODE_PRIVATE)))
-            fos.write(config)
-            fos.close()
-            super.onBackPressed()
+            saveIfJsonCorrect(name, findViewById<EditText>(R.id.config).text.toString(), db, this)
         }
     }
 
@@ -94,4 +77,26 @@ class CreateConfigActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
+}
+
+//TODO: wtf почему методы не в отдельном классе? катя епрст
+fun saveIfJsonCorrect(name: String, config: String, db: SQLiteDatabase?, activity: Activity) {
+    val message = checkConfigAndGetMessage(config, activity)
+    if (message != null) {
+        MaterialAlertDialogBuilder(activity)
+            .setTitle("Incorrect configuration")
+            .setMessage(message)
+            .setPositiveButton("EDIT CONFIGURATION") {_,_ -> }
+            .show()
+    } else {
+        db?.execSQL("INSERT OR IGNORE INTO files VALUES (\"$name\")")
+        val fos =
+            BufferedWriter(OutputStreamWriter(activity.openFileOutput(
+                "$name.json",
+                AppCompatActivity.MODE_PRIVATE
+            )))
+        fos.write(config)
+        fos.close()
+        activity.onBackPressed()
+    }
 }

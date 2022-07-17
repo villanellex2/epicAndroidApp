@@ -19,6 +19,7 @@
         app:autoSizeStepGranularity="2sp"
         app:autoSizeTextType="uniform"
         android:ellipsize="end"
+        android:minWidth="100dp"
         tools:text="name" />
 
     <TextView

@@ -24,10 +24,6 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
-
-        binding.add.setOnClickListener {
-            startActivity(Intent(this, CreateScreenActivity::class.java))
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import ru.edubinskaya.epics.app.config.ScreenProvider
 import ru.edubinskaya.epics.app.databinding.FragmentFirstBinding
 import ru.edubinskaya.epics.app.configurationModel.ScreenInfo
+import ru.edubinskaya.epics.app.screencreation.CreateScreenActivity
 import ru.edubinskaya.epics.app.settings.SettingsActivity
 
 
@@ -31,6 +32,9 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        binding.add.setOnClickListener {
+            startActivity(Intent(activity, CreateScreenActivity::class.java))
+        }
         return binding.root
     }
 
