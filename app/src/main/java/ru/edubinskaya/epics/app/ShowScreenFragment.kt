@@ -12,15 +12,15 @@ import androidx.navigation.fragment.findNavController
 import org.json.JSONException
 import ru.edubinskaya.epics.app.channelaccess.EpicsContext
 import ru.edubinskaya.epics.app.configuration.json.ScreenProvider
-import ru.edubinskaya.epics.app.databinding.ScreenViewBinding
 import ru.edubinskaya.epics.app.configuration.Screen
 import ru.edubinskaya.epics.app.configuration.ScreenInfo
+import ru.edubinskaya.epics.app.databinding.FragmentScreenViewBinding
 
 const val SERIALIZED_SCREEN_FIELD = "screen"
 
 class SecondFragment : Fragment() {
 
-    private var binding: ScreenViewBinding? = null
+    private var binding: FragmentScreenViewBinding? = null
 
     private var screen: Screen? = null
     private var screenProvider: ScreenProvider? = null
@@ -29,7 +29,7 @@ class SecondFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): ConstraintLayout? {
-        binding = ScreenViewBinding.inflate(inflater, container, false)
+        binding = FragmentScreenViewBinding.inflate(inflater, container, false)
         return binding?.root
     }
 

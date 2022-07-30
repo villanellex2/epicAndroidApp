@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="ru.edubinskaya.epics.app.MainFragment"
+        android:name="ru.edubinskaya.epics.app.MainMenuFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_main_menu">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"

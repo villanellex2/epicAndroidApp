@@ -39,7 +39,7 @@ class SizeInfo(
     ): View {
         this.type = value
 
-        val view = activity?.layoutInflater?.inflate(R.layout.size_info_view, null) as LinearLayout
+        val view = activity?.layoutInflater?.inflate(R.layout.create_screen_size_info, null) as LinearLayout
         val spinner = view.findViewById<Spinner>(R.id.spinner)
 
         val adapter: ArrayAdapter<*> = ArrayAdapter.createFromResource(

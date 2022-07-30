@@ -40,7 +40,7 @@ class InputTextField(
     }
 
     init {
-        view = activity?.layoutInflater?.inflate(R.layout.input_text_field, null) as LinearLayout
+        view = activity?.layoutInflater?.inflate(R.layout.field_input_text, null) as LinearLayout
         prepareLayout()
 
         editText = view.findViewById(R.id.item_value)

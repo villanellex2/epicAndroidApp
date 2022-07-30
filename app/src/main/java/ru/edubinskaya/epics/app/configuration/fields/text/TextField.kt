@@ -21,27 +21,11 @@ open class TextField (
     final override var view = LinearLayout(activity)
     override val monitorListener = DoubleMonitorListener()
     override fun blockInput() {}
-
-    final override lateinit var fieldLabel: String
+    override lateinit var fieldLabel: String
 
     init {
         view = activity?.layoutInflater?.inflate(R.layout.text_field, null) as LinearLayout
         prepareLayout()
-    }
-
-    fun prepareLayout() {
-        setJSONRoot(jsonRoot)
-        setDisplayName()
-        if (!hasDisplayName) {
-            view.findViewById<TextView>(R.id.item_name).text = fieldLabel
-        }
-        initializeChannel()
-
-        val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-        lp.setMargins(15, 15, 15, 15)
-        view.layoutParams = lp
-
-        setViewLayoutParams()
     }
 
     inner class DoubleMonitorListener() : MonitorListener {

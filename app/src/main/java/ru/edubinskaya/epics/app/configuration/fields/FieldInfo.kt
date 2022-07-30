@@ -4,6 +4,7 @@ import android.app.Activity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -29,7 +30,6 @@ abstract class FieldInfo(
         }
     }
 
-
     open fun getListOfParamSetters(activity: Activity, onUpdate: () -> Unit): ArrayList<View> {
         val list = ArrayList<View>()
 
@@ -41,7 +41,8 @@ abstract class FieldInfo(
         return list
     }
 
-    protected fun createStringParamSetter(title: String, activity: Activity, onUpdate: () -> Unit, onChangeListener: TextChangeListener): View {
+    fun createStringParamSetter(title: String, activity: Activity,
+                                        onUpdate: () -> Unit, onChangeListener: TextChangeListener): View {
         val view = LinearLayout(activity).apply {
             addView(TextView(activity).apply { text = title })
             addView(EditText(activity).apply {
@@ -54,15 +55,29 @@ abstract class FieldInfo(
                         onUpdate()
                     }
                 })
-            }
-            )
+            })
             orientation = LinearLayout.VERTICAL
         }
 
         return view
     }
 
+    fun createCheckParamSetter(title: String, activity: Activity, onUpdate: () -> Unit,
+                                       onChangeListener: CheckChangeListener): View {
+        return LinearLayout(activity).apply {
+            addView(TextView(activity).apply { text = title })
+            addView(CheckBox(activity).apply {
+                setOnCheckedChangeListener { _, b -> onChangeListener.onCheckChanged(b) }
+            })
+            orientation = LinearLayout.HORIZONTAL
+        }
+    }
+
     fun interface TextChangeListener {
         fun onTextChanged(newText: String)
+    }
+
+    fun interface CheckChangeListener {
+        fun onCheckChanged(check: Boolean)
     }
 }

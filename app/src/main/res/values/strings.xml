@@ -33,4 +33,10 @@
         <item>match_parent</item>
         <item>fixed</item>
     </string-array>
+
+    <string-array name="unit">
+        <item>Text field</item>
+        <item>Input text field</item>
+        <item>Switch</item>
+    </string-array>
 </resources>

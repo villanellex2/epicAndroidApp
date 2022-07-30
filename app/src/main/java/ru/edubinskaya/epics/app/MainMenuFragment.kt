@@ -12,8 +12,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.edubinskaya.epics.app.configuration.json.ScreenProvider
-import ru.edubinskaya.epics.app.databinding.FragmentFirstBinding
 import ru.edubinskaya.epics.app.configuration.ScreenInfo
+import ru.edubinskaya.epics.app.databinding.FragmentMainMenuBinding
 import ru.edubinskaya.epics.app.screencreation.CreateScreenActivity
 import ru.edubinskaya.epics.app.settings.SettingsActivity
 
@@ -21,9 +21,9 @@ import ru.edubinskaya.epics.app.settings.SettingsActivity
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class MainFragment : Fragment() {
+class MainMenuFragment : Fragment() {
 
-    private var _binding: FragmentFirstBinding? = null
+    private var _binding: FragmentMainMenuBinding? = null
     private val binding get() = _binding!!
     private lateinit var listOfScreen: List<ScreenInfo>
 
@@ -31,7 +31,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        _binding = FragmentMainMenuBinding.inflate(inflater, container, false)
         binding.add.setOnClickListener {
             startActivity(Intent(activity, CreateScreenActivity::class.java))
         }

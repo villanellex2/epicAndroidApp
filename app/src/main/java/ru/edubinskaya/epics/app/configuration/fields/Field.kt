@@ -3,6 +3,7 @@ package ru.edubinskaya.epics.app.configuration.fields
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.AsyncTask
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -83,6 +84,21 @@ abstract class Field(private var root: JSONObject, private val config: JSONObjec
             setLabel(pvName ?: "")
             hasDisplayName = false
         }
+    }
+
+    open fun prepareLayout() {
+        setJSONRoot(jsonRoot)
+        setDisplayName()
+        if (!hasDisplayName) {
+            view.findViewById<TextView>(R.id.item_name).text = fieldLabel
+        }
+        initializeChannel()
+
+        val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        lp.setMargins(15, 15, 15, 15)
+        view.layoutParams = lp
+
+        setViewLayoutParams()
     }
 
     fun setIncorrectPvType(activity: Activity?) {

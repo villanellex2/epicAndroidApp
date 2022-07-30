@@ -12,6 +12,7 @@ import ru.edubinskaya.epics.app.configuration.Screen
 import ru.edubinskaya.epics.app.configuration.ScreenInfo
 import ru.edubinskaya.epics.app.configuration.containers.Table
 import ru.edubinskaya.epics.app.configuration.fields.*
+import ru.edubinskaya.epics.app.configuration.fields.binaryfield.BinaryField
 import ru.edubinskaya.epics.app.configuration.fields.text.InputTextField
 import ru.edubinskaya.epics.app.configuration.fields.text.TextField
 import java.io.BufferedReader

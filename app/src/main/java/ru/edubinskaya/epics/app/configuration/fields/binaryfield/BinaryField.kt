@@ -1,7 +1,9 @@
-package ru.edubinskaya.epics.app.configuration.fields
+package ru.edubinskaya.epics.app.configuration.fields.binaryfield
 
 import android.app.Activity
-import android.view.View
+import android.transition.Visibility
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -14,70 +16,65 @@ import gov.aps.jca.event.*
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.channelaccess.EpicsContext
+import ru.edubinskaya.epics.app.configuration.fields.Field
 
 class BinaryField(
-    private val isActive: Boolean,
+    private var isActive: Boolean,
     override var jsonRoot: JSONObject,
     override val activity: Activity?,
     override val screenConfig: JSONObject?
 ) : Field(jsonRoot, screenConfig) {
     override var view = LinearLayout(activity)
     override val monitorListener: MonitorListener = BinaryMonitorListener()
-
-    override fun blockInput() {
-        if (isActive) {
-            stub?.visibility = View.VISIBLE
-            switch.visibility = View.GONE
-        }
-    }
-
-    override var fieldLabel: String = pvName
-
+    override lateinit var fieldLabel: String
     private val switch: SwitchCompat
     private val stub: SwitchCompat?
 
     init {
-        view = if (isActive) {
-            activity?.layoutInflater?.inflate(R.layout.boolean_input, null) as LinearLayout
-        } else {
-            activity?.layoutInflater?.inflate(R.layout.boolean_field, null) as LinearLayout
-        }
+        view = activity?.layoutInflater?.inflate(R.layout.field_boolean_input, null) as LinearLayout
 
         switch = view.findViewById(R.id.item_value)
         stub = view.findViewById(R.id.stub)
 
-        if (!isActive) {
-            switch.isClickable = false
+        setDisplayName()
+        if (!hasDisplayName) {
+            view.findViewById<TextView>(R.id.item_name).text = fieldLabel
         }
+        initializeChannel()
+        prepareLayout()
+    }
 
-        if (fieldLabel != null) {
-            setDisplayName()
-            if (!hasDisplayName) {
-                view.findViewById<TextView>(R.id.item_name).text = fieldLabel
+    override fun prepareLayout() {
+        super.prepareLayout()
+        isActive = jsonRoot.getString("type") == "BOOLEAN_INPUT"
+        if (isActive) {
+            switch.setSwitchTextAppearance(activity, R.style.ColorSwitchStyle_Active)
+            switch.visibility = VISIBLE
+            stub?.visibility = GONE
+            switch.setOnClickListener {
+                val value = if (switch.isChecked) 1 else 0
+                if (channel?.connectionState == Channel.ConnectionState.CONNECTED) {
+                    channel?.put(value, BinaryPutListener())
+                    Thread() {
+                        EpicsContext.context.pendIO(7.0)
+                    }.start()
+                    switch.setSwitchTextAppearance(activity, R.style.ColorSwitchStyle_Stub)
+                } else {
+                    switch.isChecked = !switch.isChecked
+                }
             }
-            initializeChannel()
+        } else {
+            blockInput()
+            switch.visibility = GONE
+            stub?.visibility = VISIBLE
+            switch.setOnClickListener {}
         }
+    }
 
-        val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-        lp.setMargins(15, 15, 15, 15)
-        view.layoutParams = lp
-
-        setViewLayoutParams()
-
-        switch.setOnClickListener {
-            if (!isActive) return@setOnClickListener
-            val value = if (switch.isChecked) 1 else 0
-            if (channel?.connectionState == Channel.ConnectionState.CONNECTED) {
-                channel?.put(value, BinaryPutListener())
-                Thread() {
-                    EpicsContext.context.pendIO(7.0)
-                }.start()
-                stub.isChecked = switch.isChecked
-                stub.visibility = View.VISIBLE
-                switch.visibility = View.GONE
-            } else {
-                switch.isChecked = !switch.isChecked
-            }
+    override fun blockInput() {
+        if (isActive) {
+            switch.visibility = GONE
+            stub?.visibility = VISIBLE
         }
     }
 
@@ -88,7 +85,8 @@ class BinaryField(
                 if (event.status === CAStatus.NORMAL) {
                     if (event.dbr is ENUM) {
                         val value = (event.dbr as ENUM).enumValue[0]
-                        view.findViewById<SwitchCompat>(R.id.item_value).isChecked = value != 0.toShort()
+                        view.findViewById<SwitchCompat>(R.id.item_value).isChecked =
+                            value != 0.toShort()
                         setConnected(activity)
                     } else {
                         setIncorrectPvType(activity)
@@ -138,8 +136,10 @@ class BinaryField(
                     Toast.makeText(activity, event?.status?.message, Toast.LENGTH_LONG).show()
                     setIncorrect(activity)
                 }
-                switch.visibility = View.VISIBLE
-                stub?.visibility = View.GONE
+                if (isActive) {
+                    switch.visibility = VISIBLE
+                    stub?.visibility = GONE
+                }
             }
         }
     }

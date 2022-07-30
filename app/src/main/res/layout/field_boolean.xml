@@ -23,10 +23,9 @@
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/item_value"
-        style="@style/ColorSwitchStyle.Stub"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_gravity="end|center_vertical"
-        android:theme="@style/ColorSwitchStyle.Stub"
+        android:theme="@style/ColorSwitchStyle.Active"
         android:layout_width="0dp" />
 </LinearLayout>

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog
 import org.json.JSONException
 import ru.edubinskaya.epics.app.configuration.ScreenUnit
 import ru.edubinskaya.epics.app.configuration.fields.*
+import ru.edubinskaya.epics.app.configuration.fields.binaryfield.BinaryField
 import ru.edubinskaya.epics.app.configuration.fields.mbbi.MbbiField
 import ru.edubinskaya.epics.app.configuration.fields.text.InputTextField
 import ru.edubinskaya.epics.app.configuration.fields.text.TextField

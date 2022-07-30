@@ -20,9 +20,17 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_top_corners"
                 android:orientation="vertical"
+                android:minHeight="70dp"
                 android:padding="30dp">
 
             </LinearLayout>
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="32dp"
+                android:entries="@array/unit"/>
 
             <LinearLayout
                 android:id="@+id/propertiesContainer"

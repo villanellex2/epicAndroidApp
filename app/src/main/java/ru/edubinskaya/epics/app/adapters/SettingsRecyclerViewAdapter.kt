@@ -16,7 +16,7 @@ class SettingsRecyclerViewAdapter internal constructor(val context: Context?, pr
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = mInflater.inflate(R.layout.filename_items, parent, false)
+        val view: View = mInflater.inflate(R.layout.settings_filename, parent, false)
         return ViewHolder(view)
     }
 

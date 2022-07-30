@@ -17,7 +17,7 @@ class EditConfigActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.edit_file_activity)
+        setContentView(R.layout.activity_edit_file)
 
         val config = findViewById<EditText>(R.id.config)
         findViewById<View>(R.id.done).setOnClickListener {
