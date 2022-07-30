@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.configurationModel.fields
+package ru.edubinskaya.epics.app.configuration.fields
 
 import android.app.Activity
 import android.view.View

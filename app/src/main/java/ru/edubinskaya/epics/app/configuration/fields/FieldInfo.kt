@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.configurationModel.fields
+package ru.edubinskaya.epics.app.configuration.fields
 
 import android.app.Activity
 import android.text.Editable
@@ -8,10 +8,9 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import org.json.JSONObject
-import ru.edubinskaya.epics.app.R
-import ru.edubinskaya.epics.app.configurationModel.ScreenItemsInfo
-import ru.edubinskaya.epics.app.configurationModel.SizeInfo
-import ru.edubinskaya.epics.app.configurationModel.SizeInfoType
+import ru.edubinskaya.epics.app.configuration.ScreenItemsInfo
+import ru.edubinskaya.epics.app.configuration.SizeInfo
+import ru.edubinskaya.epics.app.configuration.SizeInfoType
 
 abstract class FieldInfo(
     private var pvName: String,

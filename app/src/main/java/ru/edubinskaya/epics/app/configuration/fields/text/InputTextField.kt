@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.configurationModel.fields.text
+package ru.edubinskaya.epics.app.configuration.fields.text
 
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator

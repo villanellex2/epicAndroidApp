@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.configurationModel.fields
+package ru.edubinskaya.epics.app.configuration.fields
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -17,7 +17,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.channelaccess.EpicsContext
-import ru.edubinskaya.epics.app.configurationModel.ScreenUnit
+import ru.edubinskaya.epics.app.configuration.ScreenUnit
 
 abstract class Field(private var root: JSONObject, private val config: JSONObject?) : ScreenUnit {
     abstract var fieldLabel: String

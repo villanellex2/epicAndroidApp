@@ -10,12 +10,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.json.JSONException
-import ru.edubinskaya.epics.app.R
 import ru.edubinskaya.epics.app.channelaccess.EpicsContext
-import ru.edubinskaya.epics.app.config.ScreenProvider
+import ru.edubinskaya.epics.app.configuration.json.ScreenProvider
 import ru.edubinskaya.epics.app.databinding.ScreenViewBinding
-import ru.edubinskaya.epics.app.configurationModel.Screen
-import ru.edubinskaya.epics.app.configurationModel.ScreenInfo
+import ru.edubinskaya.epics.app.configuration.Screen
+import ru.edubinskaya.epics.app.configuration.ScreenInfo
 
 const val SERIALIZED_SCREEN_FIELD = "screen"
 

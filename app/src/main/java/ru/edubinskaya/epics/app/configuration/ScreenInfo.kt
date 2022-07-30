@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.configurationModel
+package ru.edubinskaya.epics.app.configuration
 
 import android.app.Activity
 import android.text.Editable
@@ -6,7 +6,6 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.view.ViewGroup
 import android.widget.*
 import ru.edubinskaya.epics.app.R
 import java.io.Serializable

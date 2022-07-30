@@ -1,12 +1,12 @@
-package ru.edubinskaya.epics.app.configurationModel.containers
+package ru.edubinskaya.epics.app.configuration.containers
 
 import androidx.appcompat.app.AlertDialog
 import org.json.JSONException
-import ru.edubinskaya.epics.app.configurationModel.ScreenUnit
-import ru.edubinskaya.epics.app.configurationModel.fields.*
-import ru.edubinskaya.epics.app.configurationModel.fields.mbbi.MbbiField
-import ru.edubinskaya.epics.app.configurationModel.fields.text.InputTextField
-import ru.edubinskaya.epics.app.configurationModel.fields.text.TextField
+import ru.edubinskaya.epics.app.configuration.ScreenUnit
+import ru.edubinskaya.epics.app.configuration.fields.*
+import ru.edubinskaya.epics.app.configuration.fields.mbbi.MbbiField
+import ru.edubinskaya.epics.app.configuration.fields.text.InputTextField
+import ru.edubinskaya.epics.app.configuration.fields.text.TextField
 
 interface Container: ScreenUnit {
     val children: List<ScreenUnit>
@@ -28,7 +28,7 @@ interface Container: ScreenUnit {
                         FieldType.BOOLEAN_INPUT.name -> BinaryField(true, obj, activity, screenConfig)
                         FieldType.BOOLEAN_FIELD.name -> BinaryField(false, obj, activity, screenConfig)
                         FieldType.MBBI.name -> MbbiField(obj, activity, screenConfig)
-                        ContainerType.LIST.name -> ru.edubinskaya.epics.app.configurationModel.containers.list.List(
+                        ContainerType.LIST.name -> ru.edubinskaya.epics.app.configuration.containers.list.List(
                             obj,
                             activity,
                             screenConfig

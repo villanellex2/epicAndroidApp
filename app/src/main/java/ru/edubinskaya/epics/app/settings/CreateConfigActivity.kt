@@ -1,7 +1,5 @@
 package ru.edubinskaya.epics.app.settings
 
-import android.app.Activity
-import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.view.View
@@ -9,13 +7,10 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import ru.edubinskaya.epics.app.R
-import ru.edubinskaya.epics.app.config.checkConfigAndGetMessage
-import java.io.BufferedWriter
-import java.io.OutputStreamWriter
+import ru.edubinskaya.epics.app.configuration.json.saveIfJsonCorrect
 
 
 class CreateConfigActivity : AppCompatActivity() {
-//TODO: simple JSON validation
     val name: String get() = findViewById<EditText>(R.id.filename).text.toString()
     var db: SQLiteDatabase? = null
 
@@ -32,27 +27,8 @@ class CreateConfigActivity : AppCompatActivity() {
                     .setPositiveButton("Change name") {_, _ -> }
                     .show()
             } else {
-                saveFile()
+                saveIfJsonCorrect(name, findViewById<EditText>(R.id.config).text.toString(), db, this)
             }
-        }
-    }
-
-    private fun saveFile() {
-        val name = this.name.replace(" ", "_")
-        if (isExist(name)) {
-            MaterialAlertDialogBuilder(this).setTitle("Can't save file")
-                .setMessage("File with name $name already exists")
-                .setNegativeButton("Override file") { _, _ ->
-                    val config = findViewById<EditText>(R.id.config).text
-
-                    val fos = BufferedWriter(OutputStreamWriter(openFileOutput(name, MODE_PRIVATE)))
-                    fos.write(config.toString())
-                    super.onBackPressed()
-                }
-                .setPositiveButton("Change name") { _, _ -> }
-                .show()
-        } else {
-            saveIfJsonCorrect(name, findViewById<EditText>(R.id.config).text.toString(), db, this)
         }
     }
 
@@ -64,39 +40,8 @@ class CreateConfigActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun isExist(name: String): Boolean {
-        if (db == null) return true
-        val query: Cursor = db!!.rawQuery("SELECT * FROM files WHERE (filename = \"$name\");", null)
-        val res = query.count > 0
-        query.close()
-        return res
-    }
-
     override fun onDestroy() {
         db?.close()
         super.onDestroy()
-    }
-
-}
-
-//TODO: wtf почему методы не в отдельном классе? катя епрст
-fun saveIfJsonCorrect(name: String, config: String, db: SQLiteDatabase?, activity: Activity) {
-    val message = checkConfigAndGetMessage(config, activity)
-    if (message != null) {
-        MaterialAlertDialogBuilder(activity)
-            .setTitle("Incorrect configuration")
-            .setMessage(message)
-            .setPositiveButton("EDIT CONFIGURATION") {_,_ -> }
-            .show()
-    } else {
-        db?.execSQL("INSERT OR IGNORE INTO files VALUES (\"$name\")")
-        val fos =
-            BufferedWriter(OutputStreamWriter(activity.openFileOutput(
-                "$name.json",
-                AppCompatActivity.MODE_PRIVATE
-            )))
-        fos.write(config)
-        fos.close()
-        activity.onBackPressed()
     }
 }

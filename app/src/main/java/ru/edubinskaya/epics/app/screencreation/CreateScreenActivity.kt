@@ -1,23 +1,17 @@
 package ru.edubinskaya.epics.app.screencreation
 
 import android.content.Intent
-import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import org.json.JSONArray
 import org.json.JSONObject
-import ru.edubinskaya.epics.app.R
-import ru.edubinskaya.epics.app.configurationModel.SizeInfo
-import ru.edubinskaya.epics.app.configurationModel.SizeInfoType
-import ru.edubinskaya.epics.app.configurationModel.containers.list.List
-import ru.edubinskaya.epics.app.configurationModel.containers.list.ListInfo
-import ru.edubinskaya.epics.app.configurationModel.containers.list.ListOrientation
+import ru.edubinskaya.epics.app.configuration.SizeInfo
+import ru.edubinskaya.epics.app.configuration.SizeInfoType
+import ru.edubinskaya.epics.app.configuration.containers.list.List
+import ru.edubinskaya.epics.app.configuration.containers.list.ListInfo
+import ru.edubinskaya.epics.app.configuration.containers.list.ListOrientation
+import ru.edubinskaya.epics.app.configuration.json.createScreenFromJson
 import ru.edubinskaya.epics.app.databinding.ActivitySreenCreationBinding
-import ru.edubinskaya.epics.app.settings.saveIfJsonCorrect
-import java.io.BufferedWriter
-import java.io.OutputStreamWriter
 
 
 class CreateScreenActivity : AppCompatActivity() {
@@ -44,23 +38,7 @@ class CreateScreenActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            //TODO move to other class
-            val json = JSONObject()
-            json.put("screens", JSONArray().put(JSONObject().apply {
-                put("type", "1")
-                put("displayed_name", binding.filename.text.toString())
-            }))
-            json.put(
-                "templates", JSONObject().put(
-                    "1", listInfo.toJson()
-                )
-            )
-            saveIfJsonCorrect(
-                binding.filename.text.toString(),
-                json.toString(),
-                baseContext.openOrCreateDatabase("configuration.db", MODE_PRIVATE, null)
-                    .apply { execSQL("CREATE TABLE IF NOT EXISTS files (fileName TEXT)") },
-                this)
+            createScreenFromJson(binding.filename.text.toString(),  listInfo.toJson(), this)
         }
 
         listInfo = ListInfo(

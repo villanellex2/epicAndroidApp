@@ -1,9 +1,9 @@
-package ru.edubinskaya.epics.app.configurationModel.containers.list
+package ru.edubinskaya.epics.app.configuration.containers.list
 
 import org.json.JSONArray
 import org.json.JSONObject
-import ru.edubinskaya.epics.app.configurationModel.SizeInfo
-import ru.edubinskaya.epics.app.configurationModel.fields.FieldInfo
+import ru.edubinskaya.epics.app.configuration.SizeInfo
+import ru.edubinskaya.epics.app.configuration.fields.FieldInfo
 import java.util.*
 import kotlin.collections.ArrayList
 

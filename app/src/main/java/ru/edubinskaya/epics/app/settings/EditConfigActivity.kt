@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import ru.edubinskaya.epics.app.R
-import ru.edubinskaya.epics.app.config.checkConfigAndGetMessage
+import ru.edubinskaya.epics.app.configuration.json.checkConfigAndGetMessage
 import java.io.*
 
 internal val EDIT_FILE = "edit_file"
@@ -32,7 +32,7 @@ class EditConfigActivity : AppCompatActivity() {
     }
 
     private fun saveIfJsonCorrect(config: String) {
-        val message = checkConfigAndGetMessage(config, this)
+        val message = checkConfigAndGetMessage(config)
         if (message != null) {
             MaterialAlertDialogBuilder(this)
                 .setTitle("Incorrect configuration")

@@ -1,11 +1,10 @@
 package ru.edubinskaya.epics.app.screencreation
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import ru.edubinskaya.epics.app.configurationModel.fields.text.TextField
-import ru.edubinskaya.epics.app.configurationModel.fields.text.TextFieldInfo
+import ru.edubinskaya.epics.app.configuration.fields.text.TextField
+import ru.edubinskaya.epics.app.configuration.fields.text.TextFieldInfo
 import ru.edubinskaya.epics.app.databinding.ActivityCreateItemBinding
 
 

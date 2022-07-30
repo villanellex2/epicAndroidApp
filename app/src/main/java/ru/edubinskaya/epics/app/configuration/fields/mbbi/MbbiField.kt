@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.configurationModel.fields.mbbi
+package ru.edubinskaya.epics.app.configuration.fields.mbbi
 
 import android.app.Activity
 import android.widget.LinearLayout
@@ -10,7 +10,7 @@ import gov.aps.jca.event.MonitorListener
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
 import gov.aps.jca.dbr.ENUM
-import ru.edubinskaya.epics.app.configurationModel.fields.Field
+import ru.edubinskaya.epics.app.configuration.fields.Field
 
 private val fields = arrayOf(
     "ZRVL", "ONVL", "TWVL", "THVL", "FRVL",

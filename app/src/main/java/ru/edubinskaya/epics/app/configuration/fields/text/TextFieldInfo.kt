@@ -1,9 +1,9 @@
-package ru.edubinskaya.epics.app.configurationModel.fields.text
+package ru.edubinskaya.epics.app.configuration.fields.text
 
 import org.json.JSONObject
-import ru.edubinskaya.epics.app.configurationModel.SizeInfo
-import ru.edubinskaya.epics.app.configurationModel.SizeInfoType
-import ru.edubinskaya.epics.app.configurationModel.fields.FieldInfo
+import ru.edubinskaya.epics.app.configuration.SizeInfo
+import ru.edubinskaya.epics.app.configuration.SizeInfoType
+import ru.edubinskaya.epics.app.configuration.fields.FieldInfo
 
 class TextFieldInfo(
     private val pvName: String = "",

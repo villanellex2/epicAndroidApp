@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.configurationModel.containers.list
+package ru.edubinskaya.epics.app.configuration.containers.list
 
 import android.app.Activity
 import android.view.View
@@ -7,8 +7,8 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.json.JSONObject
 import ru.edubinskaya.epics.app.R
-import ru.edubinskaya.epics.app.configurationModel.ScreenUnit
-import ru.edubinskaya.epics.app.configurationModel.containers.Container
+import ru.edubinskaya.epics.app.configuration.ScreenUnit
+import ru.edubinskaya.epics.app.configuration.containers.Container
 import kotlin.collections.List
 
 class List(

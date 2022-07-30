@@ -1,14 +1,11 @@
-package ru.edubinskaya.epics.app.configurationModel.containers
+package ru.edubinskaya.epics.app.configuration.containers
 
-import android.app.ActionBar
 import android.app.Activity
 import android.view.View
-import android.view.ViewGroup
 import android.widget.*
 import androidx.core.widget.NestedScrollView
 import org.json.JSONObject
-import ru.edubinskaya.epics.app.configurationModel.ScreenUnit
-import ru.edubinskaya.epics.app.configurationModel.fields.*
+import ru.edubinskaya.epics.app.configuration.ScreenUnit
 import kotlin.collections.List
 
 class Table(

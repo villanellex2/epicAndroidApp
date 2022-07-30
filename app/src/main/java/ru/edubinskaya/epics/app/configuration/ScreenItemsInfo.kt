@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.configurationModel
+package ru.edubinskaya.epics.app.configuration
 
 import org.json.JSONObject
 

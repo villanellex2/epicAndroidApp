@@ -1,4 +1,4 @@
-package ru.edubinskaya.epics.app.configurationModel.fields.mbbi
+package ru.edubinskaya.epics.app.configuration.fields.mbbi
 
 class MbbiBit (
     val bit: Int,
